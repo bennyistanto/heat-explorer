@@ -1,0 +1,37 @@
+Admin-level event suite. Produced by validation/event_suite/01_adm_events.py
+P1: severe-or-extreme share reaches 0.50 in the window. P2: 5-day peak of area-mean excess ranks top 3 of the years 1979-2025.
+
+== Moving thresholds (the version proposed for event detection)
+               event             unit  land_cells  window_days  max_share_sev_moving  days_share_ge50_moving  max_share_any_moving  rank_moving  P1_moving  P2_moving  pass_moving
+SE Australia 2019-20  New South Wales        7674           53                  0.97                      31                  1.00            3       True       True         True
+ Pacific NW Jun 2021 British Columbia       13311            7                  0.98                       7                  1.00            1       True       True         True
+     Europe Aug 2003    Ile-de-France         146           15                  1.00                      15                  1.00            1       True       True         True
+      India May 2015   Andhra Pradesh        1379           17                  0.80                      11                  0.96            3       True       True         True
+ India-Pakistan 2022            Delhi          14           72                  0.29                       0                  1.00           31      False      False        False
+ India-Pakistan 2022        Rajasthan        3106           72                  0.89                      17                  1.00           14       True      False        False
+      India May 2015        Telangana         956           17                  1.00                      14                  1.00            6       True      False        False
+    Karachi Jun 2015            Sindh        1217            8                  0.54                       7                  0.95           23       True      False        False
+ India-Pakistan 2022            Sindh        1217           72                  0.83                      12                  1.00           14       True      False        False
+ Pacific NW Jun 2021           Oregon        2826            7                  0.95                       7                  0.99            5       True      False        False
+ Pacific NW Jun 2021       Washington        2092            7                  1.00                       7                  1.00            1       True       True         True
+         Russia 2010    Moskva oblast         667           42                  1.00                      40                  1.00            1       True       True         True
+    Siberia Jun 2020            Sakha       61261           16                  0.60                      11                  0.71           13       True      False        False
+
+== Fixed 1991-2020 thresholds
+               event             unit  land_cells  window_days  max_share_sev_fixed  days_share_ge50_fixed  max_share_any_fixed  rank_fixed  P1_fixed  P2_fixed  pass_fixed
+SE Australia 2019-20  New South Wales        7674           53                 0.98                     31                 1.00           2      True      True        True
+ Pacific NW Jun 2021 British Columbia       13311            7                 1.00                      7                 1.00           1      True      True        True
+     Europe Aug 2003    Ile-de-France         146           15                 1.00                     15                 1.00           1      True      True        True
+      India May 2015   Andhra Pradesh        1379           17                 0.84                     11                 0.98           2      True      True        True
+ India-Pakistan 2022            Delhi          14           72                 1.00                      5                 1.00          23      True     False       False
+ India-Pakistan 2022        Rajasthan        3106           72                 0.92                     19                 1.00           6      True     False       False
+      India May 2015        Telangana         956           17                 1.00                     14                 1.00           3      True      True        True
+    Karachi Jun 2015            Sindh        1217            8                 0.59                      7                 0.95          19      True     False       False
+ India-Pakistan 2022            Sindh        1217           72                 0.94                     16                 1.00           6      True     False       False
+ Pacific NW Jun 2021           Oregon        2826            7                 0.96                      7                 1.00           3      True      True        True
+ Pacific NW Jun 2021       Washington        2092            7                 1.00                      7                 1.00           1      True      True        True
+         Russia 2010    Moskva oblast         667           42                 1.00                     40                 1.00           1      True      True        True
+    Siberia Jun 2020            Sakha       61261           16                 0.69                     13                 0.78           7      True     False       False
+
+Passed: moving 6 of 13; fixed 8 of 13
+total 4986 s

@@ -1,0 +1,59 @@
+Coastal step in 2007. Produced by validation/step_screen/03_coastal_2007.py
+E(k): change across year k (5 years after minus 5 years before) at the cell, minus the same for the region's interior. Land north of 60 S.
+
+== Q1  Is 2007 special? Cells within 3 cells of water: 135527
+  share with |E(k)| >= 0.5 K, by year k: 1984:0.059 1985:0.044 1986:0.047 1987:0.055 1988:0.066 1989:0.061 1990:0.041 1991:0.047 1992:0.059 1993:0.062 1994:0.073 1995:0.085 1996:0.093 1997:0.085 1998:0.076 1999:0.074 2000:0.076 2001:0.069 2002:0.079 2003:0.070 2004:0.107 2005:0.135 2006:0.155 2007:0.183 2008:0.169 2009:0.122 2010:0.087 2011:0.094 2012:0.098 2013:0.127 2014:0.117 2015:0.098 2016:0.096 2017:0.099 2018:0.116 2019:0.142 2020:0.113
+  2007: 0.183; placebo years: median 0.074, max 0.142 (2019)
+  positive share of those in 2007: 0.76; median E(2007) over coastal cells +0.016 K
+  -> SPECIAL by the rule written first
+
+== Q2  Is it coastal? By distance to water (cells)
+  band      cells    median|E2007|  share |E|>=0.5   flagged share   median E2007
+    0-1       50435      0.140          0.174          0.0648        +0.010
+    1-2       43403      0.147          0.187          0.0695        +0.016
+    2-3       41689      0.150          0.190          0.0687        +0.025
+    3-5       77573      0.150          0.164          0.0554        +0.030
+    5-10     155062      0.141          0.124          0.0400        +0.025
+   10-30     427835      0.123          0.066          0.0160        +0.010
+   30-inf    914614      0.102          0.017          0.0051        -0.004
+  -> NOT STEADILY COASTAL by the rule written first
+
+== Q3  Northern Japan station cells
+  coastal (stepped against stations): Mutsu +1.89 (noise 0.24, dist 5, flagged); Esashi +1.59 (noise 0.26, dist 5, flagged); Tomakomai +1.27 (noise 0.18, dist 3, flagged); Hakodate +1.21 (noise 0.12, dist 6, flagged); Fukaura +0.77 (noise 0.16, dist 1, flagged); Muroran +1.09 (noise 0.15, dist 4, flagged); Suttsu +0.85 (noise 0.15, dist 3, flagged); Otaru +0.70 (noise 0.14, dist 3, flagged); Hakodate 2 +1.21 (noise 0.12, dist 6, flagged)
+  inland (no step against stations):  Sapporo -0.03 (dist 5); Kutchan +0.02 (dist 6); Iwamizawa +0.07 (dist 9); Chitose +0.71 (dist 5, flagged); Aomori +0.36 (dist 9); Hachinohe +0.36 (dist 4)
+  coastal cells with E >= 0.4 K: 9 of 9; inland median +0.21 K -> NOT RECOVERED by the rule written first
+
+== Flagged (|E2007| >= 0.5 K and >= 3 x noise), north of 60 S: 31144 cells, 0.0111 of land area; warm 20972, cold 10172; within 3 cells of water 0.29; share of coastal cells flagged 0.0675
+== Largest of 482 flagged groups
+   6061 cells  lat   66.3..  73.8  lon    49.4..   81.5  median E +1.57 K  median dist 5
+   2854 cells  lat   71.1..  75.8  lon   106.5..  134.0  median E +0.81 K  median dist 7
+   1977 cells  lat   75.6..  79.1  lon   -98.0..  -82.0  median E -1.22 K  median dist 11
+   1557 cells  lat  -23.2.. -17.8  lon   -56.6..  -52.2  median E -0.68 K  median dist 84
+   1550 cells  lat   77.0..  80.2  lon   -78.6..  -64.6  median E -1.02 K  median dist 7
+   1304 cells  lat   49.4..  52.7  lon    74.7..   83.6  median E -0.60 K  median dist 172
+    939 cells  lat   69.1..  71.0  lon  -133.7.. -120.8  median E +1.12 K  median dist 3
+    748 cells  lat   71.3..  73.2  lon   134.3..  149.0  median E +0.85 K  median dist 3
+    677 cells  lat  -55.5.. -49.4  lon   -75.7..  -69.7  median E -0.62 K  median dist 4
+    558 cells  lat   39.6..  44.0  lon   139.1..  142.4  median E +1.02 K  median dist 3
+    452 cells  lat  -29.9.. -26.1  lon    18.2..   20.9  median E +0.54 K  median dist 33
+    446 cells  lat   59.3..  60.6  lon    23.3..   29.9  median E +0.87 K  median dist 4
+    443 cells  lat   81.8..  82.8  lon   -71.5..  -64.0  median E +0.84 K  median dist 10
+    395 cells  lat   76.1..  77.0  lon    92.4..  100.2  median E +0.78 K  median dist 6
+    365 cells  lat   66.0..  67.9  lon  -165.5.. -161.6  median E +1.06 K  median dist 4
+    319 cells  lat   67.7..  68.7  lon  -111.5.. -107.1  median E +1.00 K  median dist 14
+    257 cells  lat  -17.2.. -15.0  lon   142.5..  144.7  median E +0.62 K  median dist 16
+    245 cells  lat   77.3..  78.7  lon    17.9..   20.9  median E +0.72 K  median dist 4
+    242 cells  lat  -52.4.. -51.1  lon   -61.7..  -59.1  median E -0.59 K  median dist 3
+    235 cells  lat   70.8..  71.8  lon  -180.0.. -176.8  median E +1.25 K  median dist 2
+    232 cells  lat   51.9..  53.5  lon   -57.7..  -55.9  median E -0.56 K  median dist 12
+    202 cells  lat  -44.8.. -41.8  lon   -74.9..  -72.8  median E -0.60 K  median dist 4
+    201 cells  lat   65.4..  67.3  lon  -173.0.. -169.5  median E +0.66 K  median dist 2
+    191 cells  lat   63.5..  64.8  lon  -164.1.. -161.1  median E +0.71 K  median dist 2
+    182 cells  lat   69.1..  69.8  lon  -139.3.. -134.9  median E +1.56 K  median dist 2
+    171 cells  lat   65.4..  67.5  lon   -53.2..  -51.8  median E +0.68 K  median dist 11
+    166 cells  lat   45.8..  46.8  lon    45.5..   47.9  median E -0.53 K  median dist 19
+    152 cells  lat   82.6..  82.8  lon   -78.3..  -71.3  median E +0.63 K  median dist 7
+    148 cells  lat   70.5..  71.2  lon  -162.1.. -157.4  median E +1.25 K  median dist 2
+    133 cells  lat   67.7..  68.4  lon  -102.5..  -97.8  median E +0.89 K  median dist 8
+
+total 622 s

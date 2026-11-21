@@ -1,0 +1,37 @@
+Event rank among admin events. Produced by validation/event_suite/02_event_rank.py
+Admin event day: share_any >= 0.25; gaps of 2 days or fewer merged; at least 3 event days.
+P2b: magnitude at or above the 95th percentile of admin events starting 1991-2020.
+
+== moving thresholds
+               event             unit start_moving end_moving  days_moving  mag_moving  p95_moving  rank_moving  n_events_moving  P1_moving  P2b_moving  pass_moving
+     Europe Aug 2003    Ile-de-France   2003-08-01 2003-08-17           17        20.2         6.4            1              279       True        True         True
+         Russia 2010    Moskva oblast   2010-07-02 2010-08-18           48        41.1         5.8            1              254       True        True         True
+      India May 2015        Telangana   2015-05-18 2015-05-31           14        14.7        12.2           12              266       True        True         True
+      India May 2015   Andhra Pradesh   2015-05-19 2015-05-30           12        11.1        10.7           12              292       True        True         True
+    Karachi Jun 2015            Sindh   2015-06-17 2015-06-28           10         3.7         6.8           47              274       True       False        False
+ India-Pakistan 2022            Sindh   2022-03-13 2022-03-19            7         4.2         6.8           37              274       True       False        False
+ India-Pakistan 2022        Rajasthan   2022-03-13 2022-03-23           11         5.4         8.2           26              265       True       False        False
+ India-Pakistan 2022            Delhi   2022-03-18 2022-03-22            5         2.9        11.5           68              186      False       False        False
+ Pacific NW Jun 2021           Oregon   2021-06-17 2021-07-19           32        10.7         5.0            1              326       True        True         True
+ Pacific NW Jun 2021       Washington   2021-06-18 2021-07-19           29        14.1         5.8            1              334       True        True         True
+ Pacific NW Jun 2021 British Columbia   2021-06-20 2021-07-14           25        12.8         5.1            2              321       True        True         True
+SE Australia 2019-20  New South Wales   2019-12-16 2020-01-10           26        12.4         6.4            2              321       True        True         True
+    Siberia Jun 2020            Sakha   2020-06-16 2020-07-02           17         5.7         4.8           13              282       True        True         True
+
+== fixed thresholds
+               event             unit start_fixed  end_fixed  days_fixed  mag_fixed  p95_fixed  rank_fixed  n_events_fixed  P1_fixed  P2b_fixed  pass_fixed
+     Europe Aug 2003    Ile-de-France  2003-08-01 2003-08-17          17       19.5        6.8           1             251      True       True        True
+         Russia 2010    Moskva oblast  2010-07-02 2010-08-18          48       42.5        5.6           1             224      True       True        True
+      India May 2015        Telangana  2015-05-18 2015-05-31          14       15.6       14.1           8             259      True       True        True
+      India May 2015   Andhra Pradesh  2015-05-19 2015-05-30          12       11.9       10.7          11             257      True       True        True
+    Karachi Jun 2015            Sindh  2015-06-17 2015-06-28          12        4.1        6.9          39             271      True      False       False
+ India-Pakistan 2022            Sindh  2022-03-25 2022-04-18          23        5.5        6.9          25             271      True      False       False
+ India-Pakistan 2022        Rajasthan  2022-03-13 2022-04-19          31       11.0        8.2           7             247      True       True        True
+ India-Pakistan 2022            Delhi  2022-03-17 2022-04-03          15        5.7       11.4          39             187      True      False       False
+ Pacific NW Jun 2021           Oregon  2021-06-17 2021-07-19          33       13.4        4.6           1             330      True       True        True
+ Pacific NW Jun 2021       Washington  2021-06-18 2021-07-19          30       16.1        6.1           1             319      True       True        True
+ Pacific NW Jun 2021 British Columbia  2021-06-20 2021-07-15          26       15.1        5.1           1             311      True       True        True
+SE Australia 2019-20  New South Wales  2019-12-16 2020-01-10          26       13.4        6.6           3             320      True       True        True
+    Siberia Jun 2020            Sakha  2020-06-15 2020-07-02          18        7.3        5.0           7             261      True       True        True
+
+Passed: moving 9 of 13; fixed 10 of 13

@@ -1,0 +1,41 @@
+Global confidence classes. Produced by validation/confidence_map/01_confidence_map.py
+Land cells with data: 2395758. Shares are of land area (cos-latitude weights).
+sd = sd of Tm anomalies 1991-2020. exc = share of 2021-2025 days above a normal-approximation
+calendar-day 90th percentile (0.10 expected in the baseline).
+
+== All land: 2395758 cells
+  low (<1.0 K)           area share 0.158   median exc 0.24   share of class with exc>=0.33: 0.150
+  reduced (1.0-1.5 K)    area share 0.089   median exc 0.17   share of class with exc>=0.33: 0.010
+  normal (>=1.5 K)       area share 0.753   median exc 0.14   share of class with exc>=0.33: 0.001
+  below 0.75 K           area share 0.087
+  saturating (exc>=0.33) area share 0.026; of it low 0.933, reduced 0.033, normal 0.034
+  median exc 0.15; median shift 0.65 K; median sd 3.87 K
+
+== Land north of 60 S (Antarctica excluded): 1710611 cells
+  low (<1.0 K)           area share 0.174   median exc 0.24   share of class with exc>=0.33: 0.150
+  reduced (1.0-1.5 K)    area share 0.097   median exc 0.17   share of class with exc>=0.33: 0.010
+  normal (>=1.5 K)       area share 0.728   median exc 0.15   share of class with exc>=0.33: 0.001
+  below 0.75 K           area share 0.096
+  saturating (exc>=0.33) area share 0.028; of it low 0.933, reduced 0.033, normal 0.034
+  median exc 0.15; median shift 0.70 K; median sd 3.24 K
+
+== By 10 degree latitude band (area shares within the band)
+  band        cells    low  reduced  normal   median_sd  median_exc  sat_share  low_share_of_sat
+    80..90     32599  0.000   0.000   1.000      3.61        0.17      0.000      nan
+    70..80    145545  0.000   0.000   1.000      4.52        0.17      0.000      nan
+    60..70    280139  0.000   0.000   1.000      5.08        0.14      0.000      nan
+    50..60    222593  0.000   0.013   0.987      4.55        0.14      0.000      nan
+    40..50    196008  0.000   0.007   0.993      3.77        0.15      0.003      0.000
+    30..40    164257  0.003   0.027   0.969      2.83        0.18      0.004      0.003
+    20..30    145100  0.031   0.136   0.833      2.33        0.18      0.003      0.197
+    10..20    103733  0.208   0.302   0.490      1.49        0.18      0.024      0.826
+     0..10     89185  0.851   0.140   0.009      0.75        0.25      0.131      0.964
+   -10..0      95269  0.908   0.092   0.000      0.74        0.21      0.173      0.999
+   -20..-10    84844  0.210   0.394   0.397      1.35        0.15      0.018      0.925
+   -30..-20    86790  0.027   0.045   0.928      2.79        0.12      0.000      0.786
+   -40..-30    44815  0.011   0.055   0.934      3.00        0.12      0.000      nan
+   -50..-40    14625  0.016   0.160   0.825      2.45        0.13      0.000      nan
+   -60..-50     5109  0.004   0.304   0.692      1.75        0.14      0.000      nan
+
+Correlation of sd and exc across cells: -0.47
+total 1414 s

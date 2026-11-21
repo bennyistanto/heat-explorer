@@ -1,0 +1,128 @@
+Detector variants, 17 single cells. Produced by validation/heat_spell_prototype/02_detector_variants.py
+A consecutive days, calendar p90 | B 3-day mean, calendar p90 | C 3-day mean, all-year p95 | D B or C
+
+== Events: flagged days in window / class / rank of the year by cumulative magnitude (of 48)
+det                                                A                  B                 C                  D
+event                site                                                                                   
+Europe Aug 2003      Paris          11/15 extreme #3   14/15 extreme #7  15/15 extreme #2   15/15 extreme #5
+India May 2015       Delhi             0/17 none #35      0/17 none #36   10/17 spell #35    10/17 spell #38
+                     Hyderabad_IN       0/17 none #1      6/17 spell #1   14/17 spell #16    14/17 severe #1
+India-Pakistan 2022  Delhi           24/72 severe #7    43/72 severe #7   10/72 spell #10    48/72 severe #6
+                     Jacobabad     15/72 extreme #15  40/72 extreme #13    1/72 spell #39  40/72 extreme #18
+Pacific NW Jun 2021  Portland_OR      5/6 extreme #3     6/6 extreme #4    6/6 extreme #2     6/6 extreme #4
+Russia 2010          Moscow         40/42 extreme #1   41/42 extreme #1  41/42 extreme #1   41/42 extreme #1
+SE Australia 2019-20 Sydney_W          0/53 none #17   25/53 extreme #5  27/53 extreme #2   27/53 extreme #3
+Siberia Jun 2020     Verkhoyansk    13/16 extreme #1   15/16 extreme #1  16/16 extreme #3   16/16 extreme #1
+
+== Of 9 events: detected at all / severe or extreme / severe-or-extreme and year in top 3
+     any  sev  both
+det                
+A      6    6     4
+B      8    7     2
+C      9    5     5
+D      9    8     4
+
+== Flagged days per year, 1991-2020
+det               A      B      C      D
+site                                    
+Delhi         14.67  31.07  23.20  42.80
+Dhahran        7.67  37.23  23.40  45.37
+DomeC         23.70  56.30  23.47  70.63
+Hyderabad_IN  17.67  39.10  21.57  52.63
+Jacobabad     12.20  32.40  23.80  44.50
+Jakarta       15.13  55.53  19.37  58.50
+LaPaz          8.63  45.67  19.67  50.03
+Lagos         12.37  35.07  20.90  43.70
+Manaus        17.43  56.47  21.13  61.80
+Moscow        14.77  35.30  22.17  44.10
+Nairobi       11.10  46.83  21.87  56.27
+Paris         13.47  42.40  22.80  51.37
+Phoenix       13.67  38.40  22.43  48.20
+Portland_OR   13.13  41.10  22.07  49.10
+Singapore     18.53  53.23  21.27  57.60
+Sydney_W       5.43  45.03  21.13  50.73
+Verkhoyansk   13.30  33.00  22.57  44.93
+
+== Share of flagged days in the coldest quarter
+det              A     B     C     D
+site                                
+Delhi         0.00  0.00  0.00  0.00
+Dhahran       0.00  0.00  0.00  0.00
+DomeC         0.27  0.26  0.00  0.21
+Hyderabad_IN  0.02  0.02  0.00  0.01
+Jacobabad     0.00  0.00  0.00  0.00
+Jakarta       0.22  0.24  0.03  0.23
+LaPaz         0.04  0.02  0.00  0.02
+Lagos         0.00  0.00  0.00  0.00
+Manaus        0.21  0.28  0.00  0.26
+Moscow        0.00  0.00  0.00  0.00
+Nairobi       0.06  0.06  0.00  0.05
+Paris         0.01  0.03  0.00  0.02
+Phoenix       0.00  0.00  0.00  0.00
+Portland_OR   0.01  0.01  0.00  0.01
+Singapore     0.22  0.22  0.00  0.21
+Sydney_W      0.00  0.01  0.00  0.00
+Verkhoyansk   0.00  0.00  0.00  0.00
+
+== Years with no flagged day, of 47
+det            A   B   C  D
+site                       
+Delhi          9   3   0  0
+Dhahran       17   7   7  6
+DomeC          0   0   1  0
+Hyderabad_IN   5   1   3  1
+Jacobabad      7   1   2  1
+Jakarta       18   6  12  6
+LaPaz         17   1   3  1
+Lagos         24  10  13  7
+Manaus        15   0  16  0
+Moscow         6   0   0  0
+Nairobi       18   4   6  3
+Paris          3   0   1  0
+Phoenix        8   0   2  0
+Portland_OR    3   0   2  0
+Singapore     20   8   8  5
+Sydney_W      13   0   2  0
+Verkhoyansk    4   0   0  0
+
+== Flagged days per year, 1979-1990
+det               A      B      C      D
+site                                    
+Delhi         12.83  25.08  24.17  40.50
+Dhahran        1.50  10.50   5.92  12.42
+DomeC         33.00  64.50  22.58  79.33
+Hyderabad_IN  11.25  26.83  21.08  40.50
+Jacobabad     26.50  57.17  39.50  71.92
+Jakarta        1.42   9.08   4.50   9.83
+LaPaz          4.08  21.50   9.58  24.50
+Lagos          1.33   6.75   4.33   9.42
+Manaus         7.00  25.00   2.17  26.92
+Moscow         6.50  24.00  13.92  29.25
+Nairobi        1.83  12.67   9.08  17.67
+Paris          8.42  26.33  12.00  33.58
+Phoenix        7.75  25.33  14.00  32.83
+Portland_OR    7.83  35.08  16.08  42.00
+Singapore      2.58   9.75   6.50  11.25
+Sydney_W       4.00  40.83  19.17  45.25
+Verkhoyansk   11.50  29.25  18.33  38.08
+
+== Flagged days per year, 2021-2025
+det              A      B     C      D
+site                                  
+Delhi         20.8   47.0  21.8   57.8
+Dhahran       32.4   88.2  56.2   98.0
+DomeC         32.0   66.2  29.2   77.0
+Hyderabad_IN   9.8   33.4   5.2   36.4
+Jacobabad     16.2   36.6  17.8   46.4
+Jakarta       61.0  140.4  57.6  144.4
+LaPaz         23.6   81.2  26.2   82.6
+Lagos         72.2  132.0  68.6  147.6
+Manaus        43.8   97.6  41.4  104.2
+Moscow        28.8   55.6  30.0   64.4
+Nairobi       21.0   89.0  27.8   99.8
+Paris         24.0   68.8  37.2   79.0
+Phoenix       25.4   58.4  38.8   70.2
+Portland_OR   25.8   63.4  41.2   75.8
+Singapore     62.4  136.6  64.4  146.0
+Sydney_W       6.4   45.6  20.6   51.0
+Verkhoyansk   25.2   54.0  31.4   67.4

@@ -1,0 +1,11 @@
+event_id,event,unit_key,primary,level,unit_id,unit_name,cells,confidence,window_start,window_end,window_basis,h3_top_n,source
+AP2022,Argentina and Paraguay December 2022,SAL,1,1,ARG-20200504-17,Salta,1383,normal,2022-12-04,2022-12-10,stated: 4 to 10 December,3,WWA 2022-12-21
+SA2023,South America September 2023,MGS,1,1,BRA-20200930-24,Mato Grosso do Sul,3087,normal,2023-09-17,2023-09-26,stated: 17 to 26 September,3,WWA 2023-10-10
+MG2023,Madagascar October 2023,ANA,1,1,MDG-20200220-01,Analamanga,149,reduced,2023-10-10,2023-10-16,stated: 10 to 16 October,3,WWA 2023-11-23
+WM2023,Western Mediterranean April 2023,TLE,1,1,DZA-20230404-48,Tlemcen,89,normal,2023-04-26,2023-04-28,stated: 26 to 28 April,3,WWA 2023-05-05
+WA2024,Southern West Africa February 2024,ASH,1,1,GHA-20230404-02,Ashanti,200,low,2024-02-11,2024-02-15,stated: 11 to 15 February,5,WWA 2024-03-21
+TL2023,Thailand and Laos April 2023,TAK,1,1,THA-20230630-51,Tak,149,reduced,2023-04-18,2023-04-21,stated: 18 to 21 April,3,WWA 2023-05-17
+US2024,Eastern United States June 2024,MDL,1,1,USA-20230119-24,Maryland,277,normal,2024-06-18,2024-06-23,stated: 18 to 23 June (text) and 19 to 23 (title); union used,3,ClimaMeter 2024-06-25
+EU2024,South-east Europe July 2024,HAJ,1,1,HUN-20230404-09,Hajdu-Bihar,78,normal,2024-07-17,2024-07-19,stated: 17 to 19 July,3,ClimaMeter 2024-07-25
+WE2025,Western Europe June 2025,OCC,1,1,FRA-20230119-10,Occitanie,819,normal,2025-06-20,2025-06-22,stated: 20 to 22 June,3,ClimaMeter undated
+US2025,Eastern United States June 2025,NJE,1,1,USA-20230119-34,New Jersey,206,normal,2025-06-23,2025-06-25,stated: 23 to 25 June,3,ClimaMeter undated

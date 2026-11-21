@@ -1,0 +1,46 @@
+cfg,event,site,flag_days,window_days,class,event_rank,n_events
+all3_p90_fixed,India May 2015,Delhi,10,17,spell,73,279
+all3_p90_fixed,India-Pakistan 2022,Delhi,47,72,severe,35,279
+ctr_p90_fixed,India May 2015,Delhi,7,17,spell,87,308
+ctr_p90_fixed,India-Pakistan 2022,Delhi,34,72,severe,41,308
+ctr_p95_fixed,India May 2015,Delhi,7,17,spell,74,242
+ctr_p95_fixed,India-Pakistan 2022,Delhi,22,72,spell,58,242
+ctr_p90_moving,India May 2015,Delhi,6,17,spell,98,314
+ctr_p90_moving,India-Pakistan 2022,Delhi,29,72,spell,58,314
+ctr_p95_moving,India May 2015,Delhi,6,17,spell,86,244
+ctr_p95_moving,India-Pakistan 2022,Delhi,18,72,spell,85,244
+all3_p90_fixed,India-Pakistan 2022,Jacobabad,40,72,extreme,18,325
+ctr_p90_fixed,India-Pakistan 2022,Jacobabad,27,72,extreme,16,368
+ctr_p95_fixed,India-Pakistan 2022,Jacobabad,17,72,extreme,21,302
+ctr_p90_moving,India-Pakistan 2022,Jacobabad,33,72,extreme,13,367
+ctr_p95_moving,India-Pakistan 2022,Jacobabad,19,72,extreme,21,300
+all3_p90_fixed,India May 2015,Hyderabad_IN,14,17,severe,18,287
+ctr_p90_fixed,India May 2015,Hyderabad_IN,13,17,severe,16,320
+ctr_p95_fixed,India May 2015,Hyderabad_IN,13,17,severe,16,231
+ctr_p90_moving,India May 2015,Hyderabad_IN,12,17,severe,19,331
+ctr_p95_moving,India May 2015,Hyderabad_IN,12,17,severe,18,251
+all3_p90_fixed,Europe Aug 2003,Paris,15,15,extreme,3,421
+ctr_p90_fixed,Europe Aug 2003,Paris,15,15,extreme,2,462
+ctr_p95_fixed,Europe Aug 2003,Paris,15,15,extreme,2,356
+ctr_p90_moving,Europe Aug 2003,Paris,15,15,extreme,1,476
+ctr_p95_moving,Europe Aug 2003,Paris,15,15,extreme,1,370
+all3_p90_fixed,Russia 2010,Moscow,41,42,extreme,1,326
+ctr_p90_fixed,Russia 2010,Moscow,40,42,extreme,1,350
+ctr_p95_fixed,Russia 2010,Moscow,40,42,extreme,1,273
+ctr_p90_moving,Russia 2010,Moscow,40,42,extreme,1,376
+ctr_p95_moving,Russia 2010,Moscow,40,42,extreme,1,298
+all3_p90_fixed,Pacific NW Jun 2021,Portland_OR,6,6,extreme,1,448
+ctr_p90_fixed,Pacific NW Jun 2021,Portland_OR,5,6,extreme,1,491
+ctr_p95_fixed,Pacific NW Jun 2021,Portland_OR,5,6,extreme,6,398
+ctr_p90_moving,Pacific NW Jun 2021,Portland_OR,5,6,extreme,3,518
+ctr_p95_moving,Pacific NW Jun 2021,Portland_OR,5,6,extreme,5,418
+all3_p90_fixed,SE Australia 2019-20,Sydney_W,30,53,extreme,5,508
+ctr_p90_fixed,SE Australia 2019-20,Sydney_W,23,53,extreme,2,553
+ctr_p95_fixed,SE Australia 2019-20,Sydney_W,23,53,extreme,1,437
+ctr_p90_moving,SE Australia 2019-20,Sydney_W,22,53,extreme,3,564
+ctr_p95_moving,SE Australia 2019-20,Sydney_W,22,53,extreme,2,446
+all3_p90_fixed,Siberia Jun 2020,Verkhoyansk,16,16,extreme,2,343
+ctr_p90_fixed,Siberia Jun 2020,Verkhoyansk,16,16,extreme,1,375
+ctr_p95_fixed,Siberia Jun 2020,Verkhoyansk,16,16,extreme,1,301
+ctr_p90_moving,Siberia Jun 2020,Verkhoyansk,16,16,extreme,4,383
+ctr_p95_moving,Siberia Jun 2020,Verkhoyansk,16,16,extreme,4,314

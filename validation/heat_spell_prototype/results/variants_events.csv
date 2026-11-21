@@ -1,0 +1,37 @@
+det,event,site,spell_days,window_days,class,event_mag,year_rank_by_cum_mag
+A,India May 2015,Delhi,0,17,none,0.0,35
+A,India-Pakistan 2022,Delhi,24,72,severe,8.573,7
+B,India May 2015,Delhi,0,17,none,0.0,36
+B,India-Pakistan 2022,Delhi,43,72,severe,10.385,7
+C,India May 2015,Delhi,10,17,spell,2.303,35
+C,India-Pakistan 2022,Delhi,10,72,spell,3.003,10
+D,India May 2015,Delhi,10,17,spell,2.303,38
+D,India-Pakistan 2022,Delhi,48,72,severe,12.585,6
+A,India-Pakistan 2022,Jacobabad,15,72,extreme,9.702,15
+B,India-Pakistan 2022,Jacobabad,40,72,extreme,13.372,13
+C,India-Pakistan 2022,Jacobabad,1,72,spell,0.636,39
+D,India-Pakistan 2022,Jacobabad,40,72,extreme,13.434,18
+A,India May 2015,Hyderabad_IN,0,17,none,0.0,1
+B,India May 2015,Hyderabad_IN,6,17,spell,0.581,1
+C,India May 2015,Hyderabad_IN,14,17,spell,10.198,16
+D,India May 2015,Hyderabad_IN,14,17,severe,10.198,1
+A,Europe Aug 2003,Paris,11,15,extreme,8.371,3
+B,Europe Aug 2003,Paris,14,15,extreme,8.371,7
+C,Europe Aug 2003,Paris,15,15,extreme,16.125,2
+D,Europe Aug 2003,Paris,15,15,extreme,16.125,5
+A,Russia 2010,Moscow,40,42,extreme,23.491,1
+B,Russia 2010,Moscow,41,42,extreme,23.566,1
+C,Russia 2010,Moscow,41,42,extreme,38.017,1
+D,Russia 2010,Moscow,41,42,extreme,38.017,1
+A,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,3
+B,Pacific NW Jun 2021,Portland_OR,6,6,extreme,10.608,4
+C,Pacific NW Jun 2021,Portland_OR,6,6,extreme,9.658,2
+D,Pacific NW Jun 2021,Portland_OR,6,6,extreme,10.732,4
+A,SE Australia 2019-20,Sydney_W,0,53,none,0.0,17
+B,SE Australia 2019-20,Sydney_W,25,53,extreme,9.681,5
+C,SE Australia 2019-20,Sydney_W,27,53,extreme,16.007,2
+D,SE Australia 2019-20,Sydney_W,27,53,extreme,16.007,3
+A,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,1
+B,Siberia Jun 2020,Verkhoyansk,15,16,extreme,6.564,1
+C,Siberia Jun 2020,Verkhoyansk,16,16,extreme,12.277,3
+D,Siberia Jun 2020,Verkhoyansk,16,16,extreme,12.277,1

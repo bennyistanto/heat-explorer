@@ -1,0 +1,127 @@
+Heat spell prototype, 17 single cells. Produced by validation/heat_spell_prototype/01_prototype.py
+
+== Events by floor variant: spell days in window / class / rank of the year by cumulative magnitude (of 48)
+floor                                           none                p50               p75               p90            season
+event                site                                                                                                    
+Europe Aug 2003      Paris          11/15 extreme #7   11/15 extreme #3  11/15 extreme #5  11/15 extreme #2  11/15 extreme #3
+India May 2015       Delhi             0/17 none #40      0/17 none #35     0/17 none #48     0/17 none #48     0/17 none #48
+                     Hyderabad_IN       0/17 none #1       0/17 none #1      0/17 none #3     0/17 none #48      0/17 none #3
+India-Pakistan 2022  Delhi          26/72 severe #11    24/72 severe #7    12/72 spell #8    3/72 spell #25    12/72 spell #8
+                     Jacobabad     19/72 extreme #18  15/72 extreme #15    4/72 spell #31    3/72 spell #31    4/72 spell #34
+Pacific NW Jun 2021  Portland_OR      5/6 extreme #3     5/6 extreme #3    5/6 extreme #3    5/6 extreme #1    5/6 extreme #3
+Russia 2010          Moscow         40/42 extreme #1   40/42 extreme #1  40/42 extreme #1  40/42 extreme #1  40/42 extreme #1
+SE Australia 2019-20 Sydney_W          0/53 none #24      0/53 none #17     0/53 none #17     0/53 none #15     0/53 none #15
+Siberia Jun 2020     Verkhoyansk    13/16 extreme #1   13/16 extreme #1  13/16 extreme #2  13/16 extreme #3  13/16 extreme #2
+
+== Events passed (class severe or extreme AND year in top 3), of 9
+floor
+none      3
+p50       4
+p75       3
+p90       4
+season    4
+
+== Spell days per year, 1991-2020
+floor          none    p50    p75   p90  season
+site                                           
+Delhi         24.23  14.67  12.23  7.23   12.53
+Dhahran       15.33   7.67   3.90  3.43    5.50
+DomeC         24.07  23.70   8.97  5.13   12.40
+Hyderabad_IN  23.27  17.67   9.30  4.53   11.70
+Jacobabad     21.43  12.20   8.23  4.73   10.37
+Jakarta       15.23  15.13  13.20  8.33    7.83
+LaPaz         12.20   8.63   6.40  3.87    5.33
+Lagos         17.13  12.37  11.03  6.93   10.80
+Manaus        18.00  17.43  12.27  8.67   10.00
+Moscow        22.60  14.77  10.03  8.10   11.57
+Nairobi       13.77  11.10   8.63  4.87    6.90
+Paris         18.87  13.47   9.37  5.97    9.53
+Phoenix       19.83  13.67   7.93  5.27   10.43
+Portland_OR   19.70  13.13   8.33  5.57    9.47
+Singapore     19.23  18.53  13.67  9.87    9.60
+Sydney_W       8.63   5.43   4.17  3.03    3.87
+Verkhoyansk   23.20  13.30   7.43  5.07   11.50
+
+== Share of spell days in the coldest quarter
+floor         none   p50   p75   p90  season
+site                                        
+Delhi         0.22  0.00  0.00  0.00     0.0
+Dhahran       0.28  0.00  0.00  0.00     0.0
+DomeC         0.28  0.27  0.02  0.00     0.0
+Hyderabad_IN  0.24  0.02  0.00  0.00     0.0
+Jacobabad     0.21  0.00  0.00  0.00     0.0
+Jakarta       0.23  0.22  0.15  0.06     0.0
+LaPaz         0.25  0.04  0.00  0.00     0.0
+Lagos         0.28  0.00  0.00  0.00     0.0
+Manaus        0.22  0.21  0.10  0.02     0.0
+Moscow        0.23  0.00  0.00  0.00     0.0
+Nairobi       0.23  0.06  0.01  0.00     0.0
+Paris         0.26  0.01  0.00  0.00     0.0
+Phoenix       0.20  0.00  0.00  0.00     0.0
+Portland_OR   0.27  0.01  0.00  0.00     0.0
+Singapore     0.25  0.22  0.05  0.01     0.0
+Sydney_W      0.25  0.00  0.00  0.00     0.0
+Verkhoyansk   0.24  0.00  0.00  0.00     0.0
+
+== Years with no spell day, of 47
+floor         none  p50  p75  p90  season
+site                                     
+Delhi            3    9   11   18      11
+Dhahran          3   17   24   25      23
+DomeC            0    0    4   14       0
+Hyderabad_IN     2    5   13   23       9
+Jacobabad        3    7    9   14       8
+Jakarta         18   18   18   26      24
+LaPaz           12   17   19   26      21
+Lagos           19   24   25   28      25
+Manaus          15   15   19   27      24
+Moscow           3    6   11   15       9
+Nairobi         17   18   19   27      22
+Paris            2    3    7   14       5
+Phoenix          2    8   12   19      10
+Portland_OR      2    3    4   10       3
+Singapore       20   20   21   25      23
+Sydney_W         5   13   18   23      19
+Verkhoyansk      0    4   11   14       6
+
+== Trend check, floor = season: spell days per year
+              days_yr_7990  days_yr_9120  days_yr_2125  spells_yr_9120
+site                                                                  
+Singapore              2.6           9.6          28.4             2.1
+Jakarta                1.4           7.8          33.0             1.6
+Lagos                  0.8          10.8          58.0             2.1
+Manaus                 0.5          10.0          32.6             2.2
+Delhi                 12.1          12.5          14.6             2.3
+Jacobabad             24.4          10.4          11.2             2.1
+Hyderabad_IN           7.5          11.7           5.4             2.4
+Dhahran                0.2           5.5          28.0             1.5
+Phoenix                4.2          10.4          20.6             2.5
+Paris                  5.5           9.5          17.6             2.4
+Moscow                 4.8          11.6          19.4             2.3
+Portland_OR            6.0           9.5          20.6             2.5
+Sydney_W               3.2           3.9           2.8             1.1
+Nairobi                1.8           6.9          10.6             1.6
+LaPaz                  3.3           5.3          13.0             1.3
+Verkhoyansk           11.0          11.5          23.8             2.5
+DomeC                 13.2          12.4          21.2             2.7
+
+== Humid heat spell (wet-bulb, floor = season)
+              tw_days_yr_7990  tw_days_yr_9120  tw_days_yr_2125  tw_cold_quarter_share  share_also_temp_spell peak_months
+site                                                                                                                     
+Singapore                0.50             9.13             23.4                    0.0                   0.53      [7, 8]
+Jakarta                  0.92             9.43             39.8                    0.0                   0.24     [11, 4]
+Lagos                    1.25            10.63             56.0                    0.0                   0.44      [2, 3]
+Manaus                   1.75             6.43              0.0                    0.0                   0.15     [8, 10]
+Delhi                    1.25             9.97             46.0                    0.0                   0.06     [9, 10]
+Jacobabad                2.00            11.17             28.8                    0.0                   0.12      [9, 8]
+Hyderabad_IN             2.50            10.07             35.0                    0.0                   0.03      [8, 5]
+Dhahran                  0.50             9.33             16.0                    0.0                   0.11      [8, 7]
+Phoenix                 17.83            11.80             16.2                    0.0                   0.12      [6, 8]
+Paris                    7.58             8.70             16.2                    0.0                   0.64      [6, 9]
+Moscow                   6.58            11.80             14.4                    0.0                   0.64      [6, 7]
+Portland_OR              7.17             9.43             21.4                    0.0                   0.68     [6, 10]
+Sydney_W                 5.08             6.50              8.6                    0.0                   0.35     [3, 12]
+Nairobi                  0.75             7.33              9.8                    0.0                   0.07     [4, 12]
+LaPaz                    5.42             6.13             12.0                    0.0                   0.39      [3, 1]
+Verkhoyansk              7.58            10.90             19.6                    0.0                   0.78      [5, 8]
+DomeC                   10.67            10.10             19.2                    0.0                   0.87    [10, 12]

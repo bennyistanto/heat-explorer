@@ -1,0 +1,34 @@
+Intensity-class variant (post hoc comparison). Produced by validation/detector_v3/02_intensity_variant.py
+Events reaching severe inside the window: by daily intensity 8 of 9; by running magnitude 7 of 9
+
+== Events
+               event         site  spell_days intensity_class  sev_days_intensity first_severe_intensity running_class  sev_days_running first_severe_running  peak_excess_K
+      India May 2015        Delhi           6           spell                   0                  never         spell                 0                never            1.4
+ India-Pakistan 2022        Delhi          29          severe                   3             2022-03-18         spell                 0                never            2.3
+ India-Pakistan 2022    Jacobabad          25         extreme                   7             2022-03-14       extreme                 5           2022-03-16            2.8
+      India May 2015 Hyderabad_IN          13         extreme                   7             2015-05-20        severe                 9           2015-05-22            2.1
+     Europe Aug 2003        Paris          15         extreme                  11             2003-08-03       extreme                11           2003-08-05            7.6
+         Russia 2010       Moscow          40         extreme                  39             2010-07-10       extreme                40           2010-07-10            8.4
+ Pacific NW Jun 2021  Portland_OR           5         extreme                   5             2021-06-25       extreme                 5           2021-06-25            9.1
+SE Australia 2019-20     Sydney_W          21         extreme                   8             2019-12-30       extreme                10           2020-01-24            4.3
+    Siberia Jun 2020  Verkhoyansk          16         extreme                  12             2020-06-17       extreme                12           2020-06-19            8.6
+
+== Sites, 1991-2020 unless marked
+        site  e80  e95  e80_K  e95_K  sev_days_yr_intensity  sev_days_yr_running  sev_days_yr_intensity_2125  median_day_to_severe  share_spells_ever_severe
+   Singapore 0.65 0.98   0.41   0.62                   7.33                 6.90                        30.8                   3.0                      0.38
+     Jakarta 0.60 0.93   0.41   0.63                   6.83                 7.93                        34.4                   3.0                      0.38
+       Lagos 0.78 1.31   0.43   0.72                   5.33                 6.23                        44.4                   3.0                      0.27
+      Manaus 0.77 1.53   0.61   1.21                   6.90                 7.63                        19.4                   3.0                      0.32
+       Delhi 0.81 1.21   1.85   2.77                   5.77                 4.87                         6.4                   4.0                      0.29
+   Jacobabad 0.56 0.92   1.14   1.88                   5.77                 5.83                         7.4                   3.0                      0.40
+Hyderabad_IN 0.77 1.27   1.15   1.88                   7.27                 9.03                         3.2                   3.0                      0.25
+     Dhahran 0.55 0.81   1.36   1.98                   5.17                 4.17                        20.8                   2.0                      0.44
+     Phoenix 0.47 0.70   1.66   2.46                   5.70                 4.63                        17.8                   3.0                      0.39
+       Paris 0.67 1.02   2.61   3.96                   5.63                 5.10                        10.8                   3.0                      0.35
+      Moscow 0.51 0.83   2.84   4.61                   5.57                 5.30                        12.6                   3.0                      0.31
+ Portland_OR 0.85 1.30   2.66   4.06                   5.50                 3.93                        15.2                   2.0                      0.39
+    Sydney_W 0.98 1.63   2.32   3.84                   4.77                 3.90                         5.2                   2.0                      0.44
+     Nairobi 0.76 1.21   0.77   1.22                   6.27                 6.83                         8.4                   3.0                      0.30
+       LaPaz 0.67 1.02   0.54   0.82                   5.13                 4.93                        16.8                   2.0                      0.40
+ Verkhoyansk 0.61 1.02   3.66   6.09                   5.70                 5.23                        11.2                   3.0                      0.31
+       DomeC 0.82 1.56   4.03   7.64                   8.37                 7.93                        16.0                   2.0                      0.37

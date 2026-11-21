@@ -1,0 +1,11 @@
+Siberia 2020 as a season, Sakha. Produced by validation/event_suite/04_siberia_season.py
+
+== moving thresholds
+1 Jan to 30 Jun: 2020 total 10.7, rank 2 of 47, spell days 39, first spell day 04-05; top5 1990:12.6 2020:10.7 1981:8.3 2014:6.1 2021:6.1
+1 May to 30 Jun: 2020 total 7.7, rank 1 of 47, spell days 26, first spell day 05-16; top5 2020:7.7 1990:7.6 2021:5.9 1981:5.4 2013:4.7
+1 Jun to 30 Jun: 2020 total 5.8, rank 1 of 47, spell days 15, first spell day 06-16; top5 2020:5.8 2021:4.7 2019:3.3 1990:3.2 2009:3.1
+
+== fixed thresholds
+1 Jan to 30 Jun: 2020 total 14.3, rank 1 of 47, spell days 45, first spell day 04-05; top5 2020:14.3 2021:8.9 1990:7.6 2014:7.4 2024:7.2
+1 May to 30 Jun: 2020 total 10.0, rank 1 of 47, spell days 29, first spell day 05-15; top5 2020:10.0 2021:8.5 2024:5.8 2013:5.6 2012:5.4
+1 Jun to 30 Jun: 2020 total 7.3, rank 1 of 47, spell days 16, first spell day 06-15; top5 2020:7.3 2021:6.4 2019:4.6 2009:3.3 2024:3.2

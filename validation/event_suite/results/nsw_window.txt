@@ -1,0 +1,12 @@
+New South Wales 2019-20, season total on shorter windows. Produced by validation/event_suite/06_nsw_window.py
+Years are labelled by the December in which the window starts.
+
+== moving thresholds
+15 Dec to 5 Jan (main): 2019 total 10.5, rank 1 of 46, spell days 21 of 22; top4 2019:10.5 2018:7.4 2003:6.2 1990:5.4
+15 Dec to 31 Dec: 2019 total 7.4, rank 1 of 46, spell days 16 of 17; top4 2019:7.4 2018:5.1 1994:4.6 1990:4.3
+15 Dec to 5 Feb (original): 2019 total 18.9, rank 2 of 46, spell days 39 of 53; top4 2018:27.4 2019:18.9 2005:15.9 2016:12.7
+
+== fixed thresholds
+15 Dec to 5 Jan (main): 2019 total 11.3, rank 1 of 46, spell days 21 of 22; top4 2019:11.3 2018:8.0 2003:6.1 2005:4.7
+15 Dec to 31 Dec: 2019 total 8.0, rank 1 of 46, spell days 16 of 17; top4 2019:8.0 2018:5.5 1994:4.2 1990:3.7
+15 Dec to 5 Feb (original): 2019 total 20.4, rank 2 of 46, spell days 40 of 53; top4 2018:29.2 2019:20.4 2005:15.7 2016:13.7

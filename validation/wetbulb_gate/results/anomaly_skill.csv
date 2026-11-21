@@ -1,0 +1,454 @@
+pid,name,src,lat,var,n_days,lag,acc,hit,sd_obs,sd_mod
+isd:967490-99999,SOEKARNO HATTA INTL,isd,-6.126,tmax,12615,0,0.72,0.539,1.36,0.754
+isd:967490-99999,SOEKARNO HATTA INTL,isd,-6.126,tmin,12615,0,0.672,0.549,0.92,0.509
+isd:967490-99999,SOEKARNO HATTA INTL,isd,-6.126,tw,12615,0,0.545,0.253,0.882,0.426
+isd:412170-99999,ABU DHABI INTL / ZAYED INTL,isd,24.433,tmax,15479,0,0.942,0.794,3.067,2.709
+isd:412170-99999,ABU DHABI INTL / ZAYED INTL,isd,24.433,tmin,15479,0,0.877,0.76,2.546,2.305
+isd:412170-99999,ABU DHABI INTL / ZAYED INTL,isd,24.433,tw,15479,0,0.823,0.624,1.747,1.634
+isd:411700-99999,DOHA INTL,isd,25.261,tmax,15474,0,0.847,0.67,2.694,1.659
+isd:411700-99999,DOHA INTL,isd,25.261,tmin,15474,0,0.851,0.703,2.276,1.755
+isd:411700-99999,DOHA INTL,isd,25.261,tw,15474,0,0.863,0.61,2.24,1.807
+isd:821110-99999,EDUARDO GOMES INTL,isd,-3.039,tmax,16719,0,0.743,0.416,2.269,1.153
+isd:821110-99999,EDUARDO GOMES INTL,isd,-3.039,tmin,16719,0,0.614,0.522,1.002,0.473
+isd:821110-99999,EDUARDO GOMES INTL,isd,-3.039,tw,16719,0,0.442,0.25,1.19,0.513
+isd:722020-12839,MIAMI INTERNATIONAL AIRPORT,isd,25.788,tmax,17040,0,0.931,0.713,2.231,2.024
+isd:722020-12839,MIAMI INTERNATIONAL AIRPORT,isd,25.788,tmin,17040,0,0.943,0.724,3.032,2.936
+isd:722020-12839,MIAMI INTERNATIONAL AIRPORT,isd,25.788,tw,17040,0,0.923,0.616,2.359,2.232
+isd:722430-12960,G BUSH INTERCONTINENTAL AP/HOUSTON AP,isd,29.984,tmax,17040,0,0.962,0.787,4.139,3.67
+isd:722430-12960,G BUSH INTERCONTINENTAL AP/HOUSTON AP,isd,29.984,tmin,17040,0,0.973,0.826,4.463,3.988
+isd:722430-12960,G BUSH INTERCONTINENTAL AP/HOUSTON AP,isd,29.984,tw,17040,0,0.936,0.607,3.914,3.556
+isd:275185-99999,VNUKOVO,isd,55.592,tmax,15293,0,0.981,0.933,4.909,4.832
+isd:275185-99999,VNUKOVO,isd,55.592,tmin,15293,0,0.969,0.867,4.913,4.738
+isd:275185-99999,VNUKOVO,isd,55.592,tw,15293,0,0.974,0.794,4.144,4.05
+isd:722780-23183,PHOENIX SKY HARBOR INTL AIRPORT,isd,33.428,tmax,17039,0,0.966,0.875,3.799,3.803
+isd:722780-23183,PHOENIX SKY HARBOR INTL AIRPORT,isd,33.428,tmin,17039,0,0.886,0.722,2.957,2.682
+isd:722780-23183,PHOENIX SKY HARBOR INTL AIRPORT,isd,33.428,tw,17039,0,0.911,0.647,2.135,2.059
+isd:486980-99999,SINGAPORE CHANGI INTL,isd,1.35,tmax,15647,0,0.653,0.431,1.498,0.661
+isd:486980-99999,SINGAPORE CHANGI INTL,isd,1.35,tmin,15647,0,0.551,0.496,1.131,0.604
+isd:486980-99999,SINGAPORE CHANGI INTL,isd,1.35,tw,15647,0,0.538,0.272,0.709,0.447
+isd:417490-99999,NAWABSHAH,isd,26.219,tmax,10749,0,0.855,0.74,2.802,2.185
+isd:417490-99999,NAWABSHAH,isd,26.219,tmin,10749,0,0.727,0.554,2.335,1.727
+isd:417490-99999,NAWABSHAH,isd,26.219,tw,10749,0,0.69,0.441,1.861,1.729
+isd:652010-99999,MURTALA MUHAMMED,isd,6.577,tmax,7301,0,0.693,0.512,1.565,0.43
+isd:652010-99999,MURTALA MUHAMMED,isd,6.577,tmin,7301,0,0.652,0.346,1.352,0.781
+isd:652010-99999,MURTALA MUHAMMED,isd,6.577,tw,7301,0,0.809,0.372,1.113,1.09
+isd:610520-99999,DIORI HAMANI,isd,13.482,tmax,15951,0,0.887,0.738,2.456,1.889
+isd:610520-99999,DIORI HAMANI,isd,13.482,tmin,15951,0,0.791,0.606,2.187,1.544
+isd:610520-99999,DIORI HAMANI,isd,13.482,tw,15951,0,0.765,0.387,1.722,1.44
+isd:637400-99999,JKIA / NAIROBI JOMO KENYATTA INTL,isd,-1.319,tmax,16145,0,0.809,0.639,2.03,1.546
+isd:637400-99999,JKIA / NAIROBI JOMO KENYATTA INTL,isd,-1.319,tmin,16145,0,0.718,0.499,1.662,1.04
+isd:637400-99999,JKIA / NAIROBI JOMO KENYATTA INTL,isd,-1.319,tw,16145,0,0.686,0.509,1.103,0.781
+isd:404160-99999,KING ABDULAZIZ AB,isd,26.265,tmax,16969,0,0.907,0.75,2.867,2.204
+isd:404160-99999,KING ABDULAZIZ AB,isd,26.265,tmin,16969,0,0.881,0.694,2.546,2.296
+isd:404160-99999,KING ABDULAZIZ AB,isd,26.265,tw,16969,0,0.815,0.546,2.653,2.097
+isd:419230-99999,TEJGAON,isd,23.779,tmax,4113,0,0.876,0.668,2.273,1.742
+isd:419230-99999,TEJGAON,isd,23.779,tmin,4113,0,0.817,0.628,1.832,1.408
+isd:419230-99999,TEJGAON,isd,23.779,tw,4113,0,0.752,0.504,1.445,1.18
+isd:405820-99999,KUWAIT INTL,isd,29.227,tmax,16653,0,0.895,0.712,3.021,2.753
+isd:405820-99999,KUWAIT INTL,isd,29.227,tmin,16653,0,0.812,0.654,3.186,2.294
+isd:405820-99999,KUWAIT INTL,isd,29.227,tw,16653,0,0.864,0.644,2.935,2.15
+isd:426470-99999,AHMEDABAD / SARDAR VALLABHBHAI PATEL INTL,isd,23.077,tmax,16102,0,0.903,0.744,2.4,2.109
+isd:426470-99999,AHMEDABAD / SARDAR VALLABHBHAI PATEL INTL,isd,23.077,tmin,16102,0,0.827,0.664,1.967,1.604
+isd:426470-99999,AHMEDABAD / SARDAR VALLABHBHAI PATEL INTL,isd,23.077,tw,16102,0,0.775,0.479,1.908,1.577
+isd:431280-99999,BEGUMPET AIRPORT / HYDERABAD INTL,isd,17.452,tmax,16148,0,0.873,0.676,2.268,1.83
+isd:431280-99999,BEGUMPET AIRPORT / HYDERABAD INTL,isd,17.452,tmin,16148,0,0.826,0.643,1.95,1.268
+isd:431280-99999,BEGUMPET AIRPORT / HYDERABAD INTL,isd,17.452,tw,16148,0,0.807,0.467,1.727,1.443
+isd:411500-99999,BAHRAIN INTL,isd,26.271,tmax,15513,0,0.725,0.479,2.567,1.547
+isd:411500-99999,BAHRAIN INTL,isd,26.271,tmin,15513,0,0.758,0.647,1.96,1.404
+isd:411500-99999,BAHRAIN INTL,isd,26.271,tw,15513,0,0.843,0.598,1.972,1.547
+isd:432790-99999,CHENNAI INTL,isd,12.994,tmax,16584,0,0.827,0.641,1.881,1.406
+isd:432790-99999,CHENNAI INTL,isd,12.994,tmin,16584,0,0.794,0.656,1.388,1.188
+isd:432790-99999,CHENNAI INTL,isd,12.994,tw,16584,0,0.796,0.531,1.261,0.941
+isd:947670-99999,SYDNEY INTL,isd,-33.946,tmax,16584,0,0.88,0.716,3.497,2.636
+isd:947670-99999,SYDNEY INTL,isd,-33.946,tmin,16584,0,0.775,0.623,2.286,1.514
+isd:947670-99999,SYDNEY INTL,isd,-33.946,tw,16584,0,0.906,0.679,2.162,2.12
+isd:428090-99999,NETAJI SUBHASH CHANDRA BOSE INTL,isd,22.655,tmax,16632,0,0.862,0.723,2.181,1.784
+isd:428090-99999,NETAJI SUBHASH CHANDRA BOSE INTL,isd,22.655,tmin,16632,0,0.834,0.704,1.952,1.522
+isd:428090-99999,NETAJI SUBHASH CHANDRA BOSE INTL,isd,22.655,tw,16632,0,0.83,0.563,1.664,1.271
+isd:421820-99999,SAFDARJUNG,isd,28.585,tmax,16516,0,0.917,0.766,2.832,2.552
+isd:421820-99999,SAFDARJUNG,isd,28.585,tmin,16516,0,0.868,0.758,2.198,1.882
+isd:421820-99999,SAFDARJUNG,isd,28.585,tw,16516,0,0.86,0.606,2.03,1.64
+isd:484560-99999,BANGKOK INTL / DON MUEANG INTL,isd,13.913,tmax,16813,0,0.807,0.474,1.939,1.617
+isd:484560-99999,BANGKOK INTL / DON MUEANG INTL,isd,13.913,tmin,16813,0,0.808,0.567,1.721,1.413
+isd:484560-99999,BANGKOK INTL / DON MUEANG INTL,isd,13.913,tw,16813,0,0.734,0.246,1.654,1.376
+isd:967450-99999,JAKARTA/OBSERVATORY,isd,-6.183,tmax,8323,0,0.698,0.452,1.396,0.905
+isd:967450-99999,JAKARTA/OBSERVATORY,isd,-6.183,tmin,8323,0,0.646,0.484,1.04,0.513
+isd:967450-99999,JAKARTA/OBSERVATORY,isd,-6.183,tw,8323,0,0.661,0.397,0.782,0.499
+isd:941200-99999,DARWIN INTL,isd,-12.415,tmax,14738,0,0.779,0.556,1.506,1.108
+isd:941200-99999,DARWIN INTL,isd,-12.415,tmin,14738,0,0.799,0.585,1.721,1.189
+isd:941200-99999,DARWIN INTL,isd,-12.415,tw,14738,0,0.877,0.568,1.544,1.52
+isd:071490-99999,ORLY,isd,48.725,tmax,16615,0,0.981,0.901,4.047,3.729
+isd:071490-99999,ORLY,isd,48.725,tmin,16615,0,0.962,0.829,3.418,3.169
+isd:071490-99999,ORLY,isd,48.725,tw,16615,0,0.972,0.808,3.184,2.901
+isd:726980-24229,PORTLAND INTERNATIONAL AIRPORT,isd,45.596,tmax,17040,0,0.961,0.878,4.132,3.813
+isd:726980-24229,PORTLAND INTERNATIONAL AIRPORT,isd,45.596,tmin,17040,0,0.912,0.767,2.853,2.591
+isd:726980-24229,PORTLAND INTERNATIONAL AIRPORT,isd,45.596,tw,17040,0,0.946,0.783,2.731,2.498
+isd:417150-99999,SHAHBAZ AB,isd,28.284,tmax,9851,0,0.874,0.694,2.662,2.279
+isd:417150-99999,SHAHBAZ AB,isd,28.284,tmin,9851,0,0.748,0.588,2.216,1.85
+isd:417150-99999,SHAHBAZ AB,isd,28.284,tw,9851,0,0.738,0.501,2.186,1.976
+wx:S00001,Bandarbuat,wxgrid,-0.933,tmax,3896,0,0.39,0.309,1.18,0.729
+wx:S00001,Bandarbuat,wxgrid,-0.933,tmin,3892,0,0.142,0.237,1.354,0.26
+wx:S00005,Cimanggu,wxgrid,-6.683,tmax,2854,0,0.548,0.319,1.281,0.596
+wx:S00005,Cimanggu,wxgrid,-6.683,tmin,2848,0,0.38,0.233,0.855,0.433
+wx:S00006,Cipanas,wxgrid,-6.73,tmax,3866,0,0.45,0.281,1.051,0.611
+wx:S00006,Cipanas,wxgrid,-6.73,tmin,3634,0,0.302,0.217,0.98,0.391
+wx:S00007,Genteng,wxgrid,-8.383,tmax,2829,0,0.354,0.281,1.457,0.831
+wx:S00007,Genteng,wxgrid,-8.383,tmin,2835,0,0.132,0.124,2.041,0.458
+wx:S00008,Gunungmedan,wxgrid,-1.024,tmax,4565,0,0.467,0.33,1.407,0.849
+wx:S00008,Gunungmedan,wxgrid,-1.024,tmin,4571,0,0.327,0.219,0.941,0.288
+wx:S00010,Jakenan,wxgrid,-6.767,tmax,2494,0,0.278,0.153,1.471,0.874
+wx:S00010,Jakenan,wxgrid,-6.767,tmin,2530,-1,0.15,0.044,0.739,0.476
+wx:S00014,Kendalpayak,wxgrid,-8.048,tmax,2830,0,0.437,0.239,1.29,0.897
+wx:S00014,Kendalpayak,wxgrid,-8.048,tmin,2830,0,0.451,0.279,1.537,0.682
+wx:S00017,Lanrang,wxgrid,-3.5,tmax,2750,0,0.31,0.225,1.402,0.664
+wx:S00017,Lanrang,wxgrid,-3.5,tmin,2611,-1,0.073,0.084,1.303,0.446
+wx:S00019,Margahayu,wxgrid,-6.8,tmax,3752,0,0.388,0.233,1.139,0.702
+wx:S00019,Margahayu,wxgrid,-6.8,tmin,3763,0,0.211,0.151,1.411,0.503
+wx:S00020,Maros,wxgrid,-4.966,tmax,3972,0,0.476,0.265,1.296,1.113
+wx:S00020,Maros,wxgrid,-4.966,tmin,3647,0,0.459,0.299,1.447,0.405
+wx:S00021,Mojosari,wxgrid,-7.517,tmax,4060,-1,0.184,0.21,1.249,1.208
+wx:S00021,Mojosari,wxgrid,-7.517,tmin,4128,0,0.178,0.218,1.487,0.637
+wx:S00022,Muara,wxgrid,-6.527,tmax,5235,0,0.325,0.276,1.02,0.914
+wx:S00022,Muara,wxgrid,-6.527,tmin,5235,0,0.124,0.171,1.181,0.452
+wx:S00023,Muneng,wxgrid,-7.817,tmax,2170,-1,0.461,0.254,1.187,0.744
+wx:S00023,Muneng,wxgrid,-7.817,tmin,2204,0,0.396,0.258,1.776,0.355
+wx:S00024,Ngale,wxgrid,-7.4,tmax,4702,0,0.362,0.202,1.671,1.111
+wx:S00024,Ngale,wxgrid,-7.4,tmin,4702,1,0.323,0.147,1.256,0.543
+wx:S00025,Pacet,wxgrid,-6.767,tmax,2096,-1,0.432,0.33,1.359,0.603
+wx:S00025,Pacet,wxgrid,-6.767,tmin,2100,0,0.171,0.167,1.751,0.42
+wx:S00027,Pusakanegara,wxgrid,-6.283,tmax,4188,0,0.581,0.309,1.044,0.835
+wx:S00027,Pusakanegara,wxgrid,-6.283,tmin,4190,0,0.363,0.25,0.926,0.298
+wx:S00028,Rambatan,wxgrid,-0.551,tmax,3280,0,0.387,0.344,1.322,0.676
+wx:S00028,Rambatan,wxgrid,-0.551,tmin,3237,0,0.258,0.187,1.162,0.392
+wx:S00030,Sukarami,wxgrid,-1.0,tmax,2001,0,0.412,0.269,1.304,0.785
+wx:S00030,Sukarami,wxgrid,-1.0,tmin,2000,0,0.291,0.218,0.875,0.371
+wx:S00032,Tamanbogo,wxgrid,-5.026,tmax,3430,0,0.481,0.32,1.613,0.693
+wx:S00032,Tamanbogo,wxgrid,-5.026,tmin,3429,0,0.217,0.305,1.304,0.449
+wx:S00041,Stasiun Meteorologi Sultan Syarif Kasim II,wxgrid,0.459,tmax,12620,0,0.678,0.496,1.523,0.992
+wx:S00041,Stasiun Meteorologi Sultan Syarif Kasim II,wxgrid,0.459,tmin,11994,0,0.611,0.413,1.153,0.438
+wx:S00086,SUPADIO-PONTIANAK,wxgrid,-0.017,tmax,4991,0,0.69,0.463,1.35,0.985
+wx:S00086,SUPADIO-PONTIANAK,wxgrid,-0.017,tmin,4924,0,0.384,0.28,0.903,0.376
+wx:S00107,PALMERAH JAMBI,wxgrid,-1.633,tmax,5786,0,0.603,0.352,1.372,0.831
+wx:S00107,PALMERAH JAMBI,wxgrid,-1.633,tmin,5755,0,0.37,0.275,0.772,0.337
+wx:S00115,PALANGKARAYA-PENARUNG,wxgrid,-2.25,tmax,3855,0,0.542,0.362,1.44,1.144
+wx:S00115,PALANGKARAYA-PENARUNG,wxgrid,-2.25,tmin,4500,0,0.197,0.194,1.296,0.332
+wx:S00125,JAYAPURA,wxgrid,-2.883,tmax,4150,0,0.456,0.214,1.266,1.114
+wx:S00125,JAYAPURA,wxgrid,-2.883,tmin,3299,0,0.19,0.199,0.764,0.215
+wx:S00156,BRANTI TANJUNG KARANG,wxgrid,-5.25,tmax,5608,0,0.655,0.444,1.407,0.807
+wx:S00156,BRANTI TANJUNG KARANG,wxgrid,-5.25,tmin,5526,0,0.407,0.322,0.984,0.425
+wx:S00161,TUAL,wxgrid,-5.683,tmax,4900,0,0.285,0.232,1.091,0.585
+wx:S00161,TUAL,wxgrid,-5.683,tmin,4511,1,0.103,0.143,1.263,0.52
+wx:S00216,Stasiun Meteorologi Ahmad Yani,wxgrid,-6.977,tmax,14076,0,0.701,0.473,1.273,0.976
+wx:S00216,Stasiun Meteorologi Ahmad Yani,wxgrid,-6.977,tmin,13263,0,0.624,0.491,1.154,0.674
+wx:S00291,UGM JOGJA,wxgrid,-7.767,tmax,4603,1,0.412,0.298,1.04,0.952
+wx:S00291,UGM JOGJA,wxgrid,-7.767,tmin,4570,0,0.458,0.251,1.0,0.757
+wx:S00332,SUMBER ASIN,wxgrid,-8.233,tmax,3774,0,0.59,0.424,1.252,0.848
+wx:S00332,SUMBER ASIN,wxgrid,-8.233,tmin,2035,0,0.435,0.301,1.259,0.53
+wx:S00362,REMBIGA-AMPENAN,wxgrid,-8.533,tmax,4351,0,0.578,0.325,0.963,0.672
+wx:S00362,REMBIGA-AMPENAN,wxgrid,-8.533,tmin,4377,0,0.563,0.286,1.116,0.523
+wx:S00396,Stasiun Meteorologi Maimun Saleh,wxgrid,5.877,tmax,11418,0,0.581,0.401,1.343,0.667
+wx:S00396,Stasiun Meteorologi Maimun Saleh,wxgrid,5.877,tmin,11463,1,0.271,0.296,1.88,0.558
+wx:S00397,Stasiun Meteorologi Malikussaleh,wxgrid,5.229,tmax,15896,0,0.568,0.379,1.064,0.813
+wx:S00397,Stasiun Meteorologi Malikussaleh,wxgrid,5.229,tmin,14090,0,0.4,0.341,0.981,0.395
+wx:S00398,Stasiun Meteorologi Sultan Iskandar Muda,wxgrid,5.522,tmax,16243,0,0.654,0.488,1.5,1.288
+wx:S00398,Stasiun Meteorologi Sultan Iskandar Muda,wxgrid,5.522,tmin,13670,0,0.33,0.316,1.274,0.33
+wx:S00400,Stasiun Meteorologi Cut Nyak Dhien Nagan Raya,wxgrid,4.049,tmax,11319,0,0.556,0.384,1.146,0.59
+wx:S00400,Stasiun Meteorologi Cut Nyak Dhien Nagan Raya,wxgrid,4.049,tmin,10591,1,0.26,0.231,1.444,0.464
+wx:S00401,Stasiun Klimatologi Aceh Besar,wxgrid,5.404,tmax,9827,0,0.579,0.315,1.526,1.19
+wx:S00401,Stasiun Klimatologi Aceh Besar,wxgrid,5.404,tmin,9938,0,0.389,0.479,1.717,0.553
+wx:S00402,Stasiun Klimatologi Deli Serdang,wxgrid,3.621,tmax,14655,0,0.683,0.469,1.316,0.799
+wx:S00402,Stasiun Klimatologi Deli Serdang,wxgrid,3.621,tmin,14558,0,0.664,0.575,1.245,0.448
+wx:S00403,Stasiun Meteorologi Maritim Belawan,wxgrid,3.788,tmax,9856,0,0.636,0.416,1.123,0.618
+wx:S00403,Stasiun Meteorologi Maritim Belawan,wxgrid,3.788,tmin,9478,0,0.57,0.454,1.053,0.44
+wx:S00404,Stasiun Geofisika Deli Serdang,wxgrid,3.501,tmax,14242,0,0.532,0.366,1.541,0.852
+wx:S00404,Stasiun Geofisika Deli Serdang,wxgrid,3.501,tmin,14168,0,-0.029,0.029,1.511,0.495
+wx:S00405,Stasiun Geofisika Aceh Selatan,wxgrid,3.173,tmax,7144,0,0.414,0.269,1.718,0.7
+wx:S00405,Stasiun Geofisika Aceh Selatan,wxgrid,3.173,tmin,7045,-1,0.112,0.173,0.975,0.199
+wx:S00406,Balai Besar Meteorologi Klimatologi dan Geofisika Wilayah I,wxgrid,3.54,tmax,4820,0,0.675,0.508,1.523,0.845
+wx:S00406,Balai Besar Meteorologi Klimatologi dan Geofisika Wilayah I,wxgrid,3.54,tmin,4672,0,0.29,0.326,0.97,0.419
+wx:S00408,Stasiun Meteorologi Aek Godang,wxgrid,1.55,tmax,4298,0,0.603,0.392,1.443,0.777
+wx:S00408,Stasiun Meteorologi Aek Godang,wxgrid,1.55,tmin,4312,1,0.229,0.169,1.059,0.376
+wx:S00409,Stasiun Meteorologi FL Tobing,wxgrid,1.55,tmax,16534,0,0.634,0.397,1.468,1.134
+wx:S00409,Stasiun Meteorologi FL Tobing,wxgrid,1.55,tmin,16146,0,0.261,0.315,1.026,0.235
+wx:S00410,Stasiun Meteorologi Binaka,wxgrid,1.165,tmax,15980,0,0.663,0.395,1.317,0.669
+wx:S00410,Stasiun Meteorologi Binaka,wxgrid,1.165,tmin,15902,1,0.145,0.314,2.654,0.311
+wx:S00412,Stasiun Meteorologi Hang Nadim,wxgrid,1.117,tmax,11631,0,0.539,0.397,1.35,0.686
+wx:S00412,Stasiun Meteorologi Hang Nadim,wxgrid,1.117,tmin,10168,1,0.342,0.33,1.087,0.412
+wx:S00413,Stasiun Meteorologi Raja Haji Abdullah,wxgrid,1.03,tmax,4222,0,0.521,0.314,1.362,0.63
+wx:S00413,Stasiun Meteorologi Raja Haji Abdullah,wxgrid,1.03,tmin,4164,1,0.26,0.246,1.251,0.551
+wx:S00414,Stasiun Meteorologi Raja Haji Fisabilillah,wxgrid,0.923,tmax,16765,0,0.55,0.396,1.475,0.648
+wx:S00414,Stasiun Meteorologi Raja Haji Fisabilillah,wxgrid,0.923,tmin,14670,1,0.302,0.364,1.131,0.411
+wx:S00416,Stasiun Meteorologi Tarempa,wxgrid,3.2,tmax,16546,0,0.406,0.247,1.412,0.579
+wx:S00416,Stasiun Meteorologi Tarempa,wxgrid,3.2,tmin,15100,1,0.211,0.226,1.539,0.61
+wx:S00417,Stasiun Meteorologi Ranai,wxgrid,3.912,tmax,3741,0,0.413,0.291,1.351,0.668
+wx:S00417,Stasiun Meteorologi Ranai,wxgrid,3.912,tmin,3927,1,0.375,0.359,1.643,0.525
+wx:S00418,Stasiun Meteorologi Maritim Teluk Bayur,wxgrid,-0.996,tmax,9801,0,0.557,0.371,1.233,0.716
+wx:S00418,Stasiun Meteorologi Maritim Teluk Bayur,wxgrid,-0.996,tmin,9888,1,0.168,0.235,1.281,0.297
+wx:S00419,Stasiun Meteorologi Minangkabau,wxgrid,-0.794,tmax,15270,0,0.493,0.278,1.138,0.681
+wx:S00419,Stasiun Meteorologi Minangkabau,wxgrid,-0.794,tmin,15063,0,0.331,0.362,1.14,0.24
+wx:S00420,Stasiun Geofisika Padang Panjang,wxgrid,-0.466,tmax,8586,0,0.539,0.346,1.399,0.833
+wx:S00420,Stasiun Geofisika Padang Panjang,wxgrid,-0.466,tmin,7944,0,0.329,0.287,1.144,0.332
+wx:S00421,Stasiun Klimatologi Padang Pariaman,wxgrid,-0.545,tmax,10952,0,0.524,0.353,1.446,0.917
+wx:S00421,Stasiun Klimatologi Padang Pariaman,wxgrid,-0.545,tmin,10885,0,0.446,0.376,1.211,0.261
+wx:S00423,Stasiun Meteorologi Dabo,wxgrid,-0.48,tmax,14993,0,0.458,0.294,1.368,0.566
+wx:S00423,Stasiun Meteorologi Dabo,wxgrid,-0.48,tmin,11660,0,0.215,0.19,1.667,0.674
+wx:S00424,Stasiun Klimatologi Muaro Jambi,wxgrid,-1.602,tmax,8811,0,0.652,0.4,1.434,0.867
+wx:S00424,Stasiun Klimatologi Muaro Jambi,wxgrid,-1.602,tmin,8774,0,0.432,0.324,0.932,0.409
+wx:S00425,Stasiun Meteorologi Depati Parbo,wxgrid,-2.083,tmax,15167,0,0.413,0.303,1.408,0.785
+wx:S00425,Stasiun Meteorologi Depati Parbo,wxgrid,-2.083,tmin,14840,1,0.351,0.352,1.58,0.563
+wx:S00426,Stasiun Meteorologi Sultan Mahmud Badaruddin II,wxgrid,-2.895,tmax,16555,0,0.705,0.49,1.428,0.959
+wx:S00426,Stasiun Meteorologi Sultan Mahmud Badaruddin II,wxgrid,-2.895,tmin,15152,0,0.415,0.494,0.98,0.382
+wx:S00427,Stasiun Klimatologi Palembang,wxgrid,-2.927,tmax,15229,0,0.681,0.442,1.428,0.952
+wx:S00427,Stasiun Klimatologi Palembang,wxgrid,-2.927,tmin,15187,0,0.591,0.607,0.989,0.385
+wx:S00428,Stasiun Meteorologi Depati Amir,wxgrid,-2.17,tmax,16749,0,0.684,0.402,1.405,0.745
+wx:S00428,Stasiun Meteorologi Depati Amir,wxgrid,-2.17,tmin,14791,0,0.476,0.528,0.922,0.453
+wx:S00430,Stasiun Geofisika Tanjung Pandan,wxgrid,-2.758,tmax,7761,0,0.706,0.428,1.503,0.67
+wx:S00430,Stasiun Geofisika Tanjung Pandan,wxgrid,-2.758,tmin,7646,0,0.364,0.32,1.12,0.381
+wx:S00431,Stasiun Meteorologi H. AS. Hananjoeddin,wxgrid,-2.75,tmax,13200,0,0.735,0.525,1.497,0.844
+wx:S00431,Stasiun Meteorologi H. AS. Hananjoeddin,wxgrid,-2.75,tmin,12492,0,0.58,0.476,0.907,0.483
+wx:S00432,Stasiun Klimatologi Bengkulu,wxgrid,-3.865,tmax,13503,0,0.684,0.483,1.218,0.797
+wx:S00432,Stasiun Klimatologi Bengkulu,wxgrid,-3.865,tmin,13489,0,0.542,0.477,0.96,0.371
+wx:S00433,Stasiun Geofisika Kepahiang,wxgrid,-3.55,tmax,7456,0,0.482,0.277,1.378,0.698
+wx:S00433,Stasiun Geofisika Kepahiang,wxgrid,-3.55,tmin,7469,1,0.436,0.336,1.262,0.508
+wx:S00434,Stasiun Klimatologi Pesawaran,wxgrid,-5.172,tmax,6899,0,0.651,0.439,1.49,0.815
+wx:S00434,Stasiun Klimatologi Pesawaran,wxgrid,-5.172,tmin,7188,0,0.517,0.426,1.094,0.467
+wx:S00435,Stasiun Meteorologi Maritim Panjang,wxgrid,-5.472,tmax,7910,0,0.46,0.33,1.339,0.559
+wx:S00435,Stasiun Meteorologi Maritim Panjang,wxgrid,-5.472,tmin,7994,0,0.064,0.285,2.322,0.361
+wx:S00436,Stasiun Meteorologi Radin Inten II,wxgrid,-5.16,tmax,16582,0,0.693,0.49,1.405,0.823
+wx:S00436,Stasiun Meteorologi Radin Inten II,wxgrid,-5.16,tmin,16432,0,0.546,0.481,1.054,0.503
+wx:S00437,Stasiun Geofisika Lampung Utara,wxgrid,-4.836,tmax,4324,0,0.634,0.426,1.615,0.881
+wx:S00437,Stasiun Geofisika Lampung Utara,wxgrid,-4.836,tmin,6169,0,0.384,0.355,1.613,0.511
+wx:S00438,Stasiun Meteorologi Nunukan,wxgrid,4.13,tmax,4339,0,0.666,0.33,1.357,0.701
+wx:S00438,Stasiun Meteorologi Nunukan,wxgrid,4.13,tmin,4336,0,0.344,0.302,1.07,0.234
+wx:S00439,Stasiun Meteorologi Yuvai Semaring,wxgrid,3.86,tmax,7100,0,0.443,0.412,2.043,0.659
+wx:S00439,Stasiun Meteorologi Yuvai Semaring,wxgrid,3.86,tmin,10252,0,0.307,0.269,1.824,0.686
+wx:S00440,Stasiun Meteorologi Juwata,wxgrid,3.33,tmax,16455,0,0.491,0.356,1.383,0.623
+wx:S00440,Stasiun Meteorologi Juwata,wxgrid,3.33,tmin,14999,0,0.324,0.326,1.015,0.501
+wx:S00441,Stasiun Meteorologi Tanjung Harapan,wxgrid,2.5,tmax,13276,0,0.716,0.469,1.716,0.92
+wx:S00441,Stasiun Meteorologi Tanjung Harapan,wxgrid,2.5,tmin,11482,0,0.468,0.514,0.982,0.342
+wx:S00442,Stasiun Meteorologi Kalimarau,wxgrid,2.146,tmax,8366,0,0.708,0.452,1.796,1.049
+wx:S00442,Stasiun Meteorologi Kalimarau,wxgrid,2.146,tmin,8181,0,0.451,0.382,1.002,0.335
+wx:S00443,Stasiun Meteorologi Paloh,wxgrid,1.74,tmax,14890,0,0.701,0.448,1.66,1.034
+wx:S00443,Stasiun Meteorologi Paloh,wxgrid,1.74,tmin,15277,0,0.462,0.426,1.009,0.363
+wx:S00444,Stasiun Meteorologi Nangapinoh,wxgrid,-0.42,tmax,13043,0,0.578,0.422,1.599,1.134
+wx:S00444,Stasiun Meteorologi Nangapinoh,wxgrid,-0.42,tmin,13123,0,0.387,0.405,1.757,0.336
+wx:S00445,Stasiun Meteorologi Susilo,wxgrid,0.06,tmax,14514,0,0.646,0.489,1.716,1.182
+wx:S00445,Stasiun Meteorologi Susilo,wxgrid,0.06,tmin,13141,0,0.409,0.48,1.029,0.371
+wx:S00446,Stasiun Meteorologi Pangsuma,wxgrid,0.84,tmax,9274,0,0.625,0.453,1.641,1.268
+wx:S00446,Stasiun Meteorologi Pangsuma,wxgrid,0.84,tmin,8782,0,0.338,0.338,0.846,0.307
+wx:S00447,Stasiun Klimatologi Mempawah,wxgrid,0.075,tmax,13325,0,0.667,0.45,1.161,0.829
+wx:S00447,Stasiun Klimatologi Mempawah,wxgrid,0.075,tmin,13315,0,0.425,0.447,0.871,0.463
+wx:S00448,Stasiun Meteorologi Maritim Pontianak,wxgrid,-0.03,tmax,4990,0,0.698,0.413,1.683,1.03
+wx:S00448,Stasiun Meteorologi Maritim Pontianak,wxgrid,-0.03,tmin,5012,0,0.42,0.447,0.864,0.421
+wx:S00449,Stasiun Meteorologi Beringin,wxgrid,-0.56,tmax,14255,0,0.669,0.491,1.705,1.102
+wx:S00449,Stasiun Meteorologi Beringin,wxgrid,-0.56,tmin,13923,0,0.369,0.409,1.034,0.371
+wx:S00450,Stasiun Meteorologi Temindung,wxgrid,-0.48,tmax,15952,0,0.652,0.501,1.75,0.95
+wx:S00450,Stasiun Meteorologi Temindung,wxgrid,-0.48,tmin,14254,0,0.506,0.446,1.322,0.403
+wx:S00451,Stasiun Meteorologi Rahadi Oesman,wxgrid,-1.8,tmax,14480,0,0.538,0.378,1.348,0.871
+wx:S00451,Stasiun Meteorologi Rahadi Oesman,wxgrid,-1.8,tmin,14455,1,0.363,0.324,0.888,0.359
+wx:S00452,Stasiun Meteorologi Sultan Aji Muhammad Sulaiman Sepinggan,wxgrid,-1.26,tmax,16015,0,0.483,0.338,1.351,0.437
+wx:S00452,Stasiun Meteorologi Sultan Aji Muhammad Sulaiman Sepinggan,wxgrid,-1.26,tmin,15634,1,0.358,0.359,1.088,0.56
+wx:S00454,Stasiun Meteorologi Iskandar,wxgrid,-2.73,tmax,16361,0,0.563,0.364,1.562,1.006
+wx:S00454,Stasiun Meteorologi Iskandar,wxgrid,-2.73,tmin,15935,0,0.382,0.464,1.055,0.4
+wx:S00455,Stasiun Meteorologi H. Asan,wxgrid,-2.55,tmax,8593,0,0.571,0.349,1.454,0.822
+wx:S00455,Stasiun Meteorologi H. Asan,wxgrid,-2.55,tmin,8580,0,0.444,0.306,1.529,0.367
+wx:S00456,Stasiun Meteorologi Sanggu,wxgrid,-1.67,tmax,7170,0,0.538,0.357,1.628,1.14
+wx:S00456,Stasiun Meteorologi Sanggu,wxgrid,-1.67,tmin,7151,0,0.339,0.268,1.038,0.378
+wx:S00457,Stasiun Meteorologi Tjilik Riwut,wxgrid,-2.22,tmax,16517,0,0.569,0.391,1.535,1.187
+wx:S00457,Stasiun Meteorologi Tjilik Riwut,wxgrid,-2.22,tmin,16236,0,0.41,0.402,1.193,0.406
+wx:S00458,Stasiun Klimatologi Banjarbaru,wxgrid,-3.462,tmax,8152,0,0.707,0.384,1.718,1.205
+wx:S00458,Stasiun Klimatologi Banjarbaru,wxgrid,-3.462,tmin,8163,0,0.734,0.542,1.237,0.674
+wx:S00459,Stasiun Klimatologi Tangerang Selatan,wxgrid,-6.262,tmax,15058,0,0.727,0.465,1.508,1.051
+wx:S00459,Stasiun Klimatologi Tangerang Selatan,wxgrid,-6.262,tmin,15075,0,0.548,0.529,1.203,0.539
+wx:S00460,Stasiun Geofisika Tangerang,wxgrid,-6.1,tmax,4303,0,0.746,0.491,1.373,0.771
+wx:S00460,Stasiun Geofisika Tangerang,wxgrid,-6.1,tmin,4315,0,0.458,0.362,0.993,0.394
+wx:S00461,Stasiun Meteorologi Maritim Serang,wxgrid,-6.112,tmax,13386,0,0.646,0.394,1.374,0.806
+wx:S00461,Stasiun Meteorologi Maritim Serang,wxgrid,-6.112,tmin,13019,0,0.638,0.484,0.983,0.427
+wx:S00462,Stasiun Meteorologi Budiarto,wxgrid,-6.287,tmax,16233,0,0.711,0.482,1.43,1.115
+wx:S00462,Stasiun Meteorologi Budiarto,wxgrid,-6.287,tmin,14278,0,0.446,0.438,0.944,0.605
+wx:S00463,Stasiun Meteorologi Maritim Tanjung Priok,wxgrid,-6.108,tmax,16417,0,0.539,0.248,1.435,0.623
+wx:S00463,Stasiun Meteorologi Maritim Tanjung Priok,wxgrid,-6.108,tmin,16241,0,0.55,0.541,1.208,0.436
+wx:S00464,Stasiun Meteorologi Kemayoran,wxgrid,-6.156,tmax,16534,0,0.655,0.425,1.335,0.913
+wx:S00464,Stasiun Meteorologi Kemayoran,wxgrid,-6.156,tmin,15314,-1,0.55,0.462,1.043,0.54
+wx:S00465,Halim Perdana Kusuma Jakarta,wxgrid,-6.27,tmax,8489,0,0.666,0.457,1.507,1.087
+wx:S00465,Halim Perdana Kusuma Jakarta,wxgrid,-6.27,tmin,8373,-1,0.546,0.422,1.317,0.585
+wx:S00466,Stasiun Meteorologi Soekarno Hatta,wxgrid,-6.12,tmax,14032,0,0.68,0.434,1.205,0.844
+wx:S00466,Stasiun Meteorologi Soekarno Hatta,wxgrid,-6.12,tmin,14301,0,0.562,0.531,0.937,0.566
+wx:S00467,Stasiun Meteorologi Citeko,wxgrid,-6.7,tmax,14521,0,0.554,0.355,1.409,0.806
+wx:S00467,Stasiun Meteorologi Citeko,wxgrid,-6.7,tmin,14299,0,0.5,0.438,1.015,0.542
+wx:S00468,Stasiun Geofisika Bandung,wxgrid,-6.884,tmax,15023,0,0.662,0.435,1.465,0.92
+wx:S00468,Stasiun Geofisika Bandung,wxgrid,-6.884,tmin,14769,0,0.537,0.454,1.421,0.677
+wx:S00469,Stasiun Meteorologi Kertajati,wxgrid,-6.734,tmax,15884,0,0.71,0.458,1.476,0.984
+wx:S00469,Stasiun Meteorologi Kertajati,wxgrid,-6.734,tmin,16162,0,0.579,0.483,1.177,0.663
+wx:S00471,Stasiun Meteorologi Tegal,wxgrid,-6.868,tmax,16067,0,0.565,0.346,1.14,0.661
+wx:S00471,Stasiun Meteorologi Tegal,wxgrid,-6.868,tmin,16006,0,0.678,0.59,0.994,0.682
+wx:S00472,Stasiun Meteorologi Tunggul Wulung,wxgrid,-7.719,tmax,16987,0,0.515,0.382,1.075,0.594
+wx:S00472,Stasiun Meteorologi Tunggul Wulung,wxgrid,-7.719,tmin,16799,0,0.594,0.388,1.19,0.473
+wx:S00474,Stasiun Klimatologi Semarang,wxgrid,-6.985,tmax,4117,0,0.767,0.548,1.238,0.952
+wx:S00474,Stasiun Klimatologi Semarang,wxgrid,-6.985,tmin,4165,0,0.566,0.369,1.132,0.545
+wx:S00475,Stasiun Meteorologi Maritim Tanjung Emas,wxgrid,-6.949,tmax,16311,0,0.718,0.513,1.282,0.54
+wx:S00475,Stasiun Meteorologi Maritim Tanjung Emas,wxgrid,-6.949,tmin,16240,0,0.556,0.538,1.106,0.503
+wx:S00477,Stasiun Geofisika Sleman,wxgrid,-7.82,tmax,5897,0,0.511,0.322,1.476,0.696
+wx:S00477,Stasiun Geofisika Sleman,wxgrid,-7.82,tmin,5916,0,0.642,0.311,1.174,0.713
+wx:S00478,Stasiun Meteorologi Perak I,wxgrid,-7.224,tmax,14454,0,0.698,0.51,1.318,0.817
+wx:S00478,Stasiun Meteorologi Perak I,wxgrid,-7.224,tmin,9979,-1,0.696,0.49,1.124,0.697
+wx:S00479,Stasiun Meteorologi Maritim Tanjung Perak,wxgrid,-7.205,tmax,15317,0,0.669,0.458,1.278,0.828
+wx:S00479,Stasiun Meteorologi Maritim Tanjung Perak,wxgrid,-7.205,tmin,14647,0,0.57,0.587,1.164,0.675
+wx:S00481,Stasiun Klimatologi Malang,wxgrid,-7.901,tmax,11494,0,0.643,0.413,1.273,0.822
+wx:S00481,Stasiun Klimatologi Malang,wxgrid,-7.901,tmin,11484,0,0.628,0.435,1.32,0.71
+wx:S00482,Stasiun Geofisika Pasuruan,wxgrid,-7.705,tmax,13666,0,0.506,0.335,1.418,0.811
+wx:S00482,Stasiun Geofisika Pasuruan,wxgrid,-7.705,tmin,13696,0,0.263,0.33,1.418,0.348
+wx:S00483,Stasiun Geofisika Malang,wxgrid,-8.15,tmax,4131,0,0.585,0.341,1.488,0.78
+wx:S00483,Stasiun Geofisika Malang,wxgrid,-8.15,tmin,4153,0,0.614,0.266,1.175,0.567
+wx:S00484,Stasiun Meteorologi Kalianget,wxgrid,-7.04,tmax,16455,0,0.597,0.402,1.088,0.86
+wx:S00484,Stasiun Meteorologi Kalianget,wxgrid,-7.04,tmin,14993,0,0.424,0.432,1.104,0.489
+wx:S00485,Stasiun Geofisika Nganjuk,wxgrid,-7.735,tmax,11776,0,0.476,0.306,1.311,0.7
+wx:S00485,Stasiun Geofisika Nganjuk,wxgrid,-7.735,tmin,10566,0,0.379,0.376,1.894,0.579
+wx:S00486,Stasiun Meteorologi Naha,wxgrid,3.686,tmax,15289,0,0.472,0.356,1.092,0.61
+wx:S00486,Stasiun Meteorologi Naha,wxgrid,3.686,tmin,11471,1,0.027,0.168,1.045,0.405
+wx:S00487,Stasiun Geofisika Manado,wxgrid,1.443,tmax,9809,0,0.548,0.337,1.246,0.889
+wx:S00487,Stasiun Geofisika Manado,wxgrid,1.443,tmin,9825,0,0.483,0.315,1.3,0.383
+wx:S00488,Stasiun Klimatologi Minahasa Utara,wxgrid,1.546,tmax,14497,0,0.663,0.475,1.277,0.998
+wx:S00488,Stasiun Klimatologi Minahasa Utara,wxgrid,1.546,tmin,14475,0,0.413,0.358,1.686,0.338
+wx:S00489,Stasiun Meteorologi Sam Ratulangi,wxgrid,1.546,tmax,15750,0,0.751,0.561,1.325,1.005
+wx:S00489,Stasiun Meteorologi Sam Ratulangi,wxgrid,1.546,tmin,14903,0,0.565,0.468,1.2,0.343
+wx:S00490,Stasiun Meteorologi Maritim Bitung,wxgrid,1.443,tmax,11709,0,0.596,0.359,1.22,0.549
+wx:S00490,Stasiun Meteorologi Maritim Bitung,wxgrid,1.443,tmin,13518,0,0.316,0.271,1.115,0.38
+wx:S00491,Stasiun Meteorologi Djalaluddin,wxgrid,0.638,tmax,16523,0,0.632,0.411,1.277,0.89
+wx:S00491,Stasiun Meteorologi Djalaluddin,wxgrid,0.638,tmin,14650,-1,0.509,0.339,1.353,0.436
+wx:S00493,Stasiun Meteorologi Mutiara Sis-Al Jufri,wxgrid,-0.916,tmax,16170,0,0.499,0.301,1.743,0.906
+wx:S00493,Stasiun Meteorologi Mutiara Sis-Al Jufri,wxgrid,-0.916,tmin,14425,0,0.313,0.32,1.127,0.291
+wx:S00495,Stasiun Meteorologi Syukuran Aminudin Amir,wxgrid,-1.041,tmax,14825,0,0.546,0.395,1.05,0.525
+wx:S00495,Stasiun Meteorologi Syukuran Aminudin Amir,wxgrid,-1.041,tmin,12996,0,0.369,0.421,1.025,0.359
+wx:S00496,Stasiun Meteorologi Kasiguncu,wxgrid,-1.42,tmax,15005,0,0.518,0.366,1.092,0.74
+wx:S00496,Stasiun Meteorologi Kasiguncu,wxgrid,-1.42,tmin,13189,0,0.24,0.227,1.087,0.339
+wx:S00497,Stasiun Meteorologi Majene,wxgrid,-3.551,tmax,15387,0,0.489,0.294,1.207,0.581
+wx:S00497,Stasiun Meteorologi Majene,wxgrid,-3.551,tmin,13173,1,0.231,0.258,1.092,0.489
+wx:S00498,Stasiun Meteorologi Pongtiku,wxgrid,-3.045,tmax,7820,0,0.507,0.319,1.286,0.752
+wx:S00498,Stasiun Meteorologi Pongtiku,wxgrid,-3.045,tmin,7760,0,0.313,0.363,2.225,0.37
+wx:S00499,Stasiun Meteorologi Andi Jemma,wxgrid,-2.555,tmax,12765,0,0.641,0.47,1.238,1.051
+wx:S00499,Stasiun Meteorologi Andi Jemma,wxgrid,-2.555,tmin,12860,0,0.267,0.364,1.128,0.346
+wx:S00500,Stasiun Meteorologi Sangia Ni Bandera,wxgrid,-4.181,tmax,7681,0,0.463,0.285,1.353,0.673
+wx:S00500,Stasiun Meteorologi Sangia Ni Bandera,wxgrid,-4.181,tmin,7748,1,0.217,0.243,1.818,0.454
+wx:S00501,Stasiun Meteorologi Maritim Kendari,wxgrid,-3.97,tmax,8585,0,0.521,0.347,1.244,0.717
+wx:S00501,Stasiun Meteorologi Maritim Kendari,wxgrid,-3.97,tmin,8552,1,0.228,0.265,1.098,0.372
+wx:S00504,Stasiun Meteorologi Sultan Hasanuddin,wxgrid,-5.07,tmax,14465,0,0.698,0.442,1.431,1.094
+wx:S00504,Stasiun Meteorologi Sultan Hasanuddin,wxgrid,-5.07,tmin,14459,0,0.604,0.448,1.195,0.589
+wx:S00505,Stasiun Klimatologi Maros,wxgrid,-4.931,tmax,8129,0,0.564,0.381,1.28,0.826
+wx:S00505,Stasiun Klimatologi Maros,wxgrid,-4.931,tmin,8101,1,0.234,0.228,1.136,0.244
+wx:S00507,Stasiun Meteorologi Beto Ambari,wxgrid,-5.47,tmax,15570,0,0.582,0.383,1.373,0.873
+wx:S00507,Stasiun Meteorologi Beto Ambari,wxgrid,-5.47,tmin,14330,0,0.402,0.315,1.975,0.518
+wx:S00508,Stasiun Meteorologi I Gusti Ngurah Rai,wxgrid,-8.75,tmax,16836,0,0.512,0.347,1.016,0.588
+wx:S00508,Stasiun Meteorologi I Gusti Ngurah Rai,wxgrid,-8.75,tmin,16564,0,0.387,0.334,1.307,0.514
+wx:S00510,Pos Pengamatan Kahang-Kahang,wxgrid,-8.365,tmax,6438,0,0.533,0.336,1.108,0.972
+wx:S00510,Pos Pengamatan Kahang-Kahang,wxgrid,-8.365,tmin,6529,0,0.433,0.33,1.321,0.543
+wx:S00511,Stasiun Klimatologi Jembrana,wxgrid,-8.341,tmax,8133,0,0.585,0.467,1.012,0.676
+wx:S00511,Stasiun Klimatologi Jembrana,wxgrid,-8.341,tmin,8128,1,0.297,0.235,1.174,0.369
+wx:S00512,Stasiun Meteorologi Zainuddin Abdul Madjid,wxgrid,-8.753,tmax,15789,0,0.7,0.477,1.132,0.827
+wx:S00512,Stasiun Meteorologi Zainuddin Abdul Madjid,wxgrid,-8.753,tmin,15947,0,0.605,0.509,1.248,0.446
+wx:S00513,Stasiun Klimatologi Lombok Barat,wxgrid,-8.636,tmax,8330,0,0.696,0.456,1.161,0.903
+wx:S00513,Stasiun Klimatologi Lombok Barat,wxgrid,-8.636,tmin,8700,0,0.611,0.441,1.347,0.505
+wx:S00514,Stasiun Meteorologi Sultan Muhammad Kaharuddin,wxgrid,-8.488,tmax,16788,0,0.702,0.5,1.195,0.987
+wx:S00514,Stasiun Meteorologi Sultan Muhammad Kaharuddin,wxgrid,-8.488,tmin,16378,0,0.668,0.509,1.197,0.641
+wx:S00515,Stasiun Meteorologi Sultan Muhammad Salahuddin,wxgrid,-8.543,tmax,15834,0,0.654,0.399,1.251,0.924
+wx:S00515,Stasiun Meteorologi Sultan Muhammad Salahuddin,wxgrid,-8.543,tmin,15483,0,0.551,0.476,1.391,0.639
+wx:S00516,Stasiun Meteorologi Komodo,wxgrid,-8.487,tmax,4116,0,0.53,0.332,1.09,0.456
+wx:S00516,Stasiun Meteorologi Komodo,wxgrid,-8.487,tmin,4127,1,0.4,0.231,1.09,0.448
+wx:S00517,Stasiun Meteorologi Frans Sales Lega,wxgrid,-8.63,tmax,8994,0,0.523,0.325,1.165,0.873
+wx:S00517,Stasiun Meteorologi Frans Sales Lega,wxgrid,-8.63,tmin,8936,0,0.521,0.325,1.749,0.792
+wx:S00518,Stasiun Meteorologi Fransiskus Xaverius Seda,wxgrid,-8.636,tmax,16300,0,0.491,0.299,1.212,0.777
+wx:S00518,Stasiun Meteorologi Fransiskus Xaverius Seda,wxgrid,-8.636,tmin,15485,0,0.442,0.394,1.324,0.557
+wx:S00519,Stasiun Meteorologi Gewayantana,wxgrid,-8.275,tmax,14164,0,0.497,0.326,1.322,0.629
+wx:S00519,Stasiun Meteorologi Gewayantana,wxgrid,-8.275,tmin,13808,0,0.405,0.372,1.797,0.617
+wx:S00521,Stasiun Meteorologi Umbu Mehang Kunda,wxgrid,-9.669,tmax,16618,0,0.595,0.406,1.15,0.698
+wx:S00521,Stasiun Meteorologi Umbu Mehang Kunda,wxgrid,-9.669,tmin,16109,-1,0.608,0.456,1.182,0.772
+wx:S00522,Stasiun Meteorologi Eltari,wxgrid,-10.168,tmax,16581,0,0.673,0.428,1.451,1.248
+wx:S00522,Stasiun Meteorologi Eltari,wxgrid,-10.168,tmin,14912,0,0.586,0.471,1.376,0.648
+wx:S00524,Stasiun Meteorologi David Constatijn Saudale,wxgrid,-10.767,tmax,9423,0,0.411,0.239,1.405,0.911
+wx:S00524,Stasiun Meteorologi David Constatijn Saudale,wxgrid,-10.767,tmin,9313,0,0.199,0.233,1.859,0.573
+wx:S00525,Stasiun Meteorologi Tardamu,wxgrid,-10.5,tmax,13905,0,0.52,0.369,1.323,0.902
+wx:S00525,Stasiun Meteorologi Tardamu,wxgrid,-10.5,tmin,13946,0,0.296,0.306,1.54,0.634
+wx:S00526,Stasiun Meteorologi Gamar Malamo,wxgrid,1.841,tmax,12119,0,0.604,0.443,1.252,0.887
+wx:S00526,Stasiun Meteorologi Gamar Malamo,wxgrid,1.841,tmin,11828,0,0.351,0.312,1.392,0.328
+wx:S00528,Stasiun Meteorologi Oesman Sadik,wxgrid,-0.638,tmax,12437,0,0.493,0.367,1.119,0.832
+wx:S00528,Stasiun Meteorologi Oesman Sadik,wxgrid,-0.638,tmin,12343,1,0.179,0.237,1.151,0.3
+wx:S00530,Stasiun Meteorologi Frans Kaisiepo,wxgrid,-1.191,tmax,16340,0,0.465,0.284,1.129,0.517
+wx:S00530,Stasiun Meteorologi Frans Kaisiepo,wxgrid,-1.191,tmin,14717,0,0.378,0.386,0.956,0.476
+wx:S00531,Stasiun Meteorologi Sudjarwo Tjondro Negoro,wxgrid,-1.875,tmax,5195,0,0.54,0.393,1.379,0.488
+wx:S00531,Stasiun Meteorologi Sudjarwo Tjondro Negoro,wxgrid,-1.875,tmin,5618,0,0.21,0.283,0.943,0.412
+wx:S00533,Stasiun Meteorologi Emalamo,wxgrid,-2.05,tmax,14798,0,0.31,0.289,1.027,0.559
+wx:S00533,Stasiun Meteorologi Emalamo,wxgrid,-2.05,tmin,14230,1,0.267,0.239,2.562,0.392
+wx:S00534,Stasiun Meteorologi Torea,wxgrid,-2.919,tmax,14654,0,0.445,0.366,1.16,0.553
+wx:S00534,Stasiun Meteorologi Torea,wxgrid,-2.919,tmin,12681,1,0.192,0.244,1.344,0.223
+wx:S00535,Stasiun Meteorologi Moanamani,wxgrid,-3.352,tmax,13066,0,0.582,0.438,1.195,0.965
+wx:S00535,Stasiun Meteorologi Moanamani,wxgrid,-3.352,tmin,11388,-1,0.211,0.243,1.105,0.261
+wx:S00536,Stasiun Meteorologi Wamena Jaya Wijaya,wxgrid,-4.07,tmax,9479,0,0.43,0.286,1.502,0.821
+wx:S00536,Stasiun Meteorologi Wamena Jaya Wijaya,wxgrid,-4.07,tmin,9022,0,0.426,0.381,1.305,0.409
+wx:S00537,Stasiun Meteorologi Sentani,wxgrid,-2.57,tmax,15487,0,0.601,0.448,1.675,1.048
+wx:S00537,Stasiun Meteorologi Sentani,wxgrid,-2.57,tmin,14368,0,0.398,0.446,1.084,0.338
+wx:S00539,Stasiun Klimatologi Manokwari Selatan,wxgrid,-1.47,tmax,4621,0,0.46,0.305,1.318,0.58
+wx:S00539,Stasiun Klimatologi Manokwari Selatan,wxgrid,-1.47,tmin,4678,0,0.127,0.155,1.144,0.328
+wx:S00541,Stasiun Meteorologi Dok II Jayapura,wxgrid,-2.53,tmax,6647,0,0.47,0.229,1.24,0.484
+wx:S00541,Stasiun Meteorologi Dok II Jayapura,wxgrid,-2.53,tmin,9155,0,0.46,0.471,1.161,0.358
+wx:S00542,Stasiun Meteorologi Amahai,wxgrid,-3.346,tmax,14146,0,0.523,0.407,1.059,0.575
+wx:S00542,Stasiun Meteorologi Amahai,wxgrid,-3.346,tmin,14504,0,0.479,0.417,1.868,0.291
+wx:S00543,Stasiun Meteorologi Pattimura,wxgrid,-3.711,tmax,14799,0,0.438,0.391,1.205,0.705
+wx:S00543,Stasiun Meteorologi Pattimura,wxgrid,-3.711,tmin,15070,1,0.27,0.203,0.94,0.413
+wx:S00544,Stasiun Klimatologi Seram Bagian Barat,wxgrid,-3.25,tmax,11082,0,0.387,0.231,1.162,0.886
+wx:S00544,Stasiun Klimatologi Seram Bagian Barat,wxgrid,-3.25,tmin,13739,0,0.567,0.501,1.261,0.503
+wx:S00547,Stasiun Meteorologi Enarotali,wxgrid,-3.927,tmax,7440,0,0.486,0.294,1.487,0.749
+wx:S00547,Stasiun Meteorologi Enarotali,wxgrid,-3.927,tmin,7526,0,0.431,0.34,1.348,0.388
+wx:S00548,Stasiun Meteorologi Bandaneira,wxgrid,-4.523,tmax,11528,0,0.407,0.33,1.097,0.512
+wx:S00548,Stasiun Meteorologi Bandaneira,wxgrid,-4.523,tmin,11586,1,0.219,0.224,1.446,0.539
+wx:S00549,Stasiun Meteorologi Mozez Kilangin,wxgrid,-4.53,tmax,14209,0,0.492,0.334,1.575,1.142
+wx:S00549,Stasiun Meteorologi Mozez Kilangin,wxgrid,-4.53,tmin,12627,0,0.364,0.305,1.006,0.346
+wx:S00552,Stasiun Meteorologi Tanah Merah,wxgrid,-6.1,tmax,9939,0,0.611,0.472,1.74,1.125
+wx:S00552,Stasiun Meteorologi Tanah Merah,wxgrid,-6.1,tmin,6883,0,0.499,0.432,1.136,0.399
+wx:S00553,Stasiun Meteorologi Mathilda Batlayeri,wxgrid,-7.98,tmax,16435,0,0.586,0.415,1.168,0.525
+wx:S00553,Stasiun Meteorologi Mathilda Batlayeri,wxgrid,-7.98,tmin,16093,0,0.33,0.383,2.228,0.593
+wx:S00555,Stasiun Meteorologi Mopah,wxgrid,-8.52,tmax,13128,0,0.557,0.404,1.236,0.789
+wx:S00555,Stasiun Meteorologi Mopah,wxgrid,-8.52,tmin,12445,0,0.621,0.429,1.378,0.728
+wx:S00567,POLONIA,wxgrid,3.558,tmax,13341,0,0.707,0.443,1.376,0.803
+wx:S00567,POLONIA,wxgrid,3.558,tmin,12014,0,0.553,0.44,0.902,0.454
+wx:S00609,Stasiun Meteorologi Sangkapura,wxgrid,-5.851,tmax,16559,0,0.456,0.306,1.166,0.482
+wx:S00609,Stasiun Meteorologi Sangkapura,wxgrid,-5.851,tmin,15147,0,0.379,0.373,1.274,0.637
+wx:S00610,Stasiun Klimatologi Bogor,wxgrid,-6.5,tmax,13640,0,0.764,0.54,1.392,1.068
+wx:S00610,Stasiun Klimatologi Bogor,wxgrid,-6.5,tmin,13670,0,0.515,0.51,1.019,0.561
+wx:S00923,TASIK MALAYA,wxgrid,-7.483,tmax,3887,0,0.443,0.331,1.418,0.714
+wx:S00923,TASIK MALAYA,wxgrid,-7.483,tmin,3809,0,0.615,0.517,1.6,0.612
+wx:S00927,MADIUN 1,wxgrid,-7.617,tmax,4977,0,0.569,0.26,1.351,0.919
+wx:S00927,MADIUN 1,wxgrid,-7.617,tmin,4955,-1,0.169,0.167,1.491,0.609
+wx:S00935,PAKANBARU,wxgrid,0.467,tmax,5145,0,0.596,0.419,1.491,0.926
+wx:S00935,PAKANBARU,wxgrid,0.467,tmin,5135,0,0.292,0.26,1.048,0.332
+wx:S01079,Stasiun Meteorologi Utarom,wxgrid,-3.67,tmax,11580,0,0.502,0.384,1.217,0.573
+wx:S01079,Stasiun Meteorologi Utarom,wxgrid,-3.67,tmin,11750,0,0.425,0.341,1.082,0.377
+wx:S01090,Stasiun Meteorologi Japura,wxgrid,-0.33,tmax,16110,0,0.696,0.522,1.526,0.924
+wx:S01090,Stasiun Meteorologi Japura,wxgrid,-0.33,tmin,16011,0,0.557,0.586,1.085,0.434
+wx:S01091,Stasiun Meteorologi Sultan Thaha,wxgrid,-1.634,tmax,15504,0,0.636,0.429,1.463,0.902
+wx:S01091,Stasiun Meteorologi Sultan Thaha,wxgrid,-1.634,tmin,13285,0,0.446,0.436,0.928,0.434
+wx:S01092,Stasiun Meteorologi Fatmawati Soekarno,wxgrid,-3.858,tmax,16638,0,0.677,0.495,1.253,0.802
+wx:S01092,Stasiun Meteorologi Fatmawati Soekarno,wxgrid,-3.858,tmin,16428,0,0.544,0.522,1.051,0.381
+wx:S01093,Stasiun Meteorologi Supadio,wxgrid,-0.142,tmax,16345,0,0.726,0.512,1.438,1.083
+wx:S01093,Stasiun Meteorologi Supadio,wxgrid,-0.142,tmin,16188,0,0.534,0.561,0.955,0.426
+wx:S01094,Stasiun Meteorologi Syamsudin Noor,wxgrid,-3.442,tmax,16201,0,0.741,0.539,1.731,1.211
+wx:S01094,Stasiun Meteorologi Syamsudin Noor,wxgrid,-3.442,tmin,14523,0,0.545,0.639,1.156,0.629
+wx:S01095,Stasiun Meteorologi Gusti Syamsir Alam,wxgrid,-3.3,tmax,15625,0,0.698,0.512,1.447,0.637
+wx:S01095,Stasiun Meteorologi Gusti Syamsir Alam,wxgrid,-3.3,tmin,15524,0,0.468,0.454,1.234,0.432
+wx:S01096,Stasiun Meteorologi Juanda,wxgrid,-7.385,tmax,16216,0,0.662,0.424,1.048,0.676
+wx:S01096,Stasiun Meteorologi Juanda,wxgrid,-7.385,tmin,15886,0,0.686,0.579,1.226,0.775
+wx:S01097,Stasiun Meteorologi Banyuwangi,wxgrid,-8.215,tmax,16218,0,0.521,0.418,1.15,0.871
+wx:S01097,Stasiun Meteorologi Banyuwangi,wxgrid,-8.215,tmin,14966,0,0.396,0.406,1.135,0.45
+wx:S01098,Stasiun Meteorologi Sultan Bantilan,wxgrid,1.121,tmax,13664,0,0.574,0.344,1.143,0.557
+wx:S01098,Stasiun Meteorologi Sultan Bantilan,wxgrid,1.121,tmin,13304,0,0.388,0.298,0.868,0.212
+wx:S01100,Stasiun Meteorologi Maritim Paotere,wxgrid,-5.114,tmax,9327,0,0.596,0.34,1.274,0.628
+wx:S01100,Stasiun Meteorologi Maritim Paotere,wxgrid,-5.114,tmin,8599,0,0.635,0.401,0.999,0.528
+wx:S01102,Stasiun Meteorologi Sultan Babullah,wxgrid,0.833,tmax,16548,0,0.336,0.269,1.101,0.654
+wx:S01102,Stasiun Meteorologi Sultan Babullah,wxgrid,0.833,tmin,14891,1,0.259,0.301,1.14,0.469
+wx:S01103,Stasiun Meteorologi Domine Eduard Osok,wxgrid,-0.891,tmax,10281,0,0.577,0.41,1.201,0.885
+wx:S01103,Stasiun Meteorologi Domine Eduard Osok,wxgrid,-0.891,tmin,8468,0,0.168,0.177,0.992,0.432
+wx:S01104,Stasiun Meteorologi Rendani,wxgrid,-0.892,tmax,12407,0,0.375,0.34,1.28,0.44
+wx:S01104,Stasiun Meteorologi Rendani,wxgrid,-0.892,tmin,12545,1,0.25,0.275,1.066,0.311
+wx:S01105,Stasiun Meteorologi Namlea,wxgrid,-3.25,tmax,14831,0,0.358,0.297,0.929,0.471
+wx:S01105,Stasiun Meteorologi Namlea,wxgrid,-3.25,tmin,14505,1,0.365,0.299,1.045,0.347
+wx:S01106,Stasiun Meteorologi Geser,wxgrid,-3.881,tmax,14443,0,0.116,0.1,1.58,0.554
+wx:S01106,Stasiun Meteorologi Geser,wxgrid,-3.881,tmin,13182,0,0.292,0.285,2.199,0.472

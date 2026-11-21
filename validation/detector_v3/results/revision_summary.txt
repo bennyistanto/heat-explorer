@@ -1,0 +1,65 @@
+Detector revision 3. Produced by validation/detector_v3/01_test_revision.py
+R0 regression against 03_tune_detector (min_run 1, archive class): HOLDS at all 17 cells
+R1 every event keeps spell days with the 3-day minimum: HOLDS (9 of 9)
+R2 events reaching severe on the day (causal class): 7 of 9 -> FAILS
+REVISION NOT ACCEPTED by the rule written first
+
+== Events (min_run 3)
+               event         site  window_days  flag_days_min1  spell_days_min3 archive_class causal_class  sev_days_archive  sev_days_causal first_causal_severe  event_rank  n_spells
+      India May 2015        Delhi           17               7                6         spell        spell                 0                0               never          87       197
+ India-Pakistan 2022        Delhi           72              34               29         spell        spell                 0                0               never          41       197
+ India-Pakistan 2022    Jacobabad           72              27               25       extreme      extreme                 7                5          2022-03-16          16       246
+      India May 2015 Hyderabad_IN           17              13               13        severe       severe                13                9          2015-05-22          16       213
+     Europe Aug 2003        Paris           15              15               15       extreme      extreme                15               11          2003-08-05           2       247
+         Russia 2010       Moscow           42              40               40       extreme      extreme                40               40          2010-07-10           1       211
+ Pacific NW Jun 2021  Portland_OR            6               5                5       extreme      extreme                 5                5          2021-06-25           1       278
+SE Australia 2019-20     Sydney_W           53              23               21       extreme      extreme                13               10          2020-01-24           2       250
+    Siberia Jun 2020  Verkhoyansk           16              16               16       extreme      extreme                16               12          2020-06-19           1       247
+
+== Effect of the 3-day minimum, 1991-2020
+        site  flag_days_yr  spell_days_yr  share_flag_days_dropped  events_yr_min1  events_yr_min3  q80_min1  q80_min3  q95_min1  q95_min3
+   Singapore         41.77          36.53                     0.13            9.50            5.80      2.54      3.67      6.70      7.54
+     Jakarta         41.67          34.13                     0.16           11.27            5.67      1.76      3.18      4.86      7.18
+       Lagos         31.93          26.60                     0.13            7.90            4.13      2.14      4.09      6.43     11.35
+      Manaus         42.67          34.47                     0.19           11.63            5.97      2.06      3.08      5.80      8.62
+       Delhi         31.90          28.70                     0.11            6.07            4.00      2.99      6.37      9.75     10.97
+   Jacobabad         32.43          28.70                     0.10            7.20            4.60      2.28      2.81      5.44      6.49
+Hyderabad_IN         39.60          36.20                     0.09            7.23            4.87      2.91      4.62     11.45     14.85
+     Dhahran         31.70          25.73                     0.17            8.93            5.03      1.67      2.48      3.58      5.04
+     Phoenix         34.03          28.43                     0.14            9.00            5.23      1.61      2.47      4.08      4.67
+       Paris         35.00          28.17                     0.20            9.63            5.30      2.02      3.18      5.06      6.01
+      Moscow         31.97          27.70                     0.14            7.27            4.33      1.92      2.77      4.29      5.58
+ Portland_OR         33.90          27.37                     0.20           10.27            5.83      2.59      3.59      5.42      7.02
+    Sydney_W         33.33          23.73                     0.29           11.50            5.20      2.27      3.79      5.41      7.25
+     Nairobi         38.67          31.23                     0.20           11.10            5.77      1.75      3.31      6.19      7.84
+       LaPaz         34.63          25.63                     0.26           11.33            5.07      1.54      2.85      3.74      5.77
+ Verkhoyansk         32.47          28.43                     0.12            7.73            5.00      2.10      2.96      5.43      6.37
+       DomeC         48.33          41.77                     0.11           11.70            7.37      3.25      4.29      7.97      9.25
+
+== Causal against archive class, 1991-2020, and recent years
+        site  sev_days_yr_archive  sev_days_yr_causal  causal_share_of_archive_sev  median_day_to_severe  median_day_to_extreme  spell_days_yr_2125  sev_days_yr_causal_2125
+   Singapore                14.10                6.90                         0.49                   7.0                   11.0                93.8                     27.4
+     Jakarta                14.90                7.93                         0.53                   7.0                   14.0                98.0                     37.4
+       Lagos                11.83                6.23                         0.53                   8.0                   12.0               108.4                     50.2
+      Manaus                13.53                7.63                         0.56                   5.5                   10.0                67.6                     25.6
+       Delhi                11.97                4.87                         0.41                   9.0                   12.0                36.0                      6.4
+   Jacobabad                10.93                5.83                         0.53                   6.0                   11.0                30.8                      6.0
+Hyderabad_IN                16.27                9.03                         0.56                   7.0                   17.5                20.0                      1.6
+     Dhahran                 9.47                4.17                         0.44                   5.0                    9.0                71.0                     26.0
+     Phoenix                10.00                4.63                         0.46                   6.0                   10.5                49.2                     17.6
+       Paris                10.30                5.10                         0.50                   5.5                    9.5                45.8                      8.6
+      Moscow                11.07                5.30                         0.48                   7.0                   13.0                41.8                      8.6
+ Portland_OR                 7.93                3.93                         0.50                   4.0                    7.0                46.8                     14.6
+    Sydney_W                 7.97                3.90                         0.49                   4.0                    8.0                25.6                      2.6
+     Nairobi                12.90                6.83                         0.53                   6.0                   11.0                56.6                     12.0
+       LaPaz                 9.80                4.93                         0.50                   5.0                    8.0                49.2                     19.8
+ Verkhoyansk                10.20                5.23                         0.51                   6.0                    9.0                45.2                     12.4
+       DomeC                15.87                7.93                         0.50                   5.0                   12.0                52.0                     17.0
+
+== Ranges across the 17 cells (min, median, max)
+  share_flag_days_dropped: 0.09, 0.14, 0.29
+  spell_days_yr: 23.73, 28.43, 41.77
+  events_yr_min3: 4.00, 5.20, 7.37
+  sev_days_yr_causal: 3.90, 5.30, 9.03
+  causal_share_of_archive_sev: 0.41, 0.50, 0.56
+  median_day_to_severe: 4.00, 6.00, 9.00

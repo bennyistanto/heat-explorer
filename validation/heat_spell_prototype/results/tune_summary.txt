@@ -1,0 +1,176 @@
+Detector D tuning, 17 single cells. Produced by validation/heat_spell_prototype/03_tune_detector.py
+
+== Events: flagged days in window / class / rank of the event among all events at the cell
+cfg                                          all3_p90_fixed             ctr_p90_fixed             ctr_p95_fixed            ctr_p90_moving            ctr_p95_moving
+event                site                                                                                                                                          
+Europe Aug 2003      Paris          15/15 extreme #3 of 421   15/15 extreme #2 of 462   15/15 extreme #2 of 356   15/15 extreme #1 of 476   15/15 extreme #1 of 370
+India May 2015       Delhi           10/17 spell #73 of 279     7/17 spell #87 of 308     7/17 spell #74 of 242     6/17 spell #98 of 314     6/17 spell #86 of 244
+                     Hyderabad_IN   14/17 severe #18 of 287   13/17 severe #16 of 320   13/17 severe #16 of 231   12/17 severe #19 of 331   12/17 severe #18 of 251
+India-Pakistan 2022  Delhi          47/72 severe #35 of 279   34/72 severe #41 of 308    22/72 spell #58 of 242    29/72 spell #58 of 314    18/72 spell #85 of 244
+                     Jacobabad     40/72 extreme #18 of 325  27/72 extreme #16 of 368  17/72 extreme #21 of 302  33/72 extreme #13 of 367  19/72 extreme #21 of 300
+Pacific NW Jun 2021  Portland_OR      6/6 extreme #1 of 448     5/6 extreme #1 of 491     5/6 extreme #6 of 398     5/6 extreme #3 of 518     5/6 extreme #5 of 418
+Russia 2010          Moscow         41/42 extreme #1 of 326   40/42 extreme #1 of 350   40/42 extreme #1 of 273   40/42 extreme #1 of 376   40/42 extreme #1 of 298
+SE Australia 2019-20 Sydney_W       30/53 extreme #5 of 508   23/53 extreme #2 of 553   23/53 extreme #1 of 437   22/53 extreme #3 of 564   22/53 extreme #2 of 446
+Siberia Jun 2020     Verkhoyansk    16/16 extreme #2 of 343   16/16 extreme #1 of 375   16/16 extreme #1 of 301   16/16 extreme #4 of 383   16/16 extreme #4 of 314
+
+== Of 9 events: flagged at all / severe or extreme (the pass criterion) / event in the top 5 at its cell
+                any  sev  top5
+cfg                           
+all3_p90_fixed    9    8     5
+ctr_p90_fixed     9    8     5
+ctr_p95_fixed     9    7     4
+ctr_p90_moving    9    7     5
+ctr_p95_moving    9    7     5
+
+== Flagged days per year 1991-2020, across the 17 cells
+                 min  median   max
+cfg                               
+all3_p90_fixed  43.8    53.8  71.4
+ctr_p90_fixed   31.7    34.0  48.3
+ctr_p95_fixed   24.7    26.3  33.2
+ctr_p90_moving  31.4    33.9  48.4
+ctr_p95_moving  24.9    26.2  33.2
+
+== Days per year in severe or extreme events, 1991-2020
+                 min  median   max
+cfg                               
+all3_p90_fixed  17.6    20.0  28.5
+ctr_p90_fixed   13.0    16.0  21.9
+ctr_p95_fixed    9.8    12.4  16.2
+ctr_p90_moving  13.0    15.6  21.8
+ctr_p95_moving  10.4    12.4  16.2
+
+== Events per year, 1991-2020
+                min  median   max
+cfg                              
+all3_p90_fixed  5.6     8.4  10.8
+ctr_p90_fixed   6.1     9.5  11.7
+ctr_p95_fixed   4.9     7.3   9.1
+ctr_p90_moving  6.0     9.7  12.0
+ctr_p95_moving  4.9     8.0   8.8
+
+== Flagged days per year, 1979-1990
+cfg           all3_p90_fixed  ctr_p90_fixed  ctr_p95_fixed  ctr_p90_moving  ctr_p95_moving
+site                                                                                      
+Delhi                  42.92          30.58          24.75           38.08           30.50
+Dhahran                15.00           7.67           5.00           34.58           26.83
+DomeC                  80.33          58.08          40.92           57.42           40.17
+Hyderabad_IN           40.83          29.92          23.25           38.00           29.50
+Jacobabad              72.58          54.17          44.25           49.83           40.00
+Jakarta                12.08           7.17           5.00           55.83           41.17
+LaPaz                  29.00          16.50          12.50           39.58           28.67
+Lagos                  10.67           6.17           4.33           44.17           34.83
+Manaus                 27.58          16.92           8.67           39.25           24.50
+Moscow                 31.58          20.08          14.17           37.08           27.92
+Nairobi                20.33          12.25           8.92           46.67           34.08
+Paris                  36.42          22.25          15.42           40.58           31.08
+Phoenix                35.83          23.50          17.33           42.00           33.58
+Portland_OR            44.92          27.33          18.92           37.17           26.08
+Singapore              12.50           8.25           5.83           43.67           32.92
+Sydney_W               52.42          29.50          21.42           38.17           29.42
+Verkhoyansk            40.92          27.58          22.08           39.58           31.33
+
+== Flagged days per year, 1991-2020
+cfg           all3_p90_fixed  ctr_p90_fixed  ctr_p95_fixed  ctr_p90_moving  ctr_p95_moving
+site                                                                                      
+Delhi                  43.77          31.90          25.07           31.80           24.93
+Dhahran                49.10          31.70          24.67           31.37           24.90
+DomeC                  71.43          48.33          33.20           48.37           33.17
+Hyderabad_IN           53.57          39.60          29.33           39.80           29.17
+Jacobabad              46.30          32.43          25.13           32.43           25.20
+Jakarta                62.87          41.67          27.53           42.03           28.30
+LaPaz                  56.33          34.63          26.03           33.90           25.70
+Lagos                  47.30          31.93          24.80           31.40           25.00
+Manaus                 65.43          42.67          29.83           42.87           30.17
+Moscow                 46.37          31.97          25.13           31.90           25.03
+Nairobi                60.03          38.67          28.53           38.33           28.37
+Paris                  53.83          35.00          26.33           35.17           26.63
+Phoenix                51.87          34.03          26.27           34.27           26.23
+Portland_OR            54.07          33.90          26.27           33.77           26.37
+Singapore              60.23          41.77          28.87           41.17           29.87
+Sydney_W               55.73          33.33          25.00           33.50           25.20
+Verkhoyansk            47.57          32.47          25.27           32.20           25.30
+
+== Flagged days per year, 2021-2025
+cfg           all3_p90_fixed  ctr_p90_fixed  ctr_p95_fixed  ctr_p90_moving  ctr_p95_moving
+site                                                                                      
+Delhi                   57.2           40.4           29.6            34.8            25.0
+Dhahran                101.8           76.0           63.2            36.4            29.2
+DomeC                   77.8           56.6           41.8            57.4            42.0
+Hyderabad_IN            37.2           24.8           13.2            17.6             9.8
+Jacobabad               46.8           33.2           23.6            38.2            26.2
+Jakarta                148.2          108.2           80.8            49.6            34.4
+LaPaz                   90.0           60.2           47.0            35.2            26.6
+Lagos                  147.8          117.0           98.8            62.4            53.0
+Manaus                 106.6           77.2           61.4            55.2            41.6
+Moscow                  67.8           46.8           39.6            34.0            26.8
+Nairobi                107.4           70.2           51.4            27.0            18.6
+Paris                   82.8           55.0           44.4            35.0            27.0
+Phoenix                 73.8           54.4           45.8            38.4            32.6
+Portland_OR             78.6           54.0           45.2            46.6            38.0
+Singapore              150.2          106.6           79.0            51.8            38.2
+Sydney_W                56.4           33.6           25.8            26.6            20.0
+Verkhoyansk             70.6           49.4           40.2            38.8            31.4
+
+== Severe or extreme days per year, 2021-2025
+cfg           all3_p90_fixed  ctr_p90_fixed  ctr_p95_fixed  ctr_p90_moving  ctr_p95_moving
+site                                                                                      
+Delhi                   25.4           20.2           10.8            12.2             9.6
+Dhahran                 68.4           51.0           45.8            19.8            16.2
+DomeC                   45.6           32.0           28.4            32.2            28.4
+Hyderabad_IN             7.0            8.4            4.0             5.4             3.6
+Jacobabad               18.2           15.4           15.0            21.0            17.0
+Jakarta                 89.2           72.6           51.4            27.8            21.2
+LaPaz                   47.2           32.6           30.0            23.0            17.6
+Lagos                  120.0           97.6           78.0            43.4            34.2
+Manaus                  60.6           47.8           35.6            31.8            30.0
+Moscow                  32.0           22.8           18.0            15.2            10.0
+Nairobi                 46.4           33.0           27.0            14.0             8.0
+Paris                   42.4           31.4           19.6            13.4            10.8
+Phoenix                 47.6           36.4           31.4            21.4            20.2
+Portland_OR             49.6           34.4           28.4            21.8            19.0
+Singapore               77.2           65.2           43.4            24.0            20.2
+Sydney_W                19.8           14.2            4.6             8.4             4.6
+Verkhoyansk             35.2           29.2           22.2            19.4            15.0
+
+== Share of flagged days in the coldest quarter
+cfg           all3_p90_fixed  ctr_p90_fixed  ctr_p95_fixed  ctr_p90_moving  ctr_p95_moving
+site                                                                                      
+Delhi                   0.00           0.00           0.00            0.00            0.00
+Dhahran                 0.00           0.00           0.00            0.00            0.00
+DomeC                   0.21           0.20           0.16            0.20            0.16
+Hyderabad_IN            0.01           0.01           0.02            0.01            0.01
+Jacobabad               0.00           0.00           0.00            0.00            0.00
+Jakarta                 0.22           0.20           0.16            0.19            0.16
+LaPaz                   0.01           0.01           0.02            0.01            0.01
+Lagos                   0.00           0.00           0.00            0.00            0.00
+Manaus                  0.25           0.23           0.18            0.25            0.20
+Moscow                  0.00           0.00           0.00            0.00            0.00
+Nairobi                 0.05           0.04           0.05            0.02            0.03
+Paris                   0.02           0.01           0.02            0.02            0.02
+Phoenix                 0.00           0.00           0.00            0.00            0.00
+Portland_OR             0.01           0.01           0.01            0.01            0.01
+Singapore               0.20           0.19           0.14            0.15            0.13
+Sydney_W                0.00           0.00           0.01            0.00            0.01
+Verkhoyansk             0.00           0.00           0.00            0.00            0.00
+
+== Which test fired (ctr_p90_moving): share of flagged days from the date test only / place test only; trend removed
+              share_date_only  share_place_only  trend_K_per_decade
+site                                                               
+Singapore                0.55              0.17                0.18
+Jakarta                  0.57              0.13                0.21
+Lagos                    0.44              0.31                0.18
+Manaus                   0.62              0.13                0.11
+Delhi                    0.43              0.33                0.12
+Jacobabad                0.45              0.31               -0.05
+Hyderabad_IN             0.54              0.31                0.08
+Dhahran                  0.41              0.30                0.53
+Phoenix                  0.47              0.30                0.35
+Paris                    0.48              0.25                0.47
+Moscow                   0.44              0.26                0.51
+Portland_OR              0.48              0.26                0.24
+Sydney_W                 0.45              0.24                0.18
+Nairobi                  0.53              0.26                0.24
+LaPaz                    0.49              0.19                0.14
+Verkhoyansk              0.47              0.32                0.43
+DomeC                    0.64              0.23               -0.02

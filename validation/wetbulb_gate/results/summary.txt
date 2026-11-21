@@ -1,0 +1,76 @@
+Wet-bulb gate, AgERA5 against stations. Produced by validation/wetbulb_gate/03_compare.py
+Gate: fail if |p99 gap| > 1 K, or days per year above a band edge differ by more than 2 times.
+
+== Tw: station daily max vs AgERA5 Tw_day: 29 stations
+   p99 gap (AgERA5 minus station), K: median -1.60, range -4.30 to +0.09; |gap| > 1 K at 20 of 29
+   mean bias K: median -0.87; daily r: median 0.96
+   days/yr >= 26 C: 23 stations where it occurs; ratio AgERA5/station median 0.47; outside 0.5 to 2 at 13
+   days/yr >= 28 C: 20 stations where it occurs; ratio AgERA5/station median 0.05; outside 0.5 to 2 at 19
+
+== Tw: station at hour of Tmax vs AgERA5 Tw_day: 29 stations
+   p99 gap (AgERA5 minus station), K: median -0.72, range -2.81 to +0.67; |gap| > 1 K at 13 of 29
+   mean bias K: median -0.26; daily r: median 0.94
+   days/yr >= 26 C: 23 stations where it occurs; ratio AgERA5/station median 0.59; outside 0.5 to 2 at 12
+   days/yr >= 28 C: 17 stations where it occurs; ratio AgERA5/station median 0.07; outside 0.5 to 2 at 15
+
+== T: station max of hourly vs AgERA5 Tmax: 29 stations
+   p99 gap (AgERA5 minus station), K: median -1.80, range -5.84 to +0.23; |gap| > 1 K at 21 of 29
+   mean bias K: median -0.96; daily r: median 0.96
+   days/yr >= 26 C: 29 stations where it occurs; ratio AgERA5/station median 0.97; outside 0.5 to 2 at 0
+   days/yr >= 28 C: 29 stations where it occurs; ratio AgERA5/station median 0.92; outside 0.5 to 2 at 1
+
+== Td: station daily mean vs AgERA5 dewpoint: 29 stations
+   p99 gap (AgERA5 minus station), K: median -0.70, range -3.49 to +1.05; |gap| > 1 K at 13 of 29
+   mean bias K: median -0.30; daily r: median 0.95
+   days/yr >= 26 C: 17 stations where it occurs; ratio AgERA5/station median 0.11; outside 0.5 to 2 at 13
+   days/yr >= 28 C: 6 stations where it occurs; ratio AgERA5/station median 0.18; outside 0.5 to 2 at 5
+
+== Tw: station TX with 13h RH vs AgERA5 Tw_day: 20 stations
+   p99 gap (AgERA5 minus station), K: median -4.89, range -8.02 to -2.92; |gap| > 1 K at 20 of 20
+   mean bias K: median -2.22; daily r: median 0.33
+   days/yr >= 26 C: 17 stations where it occurs; ratio AgERA5/station median 0.00; outside 0.5 to 2 at 17
+   days/yr >= 28 C: 14 stations where it occurs; ratio AgERA5/station median 0.00; outside 0.5 to 2 at 14
+
+== Tw: station daily mean vs AgERA5 daily mean: 182 stations
+   p99 gap (AgERA5 minus station), K: median -1.28, range -5.83 to +2.81; |gap| > 1 K at 134 of 182
+   mean bias K: median -0.69; daily r: median 0.71
+   days/yr >= 26 C: 153 stations where it occurs; ratio AgERA5/station median 0.01; outside 0.5 to 2 at 152
+   days/yr >= 28 C: 2 stations where it occurs; ratio AgERA5/station median 0.03; outside 0.5 to 2 at 2
+
+== T: station TX vs AgERA5 Tmax: 183 stations
+   p99 gap (AgERA5 minus station), K: median -3.36, range -8.66 to +1.37; |gap| > 1 K at 179 of 183
+   mean bias K: median -2.45; daily r: median 0.66
+   days/yr >= 26 C: 183 stations where it occurs; ratio AgERA5/station median 1.00; outside 0.5 to 2 at 16
+   days/yr >= 28 C: 180 stations where it occurs; ratio AgERA5/station median 0.85; outside 0.5 to 2 at 42
+
+== ISD stations, daily maximum wet-bulb (deg C; d26 = days per year at or above 26 C)
+                                     name ctry  n_days  obs_per_day  obs_p99  mod_p99  gap_p99  obs_max  mod_max  obs_d26  mod_d26  obs_d28  mod_d28  obs_d30  mod_d30    r
+                        KING ABDULAZIZ AB   SA   16931         24.0    32.00    29.60    -2.40    36.11    31.04    73.78    44.68    41.14    17.75    16.98     1.29 0.95
+                             BAHRAIN INTL   BA   15489         24.0    31.72    30.11    -1.60    35.32    31.23   127.60   112.77    72.04    49.50    28.09     4.93 0.98
+                                DOHA INTL   QA   15341         23.0    31.57    30.07    -1.50    34.83    31.30   112.78    75.43    72.16    31.71    32.00     4.14 0.98
+                               SHAHBAZ AB   PK    9760          8.0    31.48    28.36    -3.12    37.69    30.70   135.47    77.99    87.91     7.75    18.30     0.26 0.96
+              ABU DHABI INTL / ZAYED INTL   AE   15410         24.0    31.19    28.86    -2.33    33.79    30.39   127.75    75.06    76.82    16.05    22.07     0.12 0.97
+                                NAWABSHAH   PK   10504         16.0    30.85    28.03    -2.82    35.95    29.78   140.93    80.53    74.31     3.96    11.47     0.00 0.96
+         NETAJI SUBHASH CHANDRA BOSE INTL   IN   15673         21.0    30.80    28.65    -2.15    33.18    29.82   199.93   152.55   104.73    14.10     9.95     0.00 0.98
+           BANGKOK INTL / DON MUEANG INTL   TH   16280         12.0    29.86    27.37    -2.49    32.51    28.80   205.22    85.19    39.58     0.58     3.12     0.00 0.85
+                             CHENNAI INTL   IN   16461          8.0    29.49    27.94    -1.56    33.53    29.17   186.67   101.87    34.97     3.17     1.49     0.00 0.92
+AHMEDABAD / SARDAR VALLABHBHAI PATEL INTL   IN   15942          8.0    29.47    27.11    -2.36    35.31    28.21   126.36    32.49    31.75     0.16     1.49     0.00 0.96
+                               SAFDARJUNG   IN   16434          8.0    29.42    27.59    -1.82    32.22    29.36    97.61    45.61    34.12     1.40     1.00     0.00 0.98
+                              KUWAIT INTL   KU   16460         23.0    29.28    24.98    -4.30    32.48    27.39    15.29     1.46     7.21     0.00     2.11     0.00 0.95
+                                  TEJGAON   BG    3559          7.0    29.20    28.23    -0.97    32.80    28.91   175.60   141.73    37.46     7.18     0.82     0.00 0.97
+                       EDUARDO GOMES INTL   BR   16644         24.0    29.02    26.30    -2.72    34.33    26.91   152.69    16.72    17.58     0.00     0.75     0.00 0.44
+                         MURTALA MUHAMMED   NI    7012         22.0    28.86    27.49    -1.37    31.57    28.50   225.55   102.46    25.84     0.68     0.47     0.00 0.88
+                      SOEKARNO HATTA INTL   ID   12361         23.0    28.27    25.88    -2.39    31.18    26.49   209.06     1.60     9.25     0.00     0.06     0.00 0.64
+                              DARWIN INTL   AS   14694         24.0    28.16    27.06    -1.10    31.46    27.92   129.11    82.43     5.27     0.00     0.07     0.00 0.96
+                    SINGAPORE CHANGI INTL   SN   15146         24.0    28.12    26.41    -1.71    29.73    27.14   240.60    21.97     5.50     0.00     0.00     0.00 0.70
+                      JAKARTA/OBSERVATORY   ID    7667          8.0    27.67    26.28    -1.39    32.36    27.00   153.64    15.05     1.38     0.00     0.29     0.00 0.74
+                             DIORI HAMANI   NG   15163         22.0    27.59    25.81    -1.79    33.20    26.68    36.06     1.45     1.90     0.00     0.29     0.00 0.97
+              MIAMI INTERNATIONAL AIRPORT   US   17039         24.0    27.30    26.34    -0.96    29.26    27.31    52.78    11.40     0.34     0.00     0.00     0.00 0.97
+    G BUSH INTERCONTINENTAL AP/HOUSTON AP   US   17040         24.0    27.16    26.65    -0.51    30.00    27.90    41.71    19.76     0.39     0.00     0.00     0.00 0.97
+        BEGUMPET AIRPORT / HYDERABAD INTL   IN   15952          8.0    27.00    24.27    -2.73    30.92    25.27    13.01     0.00     0.82     0.00     0.07     0.00 0.93
+          PHOENIX SKY HARBOR INTL AIRPORT   US   17038         24.0    24.68    24.77     0.09    27.81    27.10     0.32     0.26     0.00     0.00     0.00     0.00 0.98
+                              SYDNEY INTL   AS   16521         24.0    23.78    22.97    -0.81    28.22    25.56     0.09     0.00     0.02     0.00     0.00     0.00 0.97
+                                     ORLY   FR   16546         24.0    21.91    21.17    -0.74    25.50    24.01     0.00     0.00     0.00     0.00     0.00     0.00 0.99
+           PORTLAND INTERNATIONAL AIRPORT   US   17038         24.0    21.58    20.96    -0.61    25.00    24.64     0.00     0.00     0.00     0.00     0.00     0.00 0.98
+                                  VNUKOVO   RS   15039         24.0    21.35    21.12    -0.23    25.29    23.94     0.00     0.00     0.00     0.00     0.00     0.00 0.99
+        JKIA / NAIROBI JOMO KENYATTA INTL   KE   15869         20.0    19.93    18.96    -0.97    26.04    19.87     0.02     0.00     0.00     0.00     0.00     0.00 0.81

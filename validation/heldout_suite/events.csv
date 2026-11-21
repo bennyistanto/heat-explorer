@@ -1,0 +1,14 @@
+event_id,event,unit_key,primary,level,unit_id,unit_name,cells,confidence,window_start,window_end,window_basis,h3_top_n,source
+EU2019,Western Europe July 2019,NBR,1,1,NLD-20230119-07,Noord-Brabant,69,normal,2019-07-25,2019-07-31,phrase: last week of July,3,WWA 2019-08-02
+EU2019,Western Europe July 2019,VLG,0,1,BEL-20230710-2,Vlaams Gewest,172,normal,2019-07-25,2019-07-31,phrase: last week of July,3,WWA 2019-08-02
+UK2022,United Kingdom July 2022,ENG,1,1,GBR-20230119-1,England,1733,normal,2022-07-16,2022-07-21,peak days 18 and 19 July plus and minus 2,3,Met Office 2022-07-22
+AR2022,Argentina January 2022,BUE,1,1,ARG-20200504-02,Buenos Aires province,3069,normal,2022-01-09,2022-01-13,peak day 11 January plus and minus 2,3,NASA Earth Observatory 2022-01-16 citing SMN
+AR2022,Argentina January 2022,COR,0,1,ARG-20200504-04,Cordoba,1594,normal,2022-01-09,2022-01-13,peak day 11 January plus and minus 2,3,NASA Earth Observatory 2022-01-16 citing SMN
+SH2024,Sahel April 2024,KOU,1,1,MLI-20240306-02,Koulikoro,759,reduced,2024-03-31,2024-04-04,stated: 31 March to 4 April,3,WWA 2024-04-18
+SH2024,Sahel April 2024,KAY,0,1,MLI-20240306-01,Kayes,1022,reduced,2024-03-31,2024-04-04,stated: 31 March to 4 April,3,WWA 2024-04-18
+PH2024,Philippines April 2024,CLZ,1,1,PHL-20231113-03,Central Luzon,184,low,2024-04-15,2024-04-29,stated: 15 to 29 April,5,WWA 2024-05-14
+WA2024,West Asia April 2024,AMM,1,1,JOR-20230119-02,Amman,70,normal,2024-04-24,2024-04-26,stated: 24 to 26 April,5,WWA 2024-05-14
+CH1995,Chicago July 1995,COK,1,2,USA-20230119-17-016,Cook County,45,normal,1995-07-11,1995-07-16,peak days 13 and 14 July plus and minus 2,3,NWS Chicago
+CH1995,Chicago July 1995,ILL,0,1,USA-20230119-17,Illinois,1562,normal,1995-07-11,1995-07-16,peak days 13 and 14 July plus and minus 2,3,NWS Chicago
+JP2018,Japan July 2018,SAI,1,1,JPN-20230119-35,Saitama,39,normal,2018-07-15,2018-08-09,phrase: mid-July onward to the report's data date of 9 August,3,JMA Tokyo Climate Center 2018-08-22
+SA2024,Saudi Arabia June 2024,MAK,1,1,SAU-20230404-02,Makkah,1202,normal,2024-06-16,2024-06-18,stated: 16 to 18 June,3,ClimaMeter 2024-06-20

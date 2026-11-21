@@ -1,0 +1,45 @@
+Patch check. Produced by validation/confidence_map/02_patch_check.py
+Anomalies are monthly, relative to 1991-2020, of daily (Tmax + Tmin) / 2. Shift = mean anomaly 2021-2025.
+
+== Northern Japan: box 36.5-45.6 N, 138.0-146.0 E; land cells 2991, patch cells 609, comparison cells (exc < 0.25) 1413
+  AgERA5 mean patch / rest of box, K:  1979-90 -0.91 / -0.68  1991-00 -0.53 / -0.20  2001-10 -0.16 / -0.02  2011-20 +0.69 / +0.22  2021-25 +1.70 / +1.13
+  patch annual anomaly 2012-2025: 2012:+0.5 2013:+0.6 2014:+0.4 2015:+1.0 2016:+0.7 2017:+0.3 2018:+0.8 2019:+1.0 2020:+1.2 2021:+1.3 2022:+1.1 2023:+2.1 2024:+1.9 2025:+2.0
+  patch shift by month 2021-2025: 1:+1.2 2:+1.2 3:+2.0 4:+2.3 5:+1.6 6:+1.5 7:+2.5 8:+2.1 9:+1.6 10:+1.2 11:+2.1 12:+1.0
+  AgERA5 Tmax patch / rest of box, K:  1979-90 -0.92 / -0.68  1991-00 -0.53 / -0.23  2001-10 -0.18 / +0.01  2011-20 +0.71 / +0.22  2021-25 +1.76 / +1.33
+  AgERA5 Tmin patch / rest of box, K:  1979-90 -0.90 / -0.67  1991-00 -0.53 / -0.16  2001-10 -0.13 / -0.05  2011-20 +0.66 / +0.22  2021-25 +1.64 / +0.94
+  station 474210 SUTTSU                 42.80N 140.22E 35 m, 1 km from patch, cell exc 0.33: shift station +1.26 K, AgERA5 +1.51 K (56 months); AgERA5 minus station by period 1991-00 -0.33 2001-10 -0.09 2011-20 +0.42 2021-25 +0.25
+  station 474230 MURORAN/YAKUMO         42.32N 140.98E 49 m, 2 km from patch, cell exc 0.37: shift station +1.43 K, AgERA5 +1.67 K (51 months); AgERA5 minus station by period 1991-00 -0.36 2001-10 -0.02 2011-20 +0.37 2021-25 +0.24
+  station 475760 MUTSU                  41.28N 141.22E 5 m, 2 km from patch, cell exc 0.43: shift station +1.34 K, AgERA5 +2.19 K (51 months); AgERA5 minus station by period 1991-00 -0.84 2001-10 -0.16 2011-20 +0.91 2021-25 +0.85
+  station 474880 HAKODATE               41.77N 140.82E 46 m, 4 km from patch, cell exc 0.34: shift station +1.18 K, AgERA5 +1.80 K (56 months); AgERA5 minus station by period 1991-00 -0.12 2001-10 -0.22 2011-20 +0.34 2021-25 +0.62
+  station 474280 ESASHI                 41.87N 140.12E 12 m, 4 km from patch, cell exc 0.40: shift station +1.15 K, AgERA5 +1.91 K (51 months); AgERA5 minus station by period 1991-00 -0.68 2001-10 -0.09 2011-20 +0.74 2021-25 +0.75
+  station 474240 TOMAKOMAI              42.62N 141.55E 8 m, 4 km from patch, cell exc 0.43: shift station +1.34 K, AgERA5 +1.72 K (51 months); AgERA5 minus station by period 1991-00 -0.62 2001-10 -0.09 2011-20 +0.52 2021-25 +0.37
+  stations used 6; median station/AgERA5 shift ratio 0.72; median absolute change in the difference 0.50 K
+  VERDICT by the rule written first: REAL
+
+== Bhutan-Sikkim Himalaya: box 26.0-30.0 N, 86.5-91.5 E; land cells 2091, patch cells 110, comparison cells (exc < 0.25) 1546
+  AgERA5 mean patch / rest of box, K:  1979-90 -0.65 / -0.42  1991-00 -0.44 / -0.33  2001-10 +0.14 / +0.05  2011-20 +0.30 / +0.28  2021-25 +1.84 / +0.74
+  patch annual anomaly 2012-2025: 2012:-0.4 2013:+0.0 2014:+0.1 2015:-0.2 2016:+1.0 2017:+0.8 2018:+0.5 2019:+0.2 2020:+1.2 2021:+1.6 2022:+1.7 2023:+1.6 2024:+1.8 2025:+2.5
+  patch shift by month 2021-2025: 1:+3.6 2:+3.0 3:+3.1 4:+1.7 5:+0.6 6:+0.8 7:+1.1 8:+1.0 9:+1.1 10:+1.4 11:+2.2 12:+2.5
+  AgERA5 Tmax patch / rest of box, K:  1979-90 -0.65 / -0.37  1991-00 -0.49 / -0.33  2001-10 +0.18 / +0.03  2011-20 +0.31 / +0.31  2021-25 +2.00 / +0.86
+  AgERA5 Tmin patch / rest of box, K:  1979-90 -0.65 / -0.46  1991-00 -0.39 / -0.33  2001-10 +0.09 / +0.08  2011-20 +0.29 / +0.25  2021-25 +1.68 / +0.63
+  station 557730 PAGRI                  27.73N 89.08E 4300 m, 4 km from patch, cell exc 0.40: shift station +0.91 K, AgERA5 +2.23 K (55 months); AgERA5 minus station by period 1991-00 +0.05 2001-10 -0.15 2011-20 +0.11 2021-25 +1.32
+  station 556640 TINGRI                 28.63N 87.08E 4300 m, 57 km from patch, cell exc 0.24: shift station +0.82 K, AgERA5 +1.65 K (55 months); AgERA5 minus station by period 1991-00 -0.10 2001-10 -0.04 2011-20 +0.13 2021-25 +0.83
+  stations used 2; median station/AgERA5 shift ratio 0.45; median absolute change in the difference 1.07 K
+  VERDICT by the rule written first: ARTEFACT
+
+== Eastern Tibetan Plateau: box 31.0-37.0 N, 94.0-102.0 E; land cells 4941, patch cells 273, comparison cells (exc < 0.25) 3550
+  AgERA5 mean patch / rest of box, K:  1979-90 -0.44 / -0.55  1991-00 -0.62 / -0.44  2001-10 +0.37 / +0.14  2011-20 +0.25 / +0.30  2021-25 +2.38 / +0.75
+  patch annual anomaly 2012-2025: 2012:-0.3 2013:+0.0 2014:+0.3 2015:+0.7 2016:+0.1 2017:+0.1 2018:-0.1 2019:+0.4 2020:+1.9 2021:+2.3 2022:+2.3 2023:+2.1 2024:+2.7 2025:+2.5
+  patch shift by month 2021-2025: 1:+3.2 2:+2.3 3:+4.2 4:+3.2 5:+1.1 6:+0.6 7:+0.8 8:+1.3 9:+1.1 10:+2.6 11:+3.6 12:+4.4
+  AgERA5 Tmax patch / rest of box, K:  1979-90 -0.51 / -0.56  1991-00 -0.60 / -0.47  2001-10 +0.50 / +0.17  2011-20 +0.10 / +0.31  2021-25 +2.47 / +0.90
+  AgERA5 Tmin patch / rest of box, K:  1979-90 -0.37 / -0.54  1991-00 -0.63 / -0.41  2001-10 +0.24 / +0.11  2011-20 +0.40 / +0.30  2021-25 +2.29 / +0.60
+  station 560330 MADOI                  34.92N 98.22E 4273 m, 2 km from patch, cell exc 0.34: shift station +0.79 K, AgERA5 +2.26 K (55 months); AgERA5 minus station by period 1991-00 -0.08 2001-10 +0.05 2011-20 +0.03 2021-25 +1.47
+  station 560210 QUMARLEB               34.13N 95.78E 4176 m, 8 km from patch, cell exc 0.33: shift station +0.79 K, AgERA5 +2.29 K (55 months); AgERA5 minus station by period 1991-00 +0.07 2001-10 +0.29 2011-20 -0.36 2021-25 +1.50
+  station 561520 SERTAR                 32.28N 100.33E 3896 m, 27 km from patch, cell exc 0.31: shift station +0.95 K, AgERA5 +1.85 K (53 months); AgERA5 minus station by period 1991-00 +0.17 2001-10 +0.42 2011-20 -0.57 2021-25 +0.90
+  station 560460 DARLAG                 33.75N 99.65E 3968 m, 36 km from patch, cell exc 0.31: shift station +0.66 K, AgERA5 +2.32 K (28 months); AgERA5 minus station by period 1991-00 +0.07 2001-10 +0.58 2011-20 -0.65 2021-25 +1.66
+  station 561460 GARZE                  31.62N 100.00E 3394 m, 76 km from patch, cell exc 0.22: shift station +0.96 K, AgERA5 +0.88 K (56 months); AgERA5 minus station by period 1991-00 +0.49 2001-10 +0.03 2011-20 -0.52 2021-25 -0.09
+  station 528360 DOULAN                 36.30N 98.10E 3190 m, 89 km from patch, cell exc 0.17: shift station +0.06 K, AgERA5 +0.55 K (28 months); AgERA5 minus station by period 1991-00 -0.46 2001-10 +0.10 2011-20 +0.36 2021-25 +0.49
+  stations used 6; median station/AgERA5 shift ratio 0.35; median absolute change in the difference 1.18 K
+  VERDICT by the rule written first: ARTEFACT
+
+total 68 s

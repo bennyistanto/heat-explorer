@@ -1,0 +1,10 @@
+event,site,window_days,flag_days_min1,spell_days_min3,archive_class,causal_class,sev_days_archive,sev_days_causal,first_causal_severe,event_rank,n_spells,R1,R2
+India May 2015,Delhi,17,7,6,spell,spell,0,0,never,87,197,True,False
+India-Pakistan 2022,Delhi,72,34,29,spell,spell,0,0,never,41,197,True,False
+India-Pakistan 2022,Jacobabad,72,27,25,extreme,extreme,7,5,2022-03-16,16,246,True,True
+India May 2015,Hyderabad_IN,17,13,13,severe,severe,13,9,2015-05-22,16,213,True,True
+Europe Aug 2003,Paris,15,15,15,extreme,extreme,15,11,2003-08-05,2,247,True,True
+Russia 2010,Moscow,42,40,40,extreme,extreme,40,40,2010-07-10,1,211,True,True
+Pacific NW Jun 2021,Portland_OR,6,5,5,extreme,extreme,5,5,2021-06-25,1,278,True,True
+SE Australia 2019-20,Sydney_W,53,23,21,extreme,extreme,13,10,2020-01-24,2,250,True,True
+Siberia Jun 2020,Verkhoyansk,16,16,16,extreme,extreme,16,12,2020-06-19,1,247,True,True

@@ -1,0 +1,30 @@
+Tsugaru Strait check. Produced by validation/step_screen/02_tsugaru_check.py
+Monthly AgERA5 minus station, annual cycle of the difference removed, 1985-2025. bic_gain > 10 favours a step over a line.
+
+  usaf           name    lat     lon  cell_flagged  cell_break   break  step_K  line_K_dec  bic_gain  STEP  in_2007_09                                       annual_2003_2013
+475760          MUTSU 41.283 141.217          True        2008 2007-06    1.70        0.76      88.0  True        True -0.9 -1.1 -0.6 -0.8 -0.1 +0.8 +0.9 +0.7 +0.8 +1.0 +1.0
+475810      HACHINOHE 40.533 141.517         False        2000 1995-02   -0.16       -0.03       9.3 False       False -0.3 -0.4 +nan -0.2 +0.1 -0.1 +0.0 -0.1 -0.2 +0.1 +0.1
+475150      HACHINOHE 40.556 141.466         False        2002 2001-10   -0.49       -0.20       0.1 False       False -0.2 -0.6 +0.1 -0.1 -0.1 -0.4 -0.4 -0.6 -0.7 -0.5 -0.4
+475740        FUKAURA 40.650 139.933         False        2008 2007-10    0.84        0.42      89.2  True        True -0.6 -0.6 -0.3 -0.3 -0.1 +0.3 +0.3 +0.3 +0.3 +0.6 +0.4
+475420         AOMORI 40.735 140.691         False        1995 1990-10    1.19        0.29      99.7  True       False +0.5 +0.2 +0.5 +0.5 +0.2 +0.4 +0.4 +0.3 +0.3 +0.7 +0.5
+475750         AOMORI 40.817 140.767         False        1998 1990-01   -0.30       -0.02      28.3 False       False -0.0 -0.2 +nan +0.1 -0.2 -0.0 +0.0 -0.1 +0.1 +0.1 -0.0
+474880       HAKODATE 41.770 140.822         False        2007 2007-10    0.65        0.24      20.2  True        True -0.4 -0.4 -0.3 -0.7 -0.3 +0.1 +0.2 +0.2 +0.4 +0.3 +0.3
+474300       HAKODATE 41.817 140.750         False        2007 2007-07    0.89        0.30      96.7  True        True -0.7 -0.6 +nan -0.5 +0.1 +0.4 +0.5 +0.5 +0.5 +0.5 +0.6
+474280         ESASHI 41.867 140.117         False        2008 2007-06    1.47        0.62      96.8  True        True -0.8 -1.0 +nan -0.7 -0.1 +0.7 +0.9 +0.7 +0.7 +0.8 +0.7
+474230 MURORAN/YAKUMO 42.317 140.983         False        2007 2007-07    0.73        0.28      84.0  True        True -0.4 -0.7 +nan -0.3 -0.0 +0.4 +0.5 +0.5 +0.3 +0.5 +0.4
+474240      TOMAKOMAI 42.617 141.550         False        2007 2007-06    1.02        0.48      83.8  True        True -0.6 -0.5 -0.3 -0.5 -0.2 +0.5 +0.6 +0.5 +0.4 +0.6 +0.6
+474250    NEW CHITOSE 42.775 141.692         False        2007 2007-06    0.29        0.10      15.8 False       False -0.1 -0.2 -0.2 -0.1 -0.1 +0.2 +0.2 +0.1 +0.3 +0.3 +0.3
+474340        CHITOSE 42.794 141.666         False        2007 2007-10    0.41        0.19      -4.2 False       False -0.2 -0.1 -0.3 -0.2 -0.2 +0.1 +0.1 -0.0 +0.2 +0.3 +0.2
+474210         SUTTSU 42.800 140.217         False        2008 2007-10    0.71        0.24      89.7  True        True -0.3 -0.6 +nan -0.2 -0.0 +0.4 +0.4 +0.5 +0.4 +0.6 +0.6
+474330        KUTCHAN 42.900 140.750         False        2007 2003-10   -0.13       -0.03       2.7 False       False +0.3 -0.1 +nan -0.1 -0.1 -0.3 -0.3 -0.3 -0.1 -0.1 -0.1
+474120        SAPPORO 43.067 141.333         False        2005 2004-05   -0.32       -0.13      10.2 False       False +0.2 -0.1 +nan -0.1 -0.0 -0.4 -0.3 -0.2 -0.3 -0.2 -0.1
+474790        SAPPORO 43.116 141.380         False        2005 1999-10    0.18        0.03       9.8 False       False +0.3 +0.1 -0.3 -0.2 +0.2 +0.0 +0.3 +0.0 -0.1 -0.0 -0.1
+474110          OTARU 43.183 141.017         False        2008 2007-07    0.71        0.32      72.5  True        True -0.3 -0.5 -0.2 -0.3 +0.0 +0.3 +0.4 +0.4 +0.5 +0.5 +0.4
+474130      IWAMIZAWA 43.217 141.783         False        2004 2003-10   -0.20       -0.06      22.7 False       False +0.3 -0.1 +nan -0.1 -0.1 -0.1 -0.2 -0.3 -0.2 -0.1 -0.0
+
+(annual_2003_2013: yearly mean of AgERA5 minus station, K, for 2003 to 2013)
+
+== Station minus station, pairs of stations whose cells are flagged
+
+Stations on flagged cells with a step in 2007-09: 1 of 1; on unflagged cells: 8 of 18; station-pair step in 2007-09: False
+VERDICT by the rule written first: NOT SHOWN

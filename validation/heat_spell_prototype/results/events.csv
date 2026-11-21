@@ -1,0 +1,46 @@
+floor,event,site,spell_days,window_days,class,event_mag,year_rank_by_cum_mag
+none,India May 2015,Delhi,0,17,none,0.0,40
+none,India-Pakistan 2022,Delhi,26,72,severe,9.329,11
+none,India-Pakistan 2022,Jacobabad,19,72,extreme,11.402,18
+none,India May 2015,Hyderabad_IN,0,17,none,0.0,1
+none,Europe Aug 2003,Paris,11,15,extreme,8.371,7
+none,Russia 2010,Moscow,40,42,extreme,23.491,1
+none,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,3
+none,SE Australia 2019-20,Sydney_W,0,53,none,0.0,24
+none,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,1
+p50,India May 2015,Delhi,0,17,none,0.0,35
+p50,India-Pakistan 2022,Delhi,24,72,severe,8.573,7
+p50,India-Pakistan 2022,Jacobabad,15,72,extreme,9.702,15
+p50,India May 2015,Hyderabad_IN,0,17,none,0.0,1
+p50,Europe Aug 2003,Paris,11,15,extreme,8.371,3
+p50,Russia 2010,Moscow,40,42,extreme,23.491,1
+p50,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,3
+p50,SE Australia 2019-20,Sydney_W,0,53,none,0.0,17
+p50,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,1
+p75,India May 2015,Delhi,0,17,none,0.0,48
+p75,India-Pakistan 2022,Delhi,12,72,spell,3.661,8
+p75,India-Pakistan 2022,Jacobabad,4,72,spell,1.547,31
+p75,India May 2015,Hyderabad_IN,0,17,none,0.0,3
+p75,Europe Aug 2003,Paris,11,15,extreme,8.371,5
+p75,Russia 2010,Moscow,40,42,extreme,23.491,1
+p75,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,3
+p75,SE Australia 2019-20,Sydney_W,0,53,none,0.0,17
+p75,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,2
+p90,India May 2015,Delhi,0,17,none,0.0,48
+p90,India-Pakistan 2022,Delhi,3,72,spell,0.718,25
+p90,India-Pakistan 2022,Jacobabad,3,72,spell,1.025,31
+p90,India May 2015,Hyderabad_IN,0,17,none,0.0,48
+p90,Europe Aug 2003,Paris,11,15,extreme,8.371,2
+p90,Russia 2010,Moscow,40,42,extreme,23.491,1
+p90,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,1
+p90,SE Australia 2019-20,Sydney_W,0,53,none,0.0,15
+p90,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,3
+season,India May 2015,Delhi,0,17,none,0.0,48
+season,India-Pakistan 2022,Delhi,12,72,spell,3.661,8
+season,India-Pakistan 2022,Jacobabad,4,72,spell,1.547,34
+season,India May 2015,Hyderabad_IN,0,17,none,0.0,3
+season,Europe Aug 2003,Paris,11,15,extreme,8.371,3
+season,Russia 2010,Moscow,40,42,extreme,23.491,1
+season,Pacific NW Jun 2021,Portland_OR,5,6,extreme,8.882,3
+season,SE Australia 2019-20,Sydney_W,0,53,none,0.0,15
+season,Siberia Jun 2020,Verkhoyansk,13,16,extreme,6.564,2

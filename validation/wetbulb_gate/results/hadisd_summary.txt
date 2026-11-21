@@ -1,0 +1,83 @@
+HadISD repeat of the station comparison. Produced by validation/wetbulb_gate/06_compare_hadisd.py
+HadISD 3.4.3.2025f, 26 stations. ISD-Lite figures are for the same stations.
+
+-- HadISD == Tw: station daily max vs AgERA5 Tw_day: 26 stations
+   p99 gap (AgERA5 minus station), K: median -1.69, range -4.30 to +0.10; |gap| > 1 K at 18 of 26
+   mean bias K: median -0.95; daily r: median 0.96
+   days/yr >= 26 C: 20 stations where it occurs; ratio AgERA5/station median 0.47; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 17 stations where it occurs; ratio AgERA5/station median 0.05; outside 0.5 to 2 at 16
+-- ISD-Lite == Tw: station daily max vs AgERA5 Tw_day: 26 stations
+   p99 gap (AgERA5 minus station), K: median -1.75, range -4.30 to +0.09; |gap| > 1 K at 18 of 26
+   mean bias K: median -0.94; daily r: median 0.96
+   days/yr >= 26 C: 20 stations where it occurs; ratio AgERA5/station median 0.47; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 17 stations where it occurs; ratio AgERA5/station median 0.05; outside 0.5 to 2 at 16
+
+-- HadISD == Tw: station at hour of Tmax vs AgERA5 Tw_day: 26 stations
+   p99 gap (AgERA5 minus station), K: median -0.66, range -2.75 to +0.67; |gap| > 1 K at 10 of 26
+   mean bias K: median -0.24; daily r: median 0.94
+   days/yr >= 26 C: 20 stations where it occurs; ratio AgERA5/station median 0.60; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 15 stations where it occurs; ratio AgERA5/station median 0.07; outside 0.5 to 2 at 13
+-- ISD-Lite == Tw: station at hour of Tmax vs AgERA5 Tw_day: 26 stations
+   p99 gap (AgERA5 minus station), K: median -0.69, range -2.81 to +0.67; |gap| > 1 K at 11 of 26
+   mean bias K: median -0.24; daily r: median 0.94
+   days/yr >= 26 C: 20 stations where it occurs; ratio AgERA5/station median 0.62; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 15 stations where it occurs; ratio AgERA5/station median 0.07; outside 0.5 to 2 at 13
+
+-- HadISD == T: station max of hourly vs AgERA5 Tmax: 26 stations
+   p99 gap (AgERA5 minus station), K: median -1.76, range -5.84 to +0.23; |gap| > 1 K at 18 of 26
+   mean bias K: median -1.21; daily r: median 0.97
+   days/yr >= 26 C: 26 stations where it occurs; ratio AgERA5/station median 0.97; outside 0.5 to 2 at 0
+   days/yr >= 28 C: 26 stations where it occurs; ratio AgERA5/station median 0.91; outside 0.5 to 2 at 1
+-- ISD-Lite == T: station max of hourly vs AgERA5 Tmax: 26 stations
+   p99 gap (AgERA5 minus station), K: median -1.68, range -5.84 to +0.23; |gap| > 1 K at 18 of 26
+   mean bias K: median -1.03; daily r: median 0.97
+   days/yr >= 26 C: 26 stations where it occurs; ratio AgERA5/station median 0.97; outside 0.5 to 2 at 0
+   days/yr >= 28 C: 26 stations where it occurs; ratio AgERA5/station median 0.91; outside 0.5 to 2 at 1
+
+-- HadISD == Td: station daily mean vs AgERA5 dewpoint: 26 stations
+   p99 gap (AgERA5 minus station), K: median -0.77, range -3.47 to +1.06; |gap| > 1 K at 13 of 26
+   mean bias K: median -0.36; daily r: median 0.95
+   days/yr >= 26 C: 15 stations where it occurs; ratio AgERA5/station median 0.10; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 6 stations where it occurs; ratio AgERA5/station median 0.19; outside 0.5 to 2 at 5
+-- ISD-Lite == Td: station daily mean vs AgERA5 dewpoint: 26 stations
+   p99 gap (AgERA5 minus station), K: median -0.78, range -3.48 to +1.05; |gap| > 1 K at 13 of 26
+   mean bias K: median -0.36; daily r: median 0.95
+   days/yr >= 26 C: 15 stations where it occurs; ratio AgERA5/station median 0.10; outside 0.5 to 2 at 11
+   days/yr >= 28 C: 6 stations where it occurs; ratio AgERA5/station median 0.18; outside 0.5 to 2 at 5
+
+== Anomaly skill, medians across stations (acc = anomaly correlation, hit = hot-day hit rate)
+      hadisd_acc  hadisd_hit  isdlite_acc  isdlite_hit  rank_corr_acc_sd_hadisd
+var                                                                            
+tmax        0.88        0.72         0.88         0.71                     0.93
+tmin        0.81        0.66         0.82         0.66                     0.89
+tw          0.83        0.56         0.83         0.57                     0.82
+
+== Daily maximum wet-bulb by station (deg C; d28 = days per year at or above 28 C)
+                                           qc_removed  max_hadisd  max_isdlite  p99_hadisd  p99_isdlite  agera5_p99  gap_p99_hadisd  gap_p99_isdlite  d28_hadisd  d28_isdlite  d28_agera5
+name                                                                                                                                                                                     
+KING ABDULAZIZ AB                                  45       36.11        36.11       32.00        32.00       29.60           -2.40            -2.40       41.14        41.14       17.75
+BAHRAIN INTL                                      237       35.32        35.32       31.72        31.72       30.11           -1.60            -1.60       72.09        72.04       49.50
+DOHA INTL                                         139       35.00        34.83       31.57        31.57       30.03           -1.54            -1.50       71.16        72.16       30.11
+SHAHBAZ AB                                        663       36.47        37.69       31.38        31.48       28.36           -3.02            -3.12       87.70        87.91        7.76
+ABU DHABI INTL / ZAYED INTL                       765       33.79        33.79       31.18        31.19       28.86           -2.32            -2.33       76.47        76.82       15.95
+NAWABSHAH                                        1210       35.95        35.95       30.83        30.85       28.02           -2.81            -2.82       73.96        74.31        3.84
+NETAJI SUBHASH CHANDRA BOSE INTL                 4563       32.91        33.18       30.63        30.80       28.65           -1.98            -2.15      103.93       104.73       13.96
+BANGKOK INTL / DON MUEANG INTL                  12213       32.51        32.51       30.01        29.86       27.36           -2.65            -2.49       44.67        39.58        0.57
+AHMEDABAD / SARDAR VALLABHBHAI PATEL INTL         477       35.31        35.31       29.56        29.47       27.10           -2.45            -2.36       37.22        31.76        0.16
+CHENNAI INTL                                      536       32.32        33.53       29.49        29.50       27.93           -1.56            -1.56       36.96        34.97        3.16
+SAFDARJUNG                                        135       32.22        32.22       29.42        29.42       27.59           -1.82            -1.82       34.10        34.12        1.40
+KUWAIT INTL                                      1081       32.48        32.48       29.28        29.28       24.98           -4.30            -4.30        7.22         7.21        0.00
+EDUARDO GOMES INTL                               3691       30.82        34.33       28.55        29.02       26.30           -2.25            -2.72       14.01        17.58        0.00
+SINGAPORE CHANGI INTL                            4833       29.08        29.73       28.12        28.12       26.40           -1.72            -1.71        5.14         5.50        0.00
+SOEKARNO HATTA INTL                             23090       29.75        31.18       28.12        28.27       25.89           -2.24            -2.39        7.64         9.25        0.00
+DARWIN INTL                                      1784       30.03        31.46       28.12        28.16       27.04           -1.08            -1.10        4.95         5.27        0.00
+DIORI HAMANI                                     1657       30.98        33.20       27.45        27.59       25.80           -1.65            -1.79        1.57         1.90        0.00
+MIAMI INTERNATIONAL AIRPORT                      6647       29.12        29.26       27.27        27.30       26.34           -0.93            -0.96        0.32         0.34        0.00
+G BUSH INTERCONTINENTAL AP/HOUSTON AP             804       30.00        30.00       27.16        27.16       26.64           -0.52            -0.51        0.39         0.39        0.00
+BEGUMPET AIRPORT / HYDERABAD INTL                 802       29.91        30.92       27.03        27.00       24.27           -2.76            -2.73        0.68         0.82        0.00
+PHOENIX SKY HARBOR INTL AIRPORT                  1189       27.81        27.81       24.67        24.68       24.77            0.10             0.09        0.00         0.00        0.00
+SYDNEY INTL                                      1759       26.94        28.22       23.78        23.78       22.96           -0.82            -0.81        0.00         0.02        0.00
+ORLY                                            10674       25.50        25.50       21.96        21.91       21.18           -0.79            -0.74        0.00         0.00        0.00
+PORTLAND INTERNATIONAL AIRPORT                   2668       25.00        25.00       21.58        21.58       20.97           -0.61            -0.61        0.00         0.00        0.00
+VNUKOVO                                          1991       25.29        25.29       21.37        21.35       21.04           -0.33            -0.23        0.00         0.00        0.00
+JKIA / NAIROBI JOMO KENYATTA INTL                 701       22.72        26.04       19.66        19.93       18.96           -0.70            -0.97        0.00         0.00        0.00
