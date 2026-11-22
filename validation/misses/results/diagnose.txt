@@ -1,0 +1,103 @@
+Diagnosis of the held-out misses. Produced by validation/misses/01_diagnose.py. POST HOC: not a test.
+V0 = current daily class (larger of the two exceedances, pooled cuts). V1 = severe when either exceedance is at or above its own 80th percentile.
+
+==== Maryland, 2024-06-18 to 2024-06-23, 277 cells
+Area shares by day in the window:
+       spell_live  sev_V0_live  sev_V1_live  date_test_only  place_test_only  both_tests
+06-18        0.00         0.00         0.00            0.03             0.00        0.22
+06-19        0.22         0.01         0.01            0.02             0.00        0.20
+06-20        0.22         0.01         0.01            0.06             0.00        0.28
+06-21        0.22         0.09         0.17            0.03             0.00        0.97
+06-22        0.33         0.04         0.13            0.01             0.00        0.99
+06-23        0.87         0.01         0.04            0.01             0.25        0.61
+Baseline 1991-2020, by month: share of all spell days falling in the month, and the share of that month's spell days classed severe or extreme:
+ month  spell_days_share  severe_share_V0  severe_share_V1
+     3             0.031            0.841            0.840
+     4             0.069            0.408            0.420
+     5             0.096            0.142            0.153
+     6             0.079            0.047            0.071
+     7             0.331            0.158            0.248
+     8             0.165            0.101            0.185
+     9             0.073            0.088            0.095
+    10             0.095            0.228            0.244
+    11             0.051            0.423            0.436
+    12             0.010            0.995            0.993
+Severe share of spell days overall, baseline: V0 0.200, V1 0.250. Severe days per cell-year 2021-25: V0 6.1, V1 8.1
+Districts (adm2): 24 with cells; 2 reach severe over half their area under V0, 5 under V1; with 10 or more cells: 1 of 16
+    district  cells  max_spell_live  max_sev_V0_live  max_sev_V1_live
+    Allegany     11             1.0             1.00             1.00
+      Talbot      9             1.0             0.56             0.56
+  Washington     16             1.0             0.50             0.81
+        Kent      7             1.0             0.43             0.43
+Queen Anne's      9             1.0             0.33             0.33
+     Garrett     19             1.0             0.26             1.00
+   Baltimore      2             1.0             0.00             0.00
+Anne Arundel     11             1.0             0.00             0.00
+       Cecil     14             1.0             0.00             0.00
+     Carroll     15             1.0             0.00             0.40
+    Caroline      9             1.0             0.00             0.00
+     Calvert      4             1.0             0.00             0.00
+   Baltimore     16             1.0             0.00             0.00
+   Frederick     18             1.0             0.00             0.56
+
+==== Makkah province, 2024-06-16 to 2024-06-18, 1202 cells
+Area shares by day in the window:
+       spell_live  sev_V0_live  sev_V1_live  date_test_only  place_test_only  both_tests
+06-16        0.47         0.18         0.17            0.09             0.06        0.51
+06-17        0.36         0.13         0.13            0.05             0.04        0.34
+06-18        0.38         0.15         0.14            0.02             0.04        0.33
+Baseline 1991-2020, by month: share of all spell days falling in the month, and the share of that month's spell days classed severe or extreme:
+ month  spell_days_share  severe_share_V0  severe_share_V1
+     3             0.024            0.663            0.705
+     4             0.090            0.183            0.241
+     5             0.097            0.134            0.176
+     6             0.134            0.230            0.238
+     7             0.257            0.254            0.246
+     8             0.213            0.154            0.158
+     9             0.096            0.121            0.164
+    10             0.084            0.154            0.201
+    11             0.005            0.285            0.325
+Severe share of spell days overall, baseline: V0 0.201, V1 0.219. Severe days per cell-year 2021-25: V0 23.1, V1 25.5
+Districts (adm2): 1 with cells; 0 reach severe over half their area under V0, 0 under V1; with 10 or more cells: 0 of 1
+district  cells  max_spell_live  max_sev_V0_live  max_sev_V1_live
+    None   1202            0.47             0.18             0.17
+
+==== Sindh, 2015-06-17 to 2015-06-24, 1217 cells
+Area shares by day in the window:
+       spell_live  sev_V0_live  sev_V1_live  date_test_only  place_test_only  both_tests
+06-17        0.12         0.01         0.03             0.0             0.60        0.09
+06-18        0.21         0.16         0.16             0.0             0.33        0.54
+06-19        0.69         0.60         0.57             0.0             0.14        0.82
+06-20        0.86         0.51         0.47             0.0             0.22        0.72
+06-21        0.87         0.44         0.41             0.0             0.25        0.62
+06-22        0.67         0.30         0.26             0.0             0.19        0.48
+06-23        0.59         0.16         0.15             0.0             0.16        0.43
+06-24        0.38         0.00         0.01             0.0             0.25        0.13
+Baseline 1991-2020, by month: share of all spell days falling in the month, and the share of that month's spell days classed severe or extreme:
+ month  spell_days_share  severe_share_V0  severe_share_V1
+     3             0.045            0.423            0.468
+     4             0.087            0.146            0.203
+     5             0.217            0.213            0.193
+     6             0.306            0.252            0.234
+     7             0.095            0.110            0.142
+     8             0.088            0.170            0.217
+     9             0.084            0.158            0.214
+    10             0.077            0.085            0.118
+    11             0.001            0.024            0.040
+Severe share of spell days overall, baseline: V0 0.200, V1 0.212. Severe days per cell-year 2021-25: V0 9.6, V1 10.7
+Districts (adm2): 28 with cells; 19 reach severe over half their area under V0, 19 under V1; with 10 or more cells: 15 of 24
+           district  cells  max_spell_live  max_sev_V0_live  max_sev_V1_live
+            Sujawal     42             1.0              1.0             1.00
+     Tando Allahyar     12             1.0              1.0             1.00
+      Malir Karachi     19             1.0              1.0             1.00
+       East Karachi      3             1.0              1.0             1.00
+           Umer Kot     50             1.0              1.0             1.00
+      South Karachi      3             1.0              1.0             1.00
+Tando Muhammad Khan     15             1.0              1.0             1.00
+       West Karachi      2             1.0              1.0             1.00
+            Sanghar     92             1.0              1.0             0.99
+    Korangi Karachi      1             1.0              1.0             1.00
+              Badin     58             1.0              1.0             1.00
+            Matiari     15             1.0              1.0             1.00
+          Hyderabad     11             1.0              1.0             1.00
+        Mirpur Khas     32             1.0              1.0             1.00

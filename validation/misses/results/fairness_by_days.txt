@@ -1,0 +1,24 @@
+Severe days as a percentage of all baseline days, in each of the six warmest months of the cell: lowest and highest month.
+Produced by validation/misses/03_fairness_by_days.py. POST HOC. ratio = highest month over lowest month; 1 would be perfectly even.
+              spell_min  spell_max  V0_sev_min  V0_sev_max  V2_sev_min  V2_sev_max  V0_ratio  V2_ratio  V0_sev_all  V2_sev_all  V2_ext_all
+site                                                                                                                                      
+Singapore          8.28      20.00        0.65        5.11        4.52        5.38      7.92      1.19        2.01        4.93        1.03
+Jakarta            7.63      18.82        0.43        4.62        4.73        5.38     10.75      1.14        1.87        4.91        1.00
+Lagos              6.77      24.62        0.33        6.25        3.89        5.78     18.75      1.49        1.46        2.89        0.68
+Manaus             6.13      18.82        0.00        6.99        3.55        5.27    698.92      1.48        1.89        4.52        0.96
+Delhi              8.33      29.89        0.22        8.56        4.56        5.38     38.50      1.18        1.58        3.08        0.65
+Jacobabad          8.39      37.33        0.54        7.22        4.41        5.33     13.43      1.21        1.58        2.89        0.63
+Hyderabad_IN       8.28      43.87        0.11       13.87        4.19        5.33    129.00      1.27        1.99        3.74        0.89
+Dhahran            7.10      24.95        0.22        5.27        4.09        5.11     23.71      1.25        1.41        2.87        0.69
+Phoenix            6.89      27.63        0.33        6.56        4.19        5.16     19.68      1.23        1.56        3.14        0.71
+Paris              7.44      24.52        0.78        6.24        4.30        5.27      8.02      1.22        1.54        3.19        0.77
+Moscow             7.00      28.82        0.78        6.77        4.44        5.38      8.71      1.21        1.52        3.20        0.72
+Portland_OR        7.53      21.29        0.43        6.56        4.30        5.27     15.25      1.22        1.51        3.18        0.80
+Sydney_W           6.22      23.44        0.32        5.59        3.87        4.84     17.33      1.25        1.30        2.86        0.81
+Nairobi            7.53      27.20        0.65        7.63        4.13        5.22     11.83      1.27        1.72        3.71        0.93
+LaPaz              6.13      18.67        0.43        4.11        3.44        4.95      9.56      1.44        1.41        3.40        0.84
+Verkhoyansk        7.89      31.40        0.33       10.54        4.00        5.27     31.61      1.32        1.56        2.83        0.63
+DomeC              7.19      31.61        0.12        4.84        4.11        5.91     41.03      1.44        2.29        4.77        1.07
+
+Median ratio across the 17 cells: V0 17.3, V2 1.2. Cells with ratio above 3: V0 17, V2 0.
+Severe or extreme days, percent of all baseline days, median across cells: V0 1.56, V2 3.19 (extreme under V2: 0.80)

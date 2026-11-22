@@ -169,8 +169,6 @@ conda-meta/
 # Rope project settings
 .ropeproject
 
-# mkdocs/Zensical documentation
-/site
 
 # mypy
 .mypy_cache/
@@ -226,3 +224,8 @@ __marimo__/
 .claude/
 HANDOFF.md
 temp/
+
+# Observable Framework site: source in site/ is tracked, generated data and caches are not
+node_modules/
+site/data/
+site/.observablehq/

@@ -1,0 +1,11 @@
+event_id,event,unit_key,unit_id,unit_name,cells,confidence,window_start,window_end,readout_name,readout_lat,readout_lon,source
+IP2025,India and Pakistan April 2025,BAL,PAK-20230404-2,Balochistan,3179,normal,2025-04-14,2025-04-15,Jaipur,26.91,75.79,ClimaMeter undated
+WU2024,Western United States July 2024,CAL,USA-20230119-06,California,4172,normal,2024-07-05,2024-07-07,Death Valley,36.46,-116.87,ClimaMeter 2024-07-10
+EM2024,Eastern Mediterranean June 2024,ATT,GRC-20230210-2,Attica,35,normal,2024-06-11,2024-06-14,Athens,37.98,23.73,ClimaMeter 2024-07-17
+IN2024,India May 2024,PUN,IND-20230119-28,Punjab (India),477,normal,2024-05-26,2024-05-29,Jalandhar,31.33,75.58,ClimaMeter 2024-06-07
+BR2024,Brazil March 2024,RIO,BRA-20200930-19,Rio de Janeiro,387,normal,2024-03-15,2024-03-18,Rio de Janeiro,-22.91,-43.20,ClimaMeter 2024-03-24
+BR2023,Brazil November 2023,MIG,BRA-20200930-17,Minas Gerais,5026,normal,2023-11-13,2023-11-19,Aracuai,-16.85,-42.07,ClimaMeter 2023-11-22
+EU2023,Western Europe September 2023,ARA,FRA-20230119-01,Auvergne-Rhone-Alpes,822,normal,2023-09-03,2023-09-10,Lyon,45.76,4.84,ClimaMeter 2023-09-12
+FR2023,France August 2023,ARA,FRA-20230119-01,Auvergne-Rhone-Alpes,822,normal,2023-08-21,2023-08-23,Toulouse,43.60,1.44,ClimaMeter 2023-08-25
+CB2023,Southern Europe July 2023,CAT,ESP-20230119-07,Catalunya,347,normal,2023-07-15,2023-07-25,Rome,41.90,12.50,ClimaMeter 2023-08-25
+SS2025,South Sudan February 2025,CEQ,SSD-20230901-02,Central Equatoria,352,low,2025-02-22,2025-02-28,Juba,4.85,31.58,WWA 2025-03-07

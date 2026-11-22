@@ -1,0 +1,56 @@
+Checks on E:/temp/agera5/derived-products/heat-explorer/v1/admin/series.zarr. Produced by pipeline/check_admin.py
+17425 days, 1979-01-01 to 2026-09-15
+
+1. Values
+   adm0: 318 units, 256 with land cells; unit-days out of range or out of order: 0
+   adm1: 3,311 units, 2,945 with land cells; unit-days out of range or out of order: 0
+   adm2: 43,064 units, 36,289 with land cells; unit-days out of range or out of order: 0
+
+2. Third held-out suite from the admin series
+   Balochistan            cells  3179 (registered  3179)  severe 0.86 (0.86)  spell 0.86 (0.86)  same
+   California             cells  4172 (registered  4172)  severe 0.90 (0.90)  spell 0.95 (0.95)  same
+   Attica                 cells    35 (registered    35)  severe 1.00 (1.00)  spell 1.00 (1.00)  same
+   Punjab (India)         cells   477 (registered   477)  severe 0.95 (0.95)  spell 1.00 (1.00)  same
+   Rio de Janeiro         cells   387 (registered   387)  severe 0.91 (0.91)  spell 1.00 (1.00)  same
+   Minas Gerais           cells  5026 (registered  5026)  severe 1.00 (1.00)  spell 1.00 (1.00)  same
+   Auvergne-Rhone-Alpes   cells   822 (registered   822)  severe 0.98 (0.98)  spell 1.00 (1.00)  same
+   Auvergne-Rhone-Alpes   cells   822 (registered   822)  severe 1.00 (1.00)  spell 1.00 (1.00)  same
+   Catalunya              cells   347 (registered   347)  severe 0.97 (0.97)  spell 1.00 (1.00)  same
+   Central Equatoria      cells   352 (registered   352)  severe 0.22 (0.22)  spell 0.88 (0.88)  same
+
+3. Country share against the area-weighted mean of its adm1 units
+   largest difference in severe share, any country, any day: 0.0001 (rounding of the stored shares allows about 0.0001)
+
+4. Days per year a unit's severe share reaches a limit; median (5th to 95th percentile) over units with at least 9 land cells
+   adm0 (203 units)
+      share >= 0.50   1991-2020:   5.3 ( 0.4 to   9.2)   2021-2025:  18.6 ( 3.4 to  56.0)
+      share >= 0.25   1991-2020:  11.3 ( 6.8 to  16.3)   2021-2025:  36.0 (14.7 to  82.9)
+      share >= 0.10   1991-2020:  22.7 (13.3 to  33.2)   2021-2025:  62.0 (25.9 to 126.1)
+   adm1 (2,549 units)
+      share >= 0.50   1991-2020:   7.6 ( 4.3 to  10.8)   2021-2025:  22.0 ( 9.0 to  59.4)
+      share >= 0.25   1991-2020:  11.3 ( 8.9 to  17.5)   2021-2025:  31.4 (14.0 to  84.0)
+      share >= 0.10   1991-2020:  16.5 (10.3 to  29.4)   2021-2025:  42.2 (18.4 to 109.0)
+   adm2 (16,242 units)
+      share >= 0.50   1991-2020:   8.2 ( 6.3 to  11.9)   2021-2025:  19.2 ( 6.8 to  54.0)
+      share >= 0.25   1991-2020:  10.5 ( 8.1 to  16.6)   2021-2025:  23.6 ( 8.4 to  69.8)
+      share >= 0.10   1991-2020:  12.5 ( 8.8 to  23.0)   2021-2025:  27.6 ( 9.6 to  85.6)
+
+6. Degree-days (event size ingredient)
+   adm0: unit-days with degree-days above zero but no area in a heat spell: 0; largest daily value 65.5 K
+   adm1: unit-days with degree-days above zero but no area in a heat spell: 0; largest daily value 65.5 K
+   adm2: unit-days with degree-days above zero but no area in a heat spell: 0; largest daily value 65.5 K
+   Ile-de-France      2003-08-03..2003-08-17  series   74.0  computed from the cells in 02_revisit.py   74.0  same
+   Telangana          2015-05-20..2015-05-31  series   21.3  computed from the cells in 02_revisit.py   21.3  same
+   Andhra Pradesh     2015-05-21..2015-05-30  series   15.0  computed from the cells in 02_revisit.py   15.0  same
+   Sindh              2015-06-19..2015-06-28  series    6.0  computed from the cells in 02_revisit.py    5.9  same
+   Sindh              2022-03-27..2022-04-11  series    7.0  computed from the cells in 02_revisit.py    7.0  same
+   Rajasthan          2022-05-09..2022-05-20  series   12.3  computed from the cells in 02_revisit.py   12.3  same
+   Delhi              2022-03-19..2022-03-24  series    5.6  computed from the cells in 02_revisit.py    5.6  same
+   Oregon             2021-06-19..2021-07-19  series   52.3  computed from the cells in 02_revisit.py   52.3  same
+   Washington         2021-06-20..2021-07-15  series   57.4  computed from the cells in 02_revisit.py   57.4  same
+   British Columbia   2021-06-22..2021-07-15  series   56.5  computed from the cells in 02_revisit.py   56.5  same
+   New South Wales    2019-12-18..2020-01-10  series   38.8  computed from the cells in 02_revisit.py   38.8  same
+
+5. Size on disk: 0.34 GB
+
+RESULT: ALL CHECKS PASS

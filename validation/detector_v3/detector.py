@@ -1,16 +1,27 @@
 """Heat spell detector, revision 3 (single-cell reference implementation).
 
+VERSION 1.0, FROZEN on 2026-11-21 (project owner, after validation/heldout_suite_3): the fields
+flag, spell and cls_day, and the constants MIN_RUN, CAL_Q and SEV_Q. Definition in plain words:
+docs/detector-v1-frozen.md. Do not change these without a new version number and a new test on
+events not used before. Other fields (excess, running, cls_intensity, cls_causal, cls_final) are
+not frozen.
+
 Changes from the tuned detector of validation/heat_spell_prototype/03_tune_detector.py
 ("ctr_p90_fixed"), made after the second method critique (2026-11-21, items A1 and A2):
 
   1. MINIMUM LENGTH. A heat spell is a run of at least MIN_RUN flagged days
      (default 3). Shorter runs are not spells and carry no class. Before, a
      single flagged day was an event, and 15 to 33 percent of events were.
-  2. DAILY INTENSITY CLASS (user decision, 2026-11-21). Each spell day is
-     classed by that day's own excess over its threshold: spell, severe or
-     extreme by the 80th and 95th percentile of the daily excess on baseline
-     spell days. It uses no later day, so a live monitor can show it. This is
-     the class the map draws (field cls_day). Duration and the spell's
+  2. CALENDAR-DAY CLASS (user decision, 2026-11-21, evening; replaces the
+     daily intensity class adopted that morning). A spell day is severe when
+     its 3-day mean is above the calendar-day 95th percentile and extreme
+     above the 99th, built like the spell threshold (15-day window, seasonal
+     cycle removed, 1991-2020). It uses no later day and is final when
+     written. This is the class the map draws (field cls_day). The morning's
+     intensity class is kept as cls_intensity: it was found to be uneven
+     through the warm season by a median factor of 17 between months
+     (validation/misses/). The two held-out suites were run with
+     cls_intensity, and their run scripts read that field. Duration and the spell's
      magnitude so far (field running) are separate numbers and drive event
      ranking. Two other classes are kept for comparison only: cls_causal (by
      the running total, tested first and found slow: median 6 days to reach
@@ -48,7 +59,22 @@ def _load(name, fn):
 
 p1 = _load("p01", "01_prototype.py")
 t3mod = _load("t03", "03_tune_detector.py")
+VERSION = "1.0"
 MIN_RUN, CAL_Q, CUTS = 3, 90, (80, 95)
+SEV_Q = (95, 99)          # calendar-day percentiles for severe and extreme
+
+
+def cal_multi(x, idx, qs):
+    """Calendar-day percentiles qs of x with the seasonal cycle removed (same construction as t3mod.cal_threshold)."""
+    doy = p1.doy365(idx)
+    base = (idx.year >= 1991) & (idx.year <= 2020) & np.isfinite(x)
+    clim = p1.smooth_clim(x, doy, base)
+    ab, db = (x - clim[doy - 1])[base], doy[base]
+    pq = np.empty((365, len(qs)))
+    for d in range(1, 366):
+        dist = np.abs(db - d)
+        pq[d - 1] = np.percentile(ab[np.minimum(dist, 365 - dist) <= 7], qs)
+    return clim[doy - 1][:, None] + pq[doy - 1]
 
 
 def detect(tm, idx, min_run=MIN_RUN):
@@ -67,6 +93,9 @@ def detect(tm, idx, min_run=MIN_RUN):
     allyr = ok & (t3 > p95)
     flag = cal | allyr
     exc = np.nan_to_num(np.where(flag, np.fmax((t3 - thr) / iqr, (t3 - p95) / iqr), 0.0))
+    # the two exceedances separately (added 2026-11-21 for diagnosis; does not change any other output)
+    exc_cal = np.nan_to_num(np.where(flag, (t3 - thr) / iqr, 0.0))
+    exc_all = np.nan_to_num(np.where(flag, (t3 - p95) / iqr, 0.0))
     s, e = p1.runs(flag, min_len=min_run)
     s, e = np.asarray(s, int), np.asarray(e, int)
     mag = np.array([exc[a:b + 1].sum() for a, b in zip(s, e)])
@@ -82,8 +111,11 @@ def detect(tm, idx, min_run=MIN_RUN):
         cls_final[a:b + 1] = c
     cls_causal = np.where(spell, 1 + (running >= q80).astype(int) + (running >= q95).astype(int), 0)
     e80, e95 = np.percentile(exc[spell & np.asarray(base)], CUTS)
-    cls_day = np.where(spell, 1 + (exc >= e80).astype(int) + (exc >= e95).astype(int), 0)
-    return {"flag": flag, "spell": spell, "excess": exc, "running": running, "cls_day": cls_day, "cls_causal": cls_causal, "cls_final": cls_final,
-            "e80": float(e80), "e95": float(e95),
+    cls_intensity = np.where(spell, 1 + (exc >= e80).astype(int) + (exc >= e95).astype(int), 0)
+    hi = cal_multi(t3, idx, SEV_Q)
+    with np.errstate(invalid="ignore"):
+        cls_day = np.where(spell, 1 + (t3 > hi[:, 0]).astype(int) + (t3 > hi[:, 1]).astype(int), 0)
+    return {"flag": flag, "spell": spell, "excess": exc, "running": running, "cls_day": cls_day, "cls_intensity": cls_intensity, "cls_causal": cls_causal, "cls_final": cls_final,
+            "e80": float(e80), "e95": float(e95), "exc_cal": exc_cal, "exc_all": exc_all,
             "s": s, "e": e, "mag": mag, "cls": cls, "q80": float(q80), "q95": float(q95), "iqr": float(iqr),
             "which": np.where(cal & allyr, 3, np.where(cal, 1, np.where(allyr, 2, 0)))}

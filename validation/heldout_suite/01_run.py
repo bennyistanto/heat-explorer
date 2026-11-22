@@ -51,6 +51,7 @@ def init(days):
 
 
 def cell_job(a):
+    # reads cls_intensity: the class these suites were registered and run with (detector.py renamed it on 2026-11-21)
     """One cell through the single-cell reference. Returns compact per-day arrays."""
     k, tm = a
     r = _D["det"].detect(tm.astype("f8"), _D["idx"])
@@ -58,7 +59,7 @@ def cell_job(a):
     live = f.copy()
     live[2:] &= f[1:-1] & f[:-2]
     live[:2] = False
-    return k, r["cls_day"].astype("u1"), (r["cls_day"] * live).astype("u1"), r["excess"].astype("f4") * r["spell"]
+    return k, r["cls_intensity"].astype("u1"), (r["cls_intensity"] * live).astype("u1"), r["excess"].astype("f4") * r["spell"]
 
 
 if __name__ == "__main__":
@@ -105,7 +106,7 @@ if __name__ == "__main__":
             ok = []
             for s, tm in chk:
                 r = _D["det"].detect(tm.astype("f4").astype("f8"), _D["idx"])
-                ok.append(bool(np.array_equal(par[s][0], r["cls_day"].astype("u1")) and np.allclose(par[s][1], r["excess"].astype("f4") * r["spell"])))
+                ok.append(bool(np.array_equal(par[s][0], r["cls_intensity"].astype("u1")) and np.allclose(par[s][1], r["excess"].astype("f4") * r["spell"])))
             out.append(f"Equality check, parallel path against the single-cell reference at 4 cells: {'IDENTICAL' if all(ok) else 'DIFFERENT ' + str(ok)}")
             assert all(ok), "parallel path differs from the reference; the protocol says the run does not start"
         else:

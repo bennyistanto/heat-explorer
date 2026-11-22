@@ -1,0 +1,6 @@
+Admin lookup. Produced by pipeline/admin_lookup.py
+adm1: 3,311 units; with at least one land cell: 2,945; with none: 366; land cells assigned: 2,202,512 of 2,395,758 (91.9%); cell centres inside two polygons: 38
+adm2: 43,064 units; with at least one land cell: 36,289; with none: 6,775; land cells assigned: 2,202,510 of 2,395,758 (91.9%); cell centres inside two polygons: 13
+adm0: 318 countries and territories, taken from the adm1 table
+cells in an adm1 unit but in no adm2 unit: 10; the reverse: 8; cells whose adm2 unit names a different adm1 than the adm1 raster: 27
+land cells north of 60 S in no adm1 unit: 172,240 of 1,710,611 (10.1%)

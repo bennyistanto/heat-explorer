@@ -1,0 +1,11 @@
+Fast detector against the frozen reference. Produced by validation/detector_v3/03_fast_equals_reference.py
+pipeline/detector.py version 1.0; 17 windows, 2039 land cells, 17425 days, 35,529,575 cell-days.
+Cells the fast code declined (missing values inside the baseline): 0
+  flag     differing cell-days: 0
+  spell    differing cell-days: 0
+  cls_day  differing cell-days: 0
+  excess   (not frozen) largest absolute difference: 0.00e+00; cell-days over 1e-5: 0
+  live     differing cell-days against the rule applied to the reference flag: 0
+Totals in the reference: flagged 3,521,060, spell 2,960,359, severe or extreme 1,354,905, extreme 392,209 cell-days.
+Time: fast 19.7 s in one process (9.7 ms per cell); reference 107 s on 48 processes (2.5 core-seconds per cell).
+RESULT: IDENTICAL on flag, spell and cls_day

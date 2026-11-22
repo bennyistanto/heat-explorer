@@ -1,0 +1,51 @@
+Event size measures compared. Produced by validation/event_size/01_compare.py
+
+== Part A. Rank of the event year's window total among 47 years, 29 primary unit-windows
+suite                                event                  unit confidence  days  S1  S2  S3  S4  S2_value  S3_value  S4_value
+    1             Western Europe July 2019         Noord-Brabant     normal     7   5   3  10   5      2.00      3.00      6.03
+    1             United Kingdom July 2022               England     normal     6   2   3   6   3      2.84      3.87      8.89
+    1               Argentina January 2022 Buenos Aires province     normal     5   1   1   1   1      4.18      4.21     10.94
+    1                     Sahel April 2024             Koulikoro    reduced     5   1   1   1   1      4.97      4.97     14.78
+    1               Philippines April 2024         Central Luzon        low    15   1   1   1   1     12.85     13.48     36.18
+    1                 West Asia April 2024                 Amman     normal     3   1   2   3   2      1.84      1.84      4.13
+    1                    Chicago July 1995           Cook County     normal     6   1   2   3   1      3.29      4.29      9.65
+    1                      Japan July 2018               Saitama     normal    26   4   2   5   2     11.54     16.00     30.97
+    1               Saudi Arabia June 2024                Makkah     normal     3   3   4   4   4      0.71      1.21      2.03
+    2 Argentina and Paraguay December 2022                 Salta     normal     7   1   1   1   1      3.07      3.40      9.28
+    2         South America September 2023    Mato Grosso do Sul     normal    10   2   1   2   1      3.87      4.58     10.31
+    2              Madagascar October 2023            Analamanga    reduced     7   1   1   1   1      4.50      4.50     13.31
+    2     Western Mediterranean April 2023               Tlemcen     normal     3   1   1   1   1      3.00      3.00      9.00
+    2   Southern West Africa February 2024               Ashanti        low     5   1   1   1   1      4.96      4.96     14.72
+    2         Thailand and Laos April 2023                   Tak    reduced     4   4   3   3   3      0.84      3.94      5.14
+    2      Eastern United States June 2024              Maryland     normal     6   2   3   2   2      1.11      1.88      3.62
+    2          South-east Europe July 2024           Hajdu-Bihar     normal     3   4   3   4   3      0.84      2.66      3.53
+    2             Western Europe June 2025             Occitanie     normal     3   2   1   1   1      2.58      2.74      6.10
+    2      Eastern United States June 2025            New Jersey     normal     3   1   1   1   1      2.62      3.00      7.92
+    3        India and Pakistan April 2025           Balochistan     normal     2   1   1   2   1      1.64      1.64      4.72
+    3      Western United States July 2024            California     normal     3   1   1   1   1      2.63      2.76      6.91
+    3      Eastern Mediterranean June 2024                Attica     normal     4   1   1   1   1      3.94      4.00     11.05
+    3                       India May 2024        Punjab (India)     normal     4   1   1   2   1      3.04      4.00      8.17
+    3                    Brazil March 2024        Rio de Janeiro     normal     4   1   1   2   1      1.78      1.87      4.91
+    3                 Brazil November 2023          Minas Gerais     normal     7   1   1   1   1      6.75      6.97     19.79
+    3        Western Europe September 2023  Auvergne-Rhone-Alpes     normal     8   1   1   1   1      6.39      6.51     17.75
+    3                   France August 2023  Auvergne-Rhone-Alpes     normal     3   1   1   1   1      3.00      3.00      8.94
+    3            Southern Europe July 2023             Catalunya     normal    11   3   4   4   3      3.39      7.72     13.48
+    3            South Sudan February 2025     Central Equatoria        low     7   6   4   5   5      0.59      4.77      5.35
+
+   S1: first 18, top 3 24 of 29, sum of ranks 55, worst 6
+   S2: first 18, top 3 26 of 29, sum of ranks 51, worst 4; ranked first but tied with another year: 0
+   S3: first 14, top 3 22 of 29, sum of ranks 71, worst 10; ranked first but tied with another year: 1
+   S4: first 19, top 3 26 of 29, sum of ranks 51, worst 5; ranked first but tied with another year: 0
+   By the rule written first: most top-3 windows S2; within one window of it ['S2', 'S4']; preferred S2; ADOPTABLE
+
+== Part B. Admin events at adm1 units with at least 9 land cells, 1979 to 2025
+   units: 2,549; with no event at all: 0
+   events per year, median (5th to 95th percentile of units): 1991-2020 3.00 (2.43 to 3.87); 2021-2025 5.60 (3.40 to 9.60)
+   event length in days, median over units of the unit's median 5; of the unit's longest 36; units whose longest event exceeds 60 days: 14.2%; exceeds 180 days: 0.5%
+      low confidence (sd below 1.0 K)  units   690; longest event, median   55 days, 95th percentile  142; exceeds 60 days at 39.1%
+      reduced (1.0 to 1.5 K)           units   353; longest event, median   41 days, 95th percentile   77; exceeds 60 days at 13.0%
+      normal                           units  1506; longest event, median   29 days, 95th percentile   55; exceeds 60 days at 3.1%
+   share of a unit's events with S2 exactly zero (no severe area at all): 0.08 (0.00 to 0.19)
+   rank correlation of event sizes within a unit: S2 with S3 0.67 (0.48 to 0.91); S2 with S4 0.88 (0.78 to 0.98); S3 with S4 0.93 (0.85 to 0.97)
+   of a unit's 5 largest events, how many are the same under S2 and S4: mean 4.12; under S3 and S4: mean 3.71
+   of a unit's 5 largest events by S2, share that began in 2016 or later: mean 68.7% (10 of 47 years is 21%)

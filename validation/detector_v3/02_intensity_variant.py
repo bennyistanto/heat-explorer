@@ -38,7 +38,7 @@ if __name__ == "__main__":
         g = lambda v: np.where(z[f"{v}__{site}"][:, 5, 5] == -9999.0, np.nan, z[f"{v}__{site}"][:, 5, 5].astype("f8") - 273.15)
         tm = (g("t2mmax") + np.append(g("t2mmin")[1:], np.nan)) / 2
         b = d3.detect(tm, idx, min_run=3)
-        e80, e95, ci = b["e80"], b["e95"], b["cls_day"]      # now computed in detector.py (adopted 2026-11-21)
+        e80, e95, ci = b["e80"], b["e95"], b["cls_intensity"]      # now computed in detector.py (adopted 2026-11-21)
         first = []
         for s, e in zip(b["s"], b["e"]):
             k = np.where(ci[s:e + 1] >= 2)[0]

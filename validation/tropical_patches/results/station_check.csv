@@ -1,0 +1,57 @@
+region,usaf,name,lat,lon,sev_days,in_patch,months_10_19,months_21_25,usable,change_K,agera5_warm_K,station_warm_K,rep_day_10_19,rep_day_21_25,diff_2016_2025
+Congo basin,640400,KISANGANI SIMISINI,0.518,25.155,104.0,True,0,0,False,,,,1.7,2.5,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,642350,KANANGA,-5.9,22.469,104.0,True,0,0,False,,,,1.5,1.8,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,644590,IMPFONDO,1.617,18.067,65.0,False,92,5,False,0.34,0.21,-0.13,10.3,4.6,-0.1 -0.0 +0.0 -0.1 -0.1 +0.3   n/a   n/a   n/a   n/a
+Congo basin,646500,BANGUI M POKO,4.398,18.519,45.0,False,116,56,True,-0.19,0.34,0.53,21.4,18.2,-0.0 +0.1 +0.4 +0.1 -0.1 -0.4 -0.1 -0.1 -0.0 -0.3
+Congo basin,644580,OUESSO,1.616,16.038,55.0,False,89,22,False,0.15,0.02,-0.13,10.8,5.5,-0.2 -0.1 -0.0 -0.3 -0.1 +0.0 +0.2 +0.0   n/a   n/a
+Congo basin,646560,BANGASSOU,4.733,22.833,97.0,False,12,0,False,,,,5.7,,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,644520,M'POUYA,-2.617,16.217,63.0,False,5,0,False,,,,4.1,3.7,+0.0 +0.0   n/a +0.0   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,638010,KIGOMA,-4.883,29.633,55.0,False,118,56,True,-0.14,0.08,0.22,17.8,17.9,+0.1 +0.0 +0.1 -0.1 -0.1 +0.0 +0.0 -0.2 -0.3 -0.0
+Congo basin,637260,KABALE,-1.25,29.983,81.0,False,1,0,False,,,,4.3,2.4,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,646100,BOSSANGOA,6.483,17.433,19.0,False,0,0,False,,,,4.1,,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,646550,BRIA,6.533,21.983,85.0,False,0,0,False,,,,4.4,,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,641840,GOMA,-1.683,29.233,65.0,False,15,9,False,0.28,-0.13,-0.41,4.8,5.5,  n/a   n/a -0.1 -0.1 +0.0 +0.1 +0.4   n/a   n/a   n/a
+Congo basin,643900,BUJUMBURA INTL,-3.324,29.319,40.0,False,58,55,True,-0.05,-0.03,0.02,8.8,13.5,-0.2 -0.2 -0.3 +0.2 -0.0 +0.2 -0.0 +0.1 -0.4 -0.1
+Congo basin,643800,KAMEMBE,-2.467,28.917,70.0,False,76,31,True,-0.17,0.04,0.21,8.6,7.3,-0.1 -0.1 +0.1 -0.0 -0.2 +0.3 -0.0 -0.7 -0.3   n/a
+Congo basin,646600,BAMBARI,5.85,20.65,69.0,False,0,0,False,,,,4.1,1.0,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,646050,BOSSEMBELE,5.267,17.633,32.0,False,0,0,False,,,,3.7,,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,646610,YALINGA,6.5,23.267,87.0,False,0,0,False,,,,2.2,2.2,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Congo basin,643830,RUHENGERI,-1.5,29.633,74.0,False,40,0,False,,,,8.2,4.0,-0.4 +0.1 +0.1 +0.0 -0.1   n/a   n/a   n/a   n/a   n/a
+Congo basin,643810,GISENYI,-1.677,29.259,67.0,False,72,11,False,0.24,0.01,-0.22,8.3,7.4,+0.0 -0.1 +0.2 +0.3 -0.1 +0.1 +0.4   n/a   n/a   n/a
+South-east Peru,850410,HEROES DEL ACRE / ,-11.04,-68.783,58.0,False,120,55,True,-0.49,0.24,0.73,13.4,11.0,-0.1 -0.3 -0.2 -0.4 -0.6 -0.3 -0.8 -0.5 -0.5 -0.4
+South-east Peru,846580,PADRE ALDAMIZ,-12.614,-69.229,78.0,False,97,56,True,0.28,0.48,0.2,11.0,11.4,-0.0 +0.2 +0.4 +0.6 -0.4 -0.6 +0.3 +0.6 +0.5 +0.8
+South-east Peru,846860,TENIENTE ALEJANDRO,-13.536,-71.939,96.0,False,120,56,True,0.22,0.52,0.31,23.6,20.0,-0.2 -0.1 +0.2 +0.3 -0.8 +0.2 +0.3 +0.0 +0.2 +0.4
+South-east Peru,845930,ATALAYA,-10.729,-73.767,88.0,False,0,0,False,,,,1.6,1.2,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+South-east Peru,846730,CORONEL FAP ALFRED,-13.155,-74.204,63.0,False,97,56,True,0.75,0.39,-0.36,11.7,12.9,-0.7 -0.4 -0.3 +0.4 +0.5 +0.5 +0.1 +0.5 +0.6 +0.6
+South-east Peru,846880,ANDAHUAYLAS,-13.706,-73.35,84.0,False,97,39,True,-0.5,0.37,0.87,9.1,8.6,+0.3 +0.3 -0.1 -0.2 -1.1 -1.4 -0.1   n/a -0.5 +0.2
+Lake Victoria north-west,637050,ENTEBBE INTL,0.042,32.444,88.0,False,120,56,True,-0.14,0.27,0.41,20.9,18.0,+0.0 +0.1 +0.3 +0.0 -0.1 -0.1 +0.0 -0.1 -0.2 -0.3
+Lake Victoria north-west,637290,BUKOBA,-1.333,31.817,89.0,False,105,56,True,0.03,0.18,0.15,16.2,17.8,-0.1 +0.1 +0.1 +0.0 -0.1 +0.1 +0.3 +0.1 -0.1 +0.1
+Lake Victoria north-west,636820,JINJA,0.45,33.183,62.0,False,36,1,False,-0.57,0.09,0.67,5.6,2.6,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a -0.5
+Lake Victoria north-west,637020,MBARARA,-0.617,30.65,85.0,False,8,2,False,-0.54,0.14,0.68,4.5,3.0,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a -0.5
+Lake Victoria north-west,637330,MUSOMA,-1.5,33.8,46.0,False,112,56,True,-0.02,0.19,0.21,15.6,17.4,+0.2 -0.1 +0.3 -0.1 +0.1 +0.1 +0.3 -0.2 -0.1 +0.1
+Lake Victoria north-west,636540,MASINDI,1.683,31.717,78.0,False,11,0,False,,,,4.8,2.5,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Lake Victoria north-west,636580,SOROTI,1.728,33.623,59.0,False,13,2,False,-0.57,0.15,0.72,4.9,2.9,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a -0.5
+Lake Victoria north-west,636740,KASESE,0.183,30.1,60.0,False,4,0,False,,,,4.6,2.8,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Lake Victoria north-west,643870,KIGALI INTL,-1.969,30.139,81.0,False,119,56,True,0.31,0.28,-0.03,20.6,22.9,+0.0 +0.1 +0.5 +0.4 +0.4 +0.3 +0.4 +0.2 +0.1 +0.0
+Coastal Ecuador,842260,CANAR,-2.55,-78.933,65.0,False,0,0,False,,,,3.3,2.7,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,841170,ELOY ALFARO INTL,-0.95,-80.683,63.0,False,120,56,True,-0.1,0.09,0.19,21.8,21.3,-0.2 -0.0 +0.2 +0.3 +0.1 +0.3 +0.3 -0.6 -0.3 -0.1
+Coastal Ecuador,840710,MARISCAL SUCRE INT,-0.141,-78.488,25.0,False,37,0,False,,,,11.6,1.2,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,842030,SIMON BOLIVAR INTL,-2.157,-79.884,85.0,False,120,56,True,-0.18,0.14,0.31,22.8,23.4,-0.0 +0.1 +0.4 +0.1 -0.1 +0.2 +0.4 -0.4 -0.7 -0.1
+Coastal Ecuador,842390,MARISCAL LAMAR,-2.889,-78.984,63.0,False,69,56,True,0.05,0.09,0.03,13.2,19.5,+0.1 -0.3 -0.1 -0.1 +0.2 +0.0 +0.2 -0.1 -0.1 -0.0
+Coastal Ecuador,842000,GENERAL ULPIANO PA,-2.205,-80.989,50.0,False,57,56,True,-0.37,-0.12,0.26,9.6,13.2,+0.1 +0.4 +0.5 +0.1 -0.3 -0.1 +0.2 -0.4 -0.4 -0.0
+Coastal Ecuador,841230,ALTERNATIVO COTOPA,-0.907,-78.616,45.0,False,120,56,True,1.68,0.08,-1.59,20.5,18.6,-0.4 -0.3 -0.4 +1.0 +1.3 +1.6 +1.4 +1.1 +1.2 +1.4
+Coastal Ecuador,841470,CHACHOAN,-1.212,-78.575,36.0,False,43,31,True,-0.13,0.02,0.15,6.6,10.1,-0.1 +0.1 +0.2 -0.1 -0.3 -0.4 -0.4 +0.0 +0.1 +0.7
+Coastal Ecuador,841760,CHIMBORAZO,-1.653,-78.656,44.0,False,44,34,True,-0.93,-0.04,0.89,6.4,8.6,+0.6 +0.3 -0.1 -0.3 -0.5 -0.5 -0.5 -0.5 -0.6 -0.2
+Coastal Ecuador,841400,PICHILINGUE,-1.1,-79.483,117.0,True,0,0,False,,,,3.7,2.2,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,840880,IZOBAMBA,-0.35,-78.55,30.0,False,0,0,False,,,,3.7,3.4,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,841600,QUEROCHACA,-1.35,-78.6,35.0,False,0,0,False,,,,3.7,3.3,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,841350,PORTOVIEJO,-1.033,-80.45,68.0,False,0,0,False,,,,3.5,3.1,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,842530,GUALAQUIZA,-3.423,-78.567,63.0,False,0,24,False,,,,1.0,10.3,  n/a   n/a   n/a   n/a   n/a   n/a -0.2 +0.1 +0.1 -0.4
+Coastal Ecuador,840560,TOMALON,0.033,-78.233,35.0,False,0,0,False,,,,3.2,3.2,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,840720,INAQUITO,-0.167,-78.483,25.0,False,0,0,False,,,,3.6,2.6,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,840500,LA CONCORDIA,0.017,-79.367,100.0,True,0,0,False,,,,3.7,3.8,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,842170,CORONEL EDMUNDO CA,-2.299,-78.121,56.0,False,57,56,True,-0.9,-0.01,0.89,7.8,10.7,+0.4 +0.3 +0.3 +0.4 +0.4 -0.7 -0.6 -0.8 -0.7 +0.7
+Coastal Ecuador,840760,LA TOLA,-0.217,-78.367,30.0,False,0,0,False,,,,3.7,3.4,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a
+Coastal Ecuador,840260,GENERAL RIVADENEIR,-0.983,-79.633,129.0,True,58,56,True,-0.47,0.23,0.7,8.0,9.4,+0.5 +0.4 +0.3 +0.1 -0.2 -0.1 +0.1 -0.5 -0.2 -0.4
+Coastal Ecuador,840060,RIO AMAZONAS,-1.5,-78.067,45.0,False,57,56,True,0.92,-0.08,-1.0,7.7,12.5,-0.0 -0.0 -0.7 -1.3 -0.8 +0.7 +0.6 +0.9 +0.1 +0.4
+Coastal Ecuador,841430,RUMIPAMBA,-1.017,-78.583,42.0,False,0,0,False,,,,3.6,3.4,  n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a   n/a

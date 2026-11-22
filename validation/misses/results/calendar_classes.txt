@@ -1,0 +1,89 @@
+Calendar-day classes (V2) against the current daily class (V0). Produced by validation/misses/02_calendar_classes.py. POST HOC: not a test.
+
+== 17 single cells, baseline: share of a month's spell days classed severe or extreme, lowest and highest month (months with 30 or more spell days)
+              months  V0_min  V0_max  V2_min  V2_max  sev_share_V0  sev_share_V2  ext_share_V2  sev_days_yr_V0_2125  sev_days_yr_V2_2125
+site                                                                                                                                    
+Singapore         12    0.07    0.33    0.26    0.62           0.2          0.49          0.10                 30.8                 58.4
+Jakarta           12    0.06    0.38    0.29    0.68           0.2          0.53          0.11                 34.4                 64.4
+Lagos              7    0.05    0.33    0.17    0.62           0.2          0.40          0.09                 44.4                 67.4
+Manaus            12    0.00    0.37    0.27    0.66           0.2          0.48          0.10                 19.4                 45.8
+Delhi              8    0.00    0.43    0.17    0.87           0.2          0.39          0.08                  6.4                 16.2
+Jacobabad          7    0.06    0.31    0.14    0.62           0.2          0.37          0.08                  7.4                 13.0
+Hyderabad_IN       9    0.01    0.32    0.10    0.62           0.2          0.38          0.09                  3.2                 10.2
+Dhahran            7    0.03    0.42    0.19    0.63           0.2          0.41          0.10                 20.8                 38.8
+Phoenix            8    0.05    0.40    0.17    0.69           0.2          0.40          0.09                 17.8                 23.8
+Paris              9    0.00    0.33    0.18    0.66           0.2          0.41          0.10                 10.8                 22.6
+Moscow             7    0.10    0.29    0.16    0.63           0.2          0.42          0.10                 12.6                 22.8
+Portland_OR        9    0.00    0.34    0.20    0.68           0.2          0.42          0.11                 15.2                 24.0
+Sydney_W           8    0.05    0.25    0.21    0.68           0.2          0.44          0.12                  5.2                 14.0
+Nairobi           10    0.08    0.34    0.16    0.69           0.2          0.43          0.11                  8.4                 26.4
+LaPaz              9    0.07    0.39    0.26    0.83           0.2          0.49          0.12                 16.8                 32.8
+Verkhoyansk        7    0.04    0.34    0.16    0.68           0.2          0.36          0.08                 11.2                 21.6
+DomeC             12    0.02    0.44    0.15    0.61           0.2          0.42          0.09                 16.0                 28.2
+Spread between months (max minus min), median over cells: V0 0.32, V2 0.47
+
+==== Maryland, 2024-06-18 to 2024-06-23, 277 cells; 70 cells within 50 km of Baltimore
+       spell_live  sev_V0  sev_V2  ext_V2  near_Baltimore_spell  near_Baltimore_sev_V0  near_Baltimore_sev_V2  largest_sev_patch_V2_cells
+06-18        0.00    0.00    0.00    0.00                  0.00                   0.00                   0.00                           0
+06-19        0.22    0.01    0.16    0.05                  0.00                   0.00                   0.00                          44
+06-20        0.22    0.01    0.20    0.05                  0.00                   0.00                   0.00                          56
+06-21        0.22    0.09    0.22    0.22                  0.00                   0.00                   0.00                          62
+06-22        0.33    0.04    0.33    0.24                  0.17                   0.07                   0.17                          81
+06-23        0.87    0.01    0.20    0.07                  1.00                   0.00                   0.34                          54
+Baseline, share of the month's spell days classed severe or extreme:
+ month  severe_share_V0  severe_share_V2  extreme_share_V2
+     3            0.841            0.942             0.374
+     4            0.408            0.675             0.186
+     5            0.142            0.598             0.121
+     6            0.047            0.482             0.101
+     7            0.158            0.173             0.037
+     8            0.101            0.331             0.070
+     9            0.088            0.609             0.162
+    10            0.228            0.585             0.127
+    11            0.423            0.775             0.207
+    12            0.995            1.000             0.881
+Severe over half the area on a window day: V0 False, V2 False. Same dates in other years (base rate): V0 0.02, V2 0.07
+Severe days per cell-year: baseline V0 5.7, V2 12.3; 2021-25 V0 6.1, V2 14.9
+
+==== Makkah province, 2024-06-16 to 2024-06-18, 1202 cells; 70 cells within 50 km of Mecca
+       spell_live  sev_V0  sev_V2  ext_V2  near_Mecca_spell  near_Mecca_sev_V0  near_Mecca_sev_V2  largest_sev_patch_V2_cells
+06-16        0.47    0.18    0.33    0.08              0.93               0.61               0.64                         356
+06-17        0.36    0.13    0.17    0.01              0.80               0.33               0.40                         186
+06-18        0.38    0.15    0.21    0.02              0.69               0.24               0.24                         210
+Baseline, share of the month's spell days classed severe or extreme:
+ month  severe_share_V0  severe_share_V2  extreme_share_V2
+     3            0.663            0.845             0.382
+     4            0.183            0.586             0.113
+     5            0.134            0.605             0.146
+     6            0.230            0.434             0.104
+     7            0.254            0.239             0.049
+     8            0.154            0.264             0.056
+     9            0.121            0.596             0.133
+    10            0.154            0.623             0.152
+    11            0.285            0.826             0.384
+Severe over half the area on a window day: V0 False, V2 False. Same dates in other years (base rate): V0 0.00, V2 0.07
+Severe days per cell-year: baseline V0 5.1, V2 10.8; 2021-25 V0 23.1, V2 44.7
+
+==== Sindh, 2015-06-17 to 2015-06-24, 1217 cells; 25 cells within 50 km of Karachi
+       spell_live  sev_V0  sev_V2  ext_V2  near_Karachi_spell  near_Karachi_sev_V0  near_Karachi_sev_V2  largest_sev_patch_V2_cells
+06-17        0.12    0.01    0.00    0.00                0.28                 0.00                  0.0                           0
+06-18        0.21    0.16    0.11    0.00                1.00                 1.00                  1.0                         122
+06-19        0.69    0.60    0.67    0.06                1.00                 1.00                  1.0                         816
+06-20        0.86    0.51    0.57    0.09                1.00                 1.00                  1.0                         688
+06-21        0.87    0.44    0.46    0.13                1.00                 1.00                  1.0                         556
+06-22        0.67    0.30    0.36    0.06                1.00                 1.00                  1.0                         434
+06-23        0.59    0.16    0.20    0.00                1.00                 0.96                  1.0                         238
+06-24        0.38    0.00    0.00    0.00                1.00                 0.00                  0.0                           0
+Baseline, share of the month's spell days classed severe or extreme:
+ month  severe_share_V0  severe_share_V2  extreme_share_V2
+     3            0.423            0.684             0.155
+     4            0.146            0.600             0.135
+     5            0.213            0.234             0.050
+     6            0.252            0.175             0.038
+     7            0.110            0.539             0.129
+     8            0.170            0.593             0.150
+     9            0.158            0.565             0.124
+    10            0.085            0.584             0.123
+    11            0.024            0.801             0.164
+Severe over half the area on a window day: V0 True, V2 True. Same dates in other years (base rate): V0 0.13, V2 0.15
+Severe days per cell-year: baseline V0 5.7, V2 11.0; 2021-25 V0 9.6, V2 19.8

@@ -1,0 +1,36 @@
+Checks on site/data. Produced by pipeline/check_web.py
+built 2026-11-22 21:24:56; last date 2026-09-13; last input day 2026-09-15
+
+1. Files listed 4,229; missing, changed or unlisted: 0
+
+2. Total 402.5 MB (target under 500). First load 1.72 MB as stored, 1.11 MB if text is served gzipped (target under 3):
+      manifest.json                  0.41 MB
+      admins.json                    0.57 MB
+      latest.json                    0.03 MB
+      static/mask.png                0.05 MB
+      static/adm2.png                0.47 MB
+      static/adm2_parent.bin         0.09 MB
+      daily/2026-09-13.png           0.10 MB
+   files over 2 MB: 0
+   by group: monthly 132.7 MB in 1144 files; daily 90.9 MB in 1091 files; admin 57.6 MB in 202 files; annual 45.6 MB in 94 files; humid 37.8 MB in 1091 files; admin_arch 19.0 MB in 202 files; admin2 9.1 MB in 182 files; events 6.7 MB in 202 files; static 1.1 MB in 7 files; weekly 0.9 MB in 12 files; admins.json 0.6 MB in 1 files; latest.json 0.0 MB in 1 files
+
+3. Latest daily layer: codes [0, 1, 2, 3, 4]; cells where the class or the day count disagrees with the store: 0; longest day count 62; in a heat spell 64,209, severe 145,494, extreme 144,594
+
+4. District id raster: cells differing from the lookup: 0
+
+5. CAN-20250729: 14 units in the file; British Columbia daily share differs from the admin series on 0 days; events 171; 2021 event: start 2021-06-22, 24 days, size 56.45 (expected 24 days, 56.5)
+   daily degree-days summed over the event of 2026-08-19 (8 days): 5.01; size in the events file 5.02  same
+
+6. Annual severe days, mean of 2021 to 2025 against the global run summary: largest difference 0.000 days over 2,394,240 cells
+
+7. Last date shown is 2 days behind the last input day; daily layers after it: 0; series length 17423 days (expected 17423)
+
+8. Periods: 38; days they cover 1,091; daily layers on disk 1,091; sets equal: True
+   past-event file of CAN-20250729: 726 days; British Columbia severe share differs from the admin series on 0 days; arrays ['daynight', 'degdays', 'extreme', 'humid', 'severe']
+
+9. Monthly layers: 1979-01 to 2026-08, 572 months, 1144 files; severe days in June 2021 over western Canada differ from the store at 0 cells
+
+Suppressed below the cell floor of 9: {'adm0': 116, 'adm1': 763, 'adm2': 26823}
+Boundary licence: project owner, 2026-11-22: clear. adm0 from OpenStreetMap, adm1 and adm2 from the HDX edge-matched set, credited under ODbL 1.0. Rows whose source licence reads 'Other' were checked by the project owner on the source pages on 2026-11-22: Honduras, Lebanon, Niger and Türkiye are CC BY-IGO on HDX; Tuvalu is CC BY 4.0 on geoBoundaries; countries with an 'Other' licence: Honduras, Lebanon, Niger, Tuvalu, Türkiye
+
+RESULT: ALL CHECKS PASS

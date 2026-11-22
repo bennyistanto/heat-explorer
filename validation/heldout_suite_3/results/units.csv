@@ -1,0 +1,11 @@
+event,unit,cells,confidence,window,max_share_spell,max_share_sev,A,A_first_day,A_base_rate,readout,readout_cells,max_block_sev,B,B_first_day,B_base_rate,rank,first_ranked_year
+India and Pakistan April 2025,Balochistan,3179,normal,2025-04-14..2025-04-15,0.86,0.86,True,2025-04-14,0.04,Jaipur,9,0.0,False,never,0.02,1,2025
+Western United States July 2024,California,4172,normal,2024-07-05..2024-07-07,0.95,0.9,True,2024-07-05,0.04,Death Valley,9,1.0,True,2024-07-05,0.09,1,2024
+Eastern Mediterranean June 2024,Attica,35,normal,2024-06-11..2024-06-14,1.0,1.0,True,2024-06-11,0.11,Athens,9,1.0,True,2024-06-11,0.11,1,2024
+India May 2024,Punjab (India),477,normal,2024-05-26..2024-05-29,1.0,0.95,True,2024-05-27,0.09,Jalandhar,9,1.0,True,2024-05-27,0.09,1,2024
+Brazil March 2024,Rio de Janeiro,387,normal,2024-03-15..2024-03-18,1.0,0.91,True,2024-03-17,0.04,Rio de Janeiro,9,1.0,True,2024-03-17,0.04,1,2024
+Brazil November 2023,Minas Gerais,5026,normal,2023-11-13..2023-11-19,1.0,1.0,True,2023-11-13,0.04,Aracuai,9,1.0,True,2023-11-13,0.07,1,2023
+Western Europe September 2023,Auvergne-Rhone-Alpes,822,normal,2023-09-03..2023-09-10,1.0,0.98,True,2023-09-04,0.07,Lyon,9,1.0,True,2023-09-04,0.07,1,2023
+France August 2023,Auvergne-Rhone-Alpes,822,normal,2023-08-21..2023-08-23,1.0,1.0,True,2023-08-21,0.04,Toulouse,9,1.0,True,2023-08-21,0.07,1,2023
+Southern Europe July 2023,Catalunya,347,normal,2023-07-15..2023-07-25,1.0,0.97,True,2023-07-17,0.13,Rome,9,1.0,True,2023-07-15,0.13,3,2022
+South Sudan February 2025,Central Equatoria,352,low,2025-02-22..2025-02-28,0.88,0.22,False,never,0.07,Juba,9,0.0,False,never,0.04,6,2005

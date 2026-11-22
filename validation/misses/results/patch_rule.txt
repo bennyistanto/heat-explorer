@@ -1,0 +1,48 @@
+Severe patch rule: what each size threshold would do. Produced by validation/misses/04_patch_rule.py. POST HOC, for specification.
+
+==== Maryland: 277 cells, 26,579 km2. Event window 2024-06-18 to 2024-06-23.
+Baseline days a year with half the area severe ('most of the area'): 7.5; 2021-25: 6.8
+threshold_km2  days/yr patch>=T (baseline)  of which share<0.5 (the rule's own days)  2021-25 rule days/yr  share of unit area at T
+     1,000            17.3                         9.8                            17.0              0.038
+     2,500            13.2                         5.7                             9.2              0.094
+     5,000            10.6                         3.1                             3.6              0.188
+    10,000             7.9                         0.7                             0.2              0.376
+Event window, by day:
+       share_severe  largest_patch_km2  patch_share_of_unit  patch_centre_km_from_Baltimore
+06-18          0.00               0.00                 0.00                             NaN
+06-19          0.16            4189.94                 0.16                          179.13
+06-20          0.20            5334.27                 0.20                          158.29
+06-21          0.22            5907.33                 0.22                          149.24
+06-22          0.33            7721.32                 0.29                          125.67
+06-23          0.20            5199.56                 0.20                           57.77
+
+==== Makkah province: 1202 cells, 138,078 km2. Event window 2024-06-16 to 2024-06-18.
+Baseline days a year with half the area severe ('most of the area'): 3.7; 2021-25: 29.8
+threshold_km2  days/yr patch>=T (baseline)  of which share<0.5 (the rule's own days)  2021-25 rule days/yr  share of unit area at T
+     1,000            54.7                        51.0                           115.4              0.007
+     2,500            41.5                        37.8                            99.8              0.018
+     5,000            31.7                        28.0                            83.4              0.036
+    10,000            21.9                        18.2                            61.2              0.072
+Event window, by day:
+       share_severe  largest_patch_km2  patch_share_of_unit  patch_centre_km_from_Mecca
+06-16          0.33           40805.86                 0.30                       89.87
+06-17          0.17           21296.75                 0.15                       80.44
+06-18          0.21           24018.79                 0.17                       94.48
+
+==== Sindh: 1217 cells, 135,067 km2. Event window 2015-06-17 to 2015-06-24.
+Baseline days a year with half the area severe ('most of the area'): 4.4; 2021-25: 12.0
+threshold_km2  days/yr patch>=T (baseline)  of which share<0.5 (the rule's own days)  2021-25 rule days/yr  share of unit area at T
+     1,000            43.1                        38.8                            52.2              0.007
+     2,500            35.4                        31.0                            43.6              0.019
+     5,000            29.1                        24.7                            34.4              0.037
+    10,000            21.6                        17.2                            23.6              0.074
+Event window, by day:
+       share_severe  largest_patch_km2  patch_share_of_unit  patch_centre_km_from_Karachi
+06-17          0.00               0.00                 0.00                           NaN
+06-18          0.11           13683.98                 0.10                         71.35
+06-19          0.67           90929.68                 0.67                        215.75
+06-20          0.57           76767.44                 0.57                        198.87
+06-21          0.46           62051.67                 0.46                        174.85
+06-22          0.36           48501.06                 0.36                        156.51
+06-23          0.20           26684.19                 0.20                        119.13
+06-24          0.00               0.00                 0.00                           NaN
