@@ -15,6 +15,11 @@ bash tools/py.sh validation/wetbulb_gate/03_compare.py
 Step 2 reads 192 raw AgERA5 files and took 400 s. Outputs: `results/summary.txt`,
 `results/isd_comparison.csv`, `results/wxgrid_comparison.csv`.
 
+`results/wxgrid_comparison.csv` and `results/anomaly_skill.csv` hold one row per wxgrid
+station, so they are gitignored and not in the repository: the station values are not
+ours to republish. Run the scripts to rebuild them. The aggregate figures are in
+`results/summary.txt` and `results/anomaly_skill.txt`.
+
 ## Data
 
 | Source | What | Where |

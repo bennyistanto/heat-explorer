@@ -57,6 +57,7 @@ title: Heat Explorer
 .caveat {font-size: 12.5px; color: var(--ink-2); margin-top: -8px;}
 .caveat.warn {background: #fff3c4; color: #5b4a00; border-radius: 8px; padding: 6px 10px; font-weight: 600; margin-top: -4px;}
 #story .ph.warn {background: #fff3c4; color: #5b4a00;}
+#story .ph.warn a {color: inherit; text-decoration: underline;}
 .layernote {color: #5b4a00; background: #fff3c4; border-radius: 6px; padding: 4px 8px; margin-top: 6px;}
 .dpick {display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: var(--ink-2); margin-top: -6px;}
 .dpick select {font: inherit; flex: 1; min-width: 0; padding: 3px 6px; border: 1px solid var(--rule); border-radius: 6px; background: #fff;}
@@ -97,6 +98,17 @@ table.ev th, table.ev td {text-align: right; padding: 6px 10px; border-bottom: 1
 table.ev th:nth-child(1), table.ev td:nth-child(1), table.ev th:nth-child(2), table.ev td:nth-child(2) {text-align: left;}
 table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
 .hov {position: fixed; pointer-events: none; background: #0b0b0b; color: #fff; font-size: 12px; padding: 4px 7px; border-radius: 5px; display: none; z-index: 10; white-space: nowrap;}
+@media (min-width: 1400px) {
+  /* wide screens: chart on the left, its title, key and reading notes beside it */
+  #story {max-width: 1560px; padding: 8px 24px;}
+  #story .blk {display: grid; grid-template-columns: minmax(0, 1100px) minmax(280px, 400px); grid-template-rows: auto 1fr; column-gap: 36px; align-items: start; margin-top: 22px;}
+  #story .blk .fig {grid-column: 1; grid-row: 1 / span 2;}
+  #story .blk .side {grid-column: 2;}
+  #story .blk .side h3 {margin-top: 0;}
+  #story .blk .side .key {flex-wrap: wrap;}
+  #story section > ul {max-width: 1560px; columns: 2; column-gap: 48px;}
+  #story section > ul li {break-inside: avoid; margin-top: 0;}
+}
 @media (max-width: 1000px) {
   .screen {height: auto;}
   .screen main {grid-template-columns: 1fr;}

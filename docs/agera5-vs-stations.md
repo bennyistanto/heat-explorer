@@ -423,7 +423,7 @@ and the monsoon regions, where anomaly correlations are 0.8 to 0.98.
 ## 12. What is still not known
 
 1. Whether the confidence thresholds are right. They lean on Indonesian data that is not yet clean; they may be too strict.
-2. How much of the world's land falls in each confidence class. The map has not been drawn.
+2. How much of the world's land falls in each confidence class. The map has not been drawn. *Since answered: the classes are now computed for every land cell and hatched on the dashboard map; the low class covers 17 percent of land (`docs/detector-v1-frozen.md`).*
 3. Whether the long-term oddities in section 9 are real. This needs station trend comparisons.
 4. How large the constant-humidity assumption error is away from the Gulf. Only hourly data can show it.
 5. How the comparison looks at the scale the dashboard uses, a province, where averaging should help AgERA5.
@@ -444,6 +444,9 @@ bash tools/py.sh -W ignore validation/wetbulb_gate/04_anomaly_skill.py
 | Sections 6, 7 | `validation/wetbulb_gate/results/anomaly_skill.txt`, `anomaly_skill.csv` |
 | Section 10b | `validation/wetbulb_gate/results/hadisd_summary.txt`, `hadisd_comparison.csv`, `hadisd_skill.csv` (scripts `05_download_hadisd.py`, `06_compare_hadisd.py`) |
 | Section 8 | `temp/critique-2026-11-20/hx_neff.txt` |
+
+`wxgrid_comparison.csv` and `anomaly_skill.csv` hold one row per wxgrid station and are not
+in the repository (gitignored); the scripts above rebuild them.
 | Section 9 | `temp/critique-2026-11-20/hx_results.txt`, `validation/heat_spell_prototype/results/summary.txt` |
 
 Data: NOAA Integrated Surface Database (ISD-Lite), public bucket

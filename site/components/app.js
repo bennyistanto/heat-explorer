@@ -95,6 +95,38 @@ export async function start(files) {
     if (!weekCache.has(w)) weekCache.set(w, (async () => { const px = await pixels(need(man.weekly[w].file)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
     return weekCache.get(w);
   };
+  const evCache = new Map();                                                  // weeks of one past event, worked out here from its daily maps; kept for one event at a time
+  const eventWeek = (pi, days) => {
+    const key = pi + ":" + days[0];
+    for (const k of evCache.keys()) if (!k.startsWith(pi + ":")) evCache.delete(k);
+    if (!evCache.has(key)) {
+      const pr = (async () => {
+        const out = new Uint8Array(N);
+        for (let n = 0; n < days.length; n++) {
+          const px = await pixels(need(`daily/${iso(days[n])}.png`));          // not through the day cache: these are read once and dropped
+          for (let i = 0; i < N; i++) { const v = px[4 * i]; if (v === 255) out[i] = 255; else if ((v & 3) > out[i]) out[i] = v & 3; }
+        }
+        return out;
+      })();
+      evCache.set(key, pr);
+      pr.catch(() => evCache.delete(key));
+    }
+    return evCache.get(key);
+  };
+  // the small maps to draw, oldest first: {a, b, get}, a and b the first and last day
+  const frameList = () => {
+    if (S.p === 0) {
+      const out = [];
+      for (let w = Math.min(7, man.weekly.length - 1); w >= 0; w--) out.push({a: dayOf(man.weekly[w].start), b: dayOf(man.weekly[w].end), get: () => weekly(w)});
+      return out;
+    }
+    const d = PERIODS[S.p].days, out = [], pi = S.p;
+    for (let e = d.length; e > 0 && out.length < 8; e -= 7) {                 // runs of seven days counted back from the last day shown; the oldest run can be shorter
+      const run = d.slice(Math.max(0, e - 7), e);
+      out.unshift({a: run[0], b: run[run.length - 1], get: () => eventWeek(pi, run)});
+    }
+    return out;
+  };
   let lineSetsP = null;                                                       // boundary lines with their bounding boxes, loaded once
   const lineSets = () => lineSetsP || (lineSetsP = (async () => {
     const out = {};
@@ -109,7 +141,7 @@ export async function start(files) {
     return out;
   })());
   async function drawWeeks(wrap, arr, id) {
-    const LS = await lineSets();                                   // eight small maps of one unit, oldest week first
+    const LS = await lineSets();                                   // up to eight small maps of one unit, oldest week first
     let r0 = NR, r1 = -1, c0 = NC, c1 = -1;
     for (let i = 0; i < N; i++) if (arr[i] === id) { const r = Math.floor(i / NC), c = i % NC; if (r < r0) r0 = r; if (r > r1) r1 = r; if (c < c0) c0 = c; if (c > c1) c1 = c; }
     if (r1 < 0 || c1 - c0 >= 1800) { wrap.append(el(`<p class="ph">These maps cannot be drawn for a place that crosses the 180th meridian.</p>`)); return; }
@@ -121,8 +153,8 @@ export async function start(files) {
     const padR = Math.ceil((nrT - h0) / 2), padC = Math.ceil((ncT - w0) / 2);
     r0 = Math.max(0, r0 - padR); r1 = Math.min(NR - 1, r1 + padR); c0 = Math.max(0, c0 - padC); c1 = Math.min(NC - 1, c1 + padC);
     const nr = r1 - r0 + 1, ncol = c1 - c0 + 1, aspect = ncol * Math.cos((90 - 0.1 * (r0 + r1) / 2) * Math.PI / 180) / nr;
-    for (let w = Math.min(7, man.weekly.length - 1); w >= 0; w--) {
-      const code = await weekly(w);
+    for (const fr of frameList()) {
+      const code = await fr.get();
       if (!wrap.isConnected) return;                                          // the story was redrawn meanwhile
       const cvs = document.createElement("canvas"), K = Math.max(1, Math.ceil(480 / ncol));   // pixels per grid cell: every small map is drawn about 480 pixels wide, so lines stay thin and sharp
       cvs.width = ncol * K; cvs.height = nr * K;
@@ -151,8 +183,8 @@ export async function start(files) {
       stroke(LS.countries, "rgba(11,11,11,0.9)", 2.2);
       cvs.style.aspectRatio = aspect.toFixed(3);
       cvs.setAttribute("role", "img");
-      cvs.setAttribute("aria-label", `Highest heat class reached in each grid cell, ${man.weekly[w].start} to ${man.weekly[w].end}`);
-      const box = el(`<div><div class="lab">${fmt(Math.round((Date.parse(man.weekly[w].start) - EPOCH) / DAY), false)} to ${fmt(Math.round((Date.parse(man.weekly[w].end) - EPOCH) / DAY), false)}</div></div>`);
+      cvs.setAttribute("aria-label", `Highest heat class reached in each grid cell, ${iso(fr.a)} to ${iso(fr.b)}`);
+      const box = el(`<div><div class="lab">${fr.a === fr.b ? fmt(fr.a, false) : `${fmt(fr.a, false)} to ${fmt(fr.b, false)}`}</div></div>`);
       box.prepend(cvs);
       wrap.append(box);
     }
@@ -457,6 +489,11 @@ export async function start(files) {
     return trustCache.get(key);
   }
   // the caveat that must open any sentence about a unit that is mostly low confidence, or a quarter or more data suspect
+  // where the evidence behind each caution is written up: sections of docs/agera5-vs-stations.md in the repository
+  const DOC = "https://github.com/bennyistanto/heat-explorer/blob/main/docs/agera5-vs-stations.md";
+  const EVID = {low: "#6-fourth-finding-near-the-equator-agera5-loses-the-day-to-day-signal", rule: "#7-fifth-finding-the-skill-can-be-predicted-without-any-station",
+    sus: "#9a-the-first-such-check-three-patches-of-sudden-recent-warmth", humid: "#5-third-finding-the-humid-heat-peak-is-missed-for-two-different-reasons"};
+  const evid = (k, words) => `<a href="${DOC}${EVID[k]}" target="_blank" rel="noopener">${words}</a>`;
   const caveat = (tr) => (tr.low > 50 ? "Low confidence: the signal is weak in this climate. " : "") + (tr.sus >= 25 ? `A known break in the source data affects ${tr.sus}% of this area. ` : "");
   const tierOf = (sev) => sev === 255 ? -1 : sev >= 50 ? 2 : sev >= 25 ? 1 : 0;
   function eventAt(u, t) {
@@ -620,6 +657,24 @@ export async function start(files) {
   const story = $("story");
   const section = (title, lead) => { const s = el(`<section><h2>${title}</h2><p class="lead">${lead}</p></section>`); story.append(s); return s; };
   const block = (s, title, how) => { s.append(el(`<h3>${title}</h3>`)); if (how) s.append(el(`<p class="how"><b>How to read this.</b> ${how}</p>`)); };
+  // Each titled block of the story becomes: the words before its chart, the chart, the words after it.
+  // On a wide screen the stylesheet puts the chart on the left and the words beside it; on a narrow one they stay in reading order.
+  const isFig = (n) => n.matches("svg, figure, canvas, table, .frames");
+  const twoCol = () => {
+    for (const sec of story.querySelectorAll("section")) {
+      const kids = [...sec.children], groups = [];
+      for (const n of kids) { if (n.tagName === "H3") groups.push([n]); else if (groups.length) groups[groups.length - 1].push(n); }
+      for (const g of groups) {
+        const at = g.findIndex(isFig);
+        if (at < 0) continue;                                                 // words only: left as it is
+        let last = at; for (let n = at; n < g.length; n++) if (isFig(g[n])) last = n;
+        const blk = el(`<div class="blk"><div class="side top"></div><div class="fig"></div><div class="side bot"></div></div>`);
+        g[0].before(blk);
+        g.forEach((n, i) => blk.children[i < at ? 0 : i <= last ? 1 : 2].append(n));
+        if (!blk.children[2].children.length) blk.children[2].remove();
+      }
+    }
+  };
   const key = (items) => el(`<div class="key">${items.map(([c, t]) => `<span><i style="background:${c}"></i>${t}</span>`).join("")}</div>`);
   const po = {style: {fontSize: "12px", fontFamily: "inherit", background: "transparent"}, marginLeft: 44, marginBottom: 30};
   function renderStory(d) {
@@ -627,7 +682,7 @@ export async function start(files) {
     if (!d || !d.story) return;
     const u = d.story, t = d.t, W = Math.min(1100, story.clientWidth || 1000), D = (tt) => new Date(EPOCH + tt * DAY);
     const tr = trust(u.level, u.row), cav = caveat(tr), nm = esc(u.name || "this area");
-    if (cav) story.append(el(`<p class="ph warn"><b>Read with care.</b> ${cav}This applies to every chart and number below.</p>`));
+    if (cav) story.append(el(`<p class="ph warn"><b>Read with care.</b> ${cav}This applies to every chart and number below. ${[tr.low > 50 ? evid("low", "Why the signal is weak here: the comparison with weather stations") : "", tr.sus >= 25 ? evid("sus", "How the break was found") : ""].filter(Boolean).join(". ")}.</p>`));
     if (d.dist || (S.level === "adm2")) story.append(el(`<p class="ph">The sections below are for ${nm}, the ${LEVELS[u.level].toLowerCase()} this district belongs to. Full histories are not published for districts.</p>`));
     { // 1
       const s = section("How much of it was in heat on the chosen date?", `${cav}On ${fmt(t)}, ${u.now.spell}% of ${nm}'s land area was in a heat spell: ${u.now.extreme}% of the land area extreme, ${u.now.severe - u.now.extreme}% severe and ${u.now.spell - u.now.severe}% in the lowest class.`);
@@ -669,7 +724,7 @@ export async function start(files) {
       if (u.hu && u.hu.share !== undefined) {
         block(s, "Humid heat (experimental)");
         s.append(el(`<p>On ${fmt(t)}, ${u.hu.share}% of ${nm}'s land area was in a humid heat spell: three or more days in a row when heat and humidity together were unusual for the date. This is a yes or no reading, with no severity.</p>`));
-        s.append(el(`<p class="ph warn"><b>Experimental.</b> Humid heat here is judged against 1991 to 2020. The humidity record in the source data drifts, so recent years are flagged far more often than the past for reasons that are partly not climate. Here it was flagged on ${u.hu.base.toFixed(0)} days a year in 1991 to 2020 and on ${u.hu.rec.toFixed(0)} days a year in 2021 to 2025, averaged over the land area. It takes no part in the status, the events, the ranks or the trend on this page, and it is not a wet-bulb reading: the source data is too low in absolute humid heat to give one.</p>`));
+        s.append(el(`<p class="ph warn"><b>Experimental.</b> Humid heat here is judged against 1991 to 2020. The humidity record in the source data drifts, so recent years are flagged far more often than the past for reasons that are partly not climate. Here it was flagged on ${u.hu.base.toFixed(0)} days a year in 1991 to 2020 and on ${u.hu.rec.toFixed(0)} days a year in 2021 to 2025, averaged over the land area. It takes no part in the status, the events, the ranks or the trend on this page, and it is not a wet-bulb reading: the source data is too low in absolute humid heat to give one. Evidence: ${evid("humid", "humid heat against weather stations")}.</p>`));
       }
       s.append(el(`<p class="ph">${u.dn ? "" : "Hot days against hot nights are not in this build. "}${u.hu ? "" : "Humid heat is not in this build."}</p>`));
     }
@@ -740,14 +795,18 @@ export async function start(files) {
     }
     {
       if (man.weekly && man.weekly.length) {
-        const se = u.season, seTxt = se && se[0] !== 255 ? ` In the week to ${fmt(T - 1)}, ${se[0]}% of its land area was newly in a heat spell, ${se[1]}% was in one again after a break, ${se[2]}% was still in one from the week before, and ${se[3]}% was no longer in one.` : "";
-        const s = section("Where inside it, and is it the same places again?", `Week by week, where the heat sat inside ${nm} in the eight weeks to ${fmt(T - 1)}.${seTxt}`);
-        block(s, "Highest class reached in each of the last eight weeks", "Each small map is one week, oldest first. A cell takes the colour of the most severe class it reached that week. Read left to right to see where the heat started and how it moved. These weeks end on the last day of data, not on the date chosen with the slider.");
+        const past = S.p !== 0, fl = frameList(), nf = fl.length, evName = PERIODS[S.p].name.split(": ").slice(1).join(": ");
+        const se = u.season, seTxt = !past && se && se[0] !== 255 ? ` In the week to ${fmt(T - 1)}, ${se[0]}% of its land area was newly in a heat spell, ${se[1]}% was in one again after a break, ${se[2]}% was still in one from the week before, and ${se[3]}% was no longer in one.` : "";
+        const s = section("Where inside it, and is it the same places again?", past
+          ? `Week by week, where the heat sat inside ${nm} over the days shown for the past event "${evName}": ${fmt(fl[0].a)} to ${fmt(fl[nf - 1].b)}.`
+          : `Week by week, where the heat sat inside ${nm} in the eight weeks to ${fmt(T - 1)}.${seTxt}`);
+        if (past) block(s, `Highest class reached in each week of the days shown for this event`, `Each small map is one run of seven days, oldest first, counted back from ${fmt(fl[nf - 1].b)}${fl[0].b - fl[0].a < 6 ? "; the first run is shorter" : ""}. A cell takes the colour of the most severe class it reached in that run. The days shown are the event's listed dates with five days added before and after${PERIODS[S.p].days.length > 56 ? ", and only the last eight weeks of them are drawn" : ""}. These maps follow the event chosen in the Period menu, not the date on the slider.`);
+        else block(s, "Highest class reached in each of the last eight weeks", "Each small map is one week, oldest first. A cell takes the colour of the most severe class it reached that week. Read left to right to see where the heat started and how it moved. These weeks end on the last day of data, not on the date chosen with the slider.");
         s.append(key([[C.extreme, "Extreme"], [C.severe, "Severe"], [C.spell, "Heat spell"], [C.land, "Not in a heat spell"], ["#f3f2ee", "Outside this place"]]));
         s.append(el(`<p class="how">Dark lines are country borders; lighter lines are coasts and province borders. They are for orientation: the numbers count grid cells, so a line can cut through a coloured cell.</p>`));
         const wrap = el(`<div class="frames"></div>`);
         s.append(wrap);
-        drawWeeks(wrap, cell[u.level], u.row).catch((err) => { console.error(err); weekCache.clear(); wrap.append(el(`<p class="ph">The weekly maps could not be loaded.</p>`)); });
+        drawWeeks(wrap, cell[u.level], u.row).catch((err) => { console.error(err); weekCache.clear(); evCache.clear(); wrap.append(el(`<p class="ph">The weekly maps could not be loaded.</p>`)); });
       } else {
         const s = section("Where inside it, and is it the same places again?", "Not in this build.");
         s.append(el(`<p class="ph">Week-by-week maps of where the heat sat inside this place are not in this build.</p>`));
@@ -776,8 +835,8 @@ export async function start(files) {
       const low = tr.low, red = tr.red, sus = tr.sus, p = (v) => v;
       const s = section("How far to trust this", "Three things decide how much weight these numbers can bear here.");
       s.append(el(`<ul>
-        <li><b>Confidence.</b> ${p(low)}% of this unit's land area is in the low-confidence class and ${p(red)}% in the reduced class. Where day-to-day temperature varies little, a small shift crosses the thresholds on many days, and the data follows observed hot days less well. Low-confidence areas are hatched on the map.</li>
-        <li><b>Data suspect: ${p(sus)}% of this unit.</b> ${man.counts.data_suspect_cells.toLocaleString("en-GB")} grid cells in three regions have a known break in the source data, shown by weather stations. They are marked on the map and kept in every number.</li>
+        <li><b>Confidence.</b> ${p(low)}% of this unit's land area is in the low-confidence class and ${p(red)}% in the reduced class. Where day-to-day temperature varies little, a small shift crosses the thresholds on many days, and the data follows observed hot days less well. Low-confidence areas are hatched on the map. Evidence: ${evid("low", "the comparison with weather stations")} and ${evid("rule", "the rule that sets the classes")}.</li>
+        <li><b>Data suspect: ${p(sus)}% of this unit.</b> ${man.counts.data_suspect_cells.toLocaleString("en-GB")} grid cells in three regions have a known break in the source data, shown by weather stations. They are marked on the map and kept in every number. Evidence: ${evid("sus", "how the breaks were found")}.</li>
         <li><b>Based on ${u.cells.toLocaleString("en-GB")} grid cells</b> of about 10 km. Every share is of land area, not of people.</li>
         <li><b>The yardstick.</b> Severe and extreme are relative to the time of year in this place's own 1991 to 2020 climate. The heat spell test also counts days that are simply among the hottest of the year here, so the lowest class is not always unusual for its date. Neither is adjusted for warming since 2020.</li>
         <li><b>No uncertainty is quantified</b> in this build.</li></ul>`));
@@ -792,6 +851,7 @@ export async function start(files) {
         <li><b>Here.</b> The reading for a point uses the 9 grid cells around it, about 33 km across. It says severe when more than half are severe or extreme, and in a heat spell when more than half are in one. The second rule is this page's own and has not been tested.</li>
         <li><b>Event.</b> At least a quarter of the area in a heat spell for three days or more, with gaps of up to two days joined. Its size is in degree-days above the heat threshold. In climates with little day-to-day variation this rule can join a whole season into one event.</li>
         <li><b>Data.</b> AgERA5, Copernicus Climate Change Service, DOI 10.24381/cds.6c68c9bb. Data to ${fmt(T - 1)}; built ${man.built.slice(0, 10)}.</li>
+        <li><b>Compared with other indices.</b> The heat spell here is not WSDI, the Excess Heat Factor or any other published index, and its numbers cannot be set beside theirs. <a href="${DOC.replace("agera5-vs-stations.md", "heat-indices-compared.md")}" target="_blank" rel="noopener">How it differs, and where it is the weaker choice</a>.</li>
         <li><b>Boundaries.</b> ${man.boundaries.credit || "FieldMaps edge-matched subnational boundaries, ODbL."} Borders and names are shown as the sources give them and do not express any view on the status of a territory or its borders.</li></ul>`));
     }
   }
@@ -822,7 +882,7 @@ export async function start(files) {
     if (S.pt) link.set("pt", S.pt.lat.toFixed(2) + "," + S.pt.lon.toFixed(2)); else if (S.sel && S.sel.adm1 >= 0) { link.set("u", admins.adm1[S.sel.adm1].id); if (d && d.dist) link.set("d2", d.dist.id); }
     history.replaceState(null, "", "#" + link.toString());
     for (const k of [S.k - 1, S.k + 1]) if (k >= 0 && k < PERIODS[S.p].days.length) daily(PERIODS[S.p].days[k]).catch(() => {});   // warm the neighbouring days so the slider does not wait on a download
-    if (full && my === token) { const ts = performance.now(); renderStory(d); window.__heat.storyMs = Math.round(performance.now() - ts); }
+    if (full && my === token) { const ts = performance.now(); renderStory(d); twoCol(); window.__heat.storyMs = Math.round(performance.now() - ts); }
   }
   const slider = $("slider");
   if (!hasHumid) $("layer").querySelector('option[value="humid"]')?.remove();

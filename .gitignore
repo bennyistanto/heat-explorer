@@ -229,3 +229,9 @@ temp/
 node_modules/
 site/data/
 site/.observablehq/
+
+# Per-site statistics of the wxgrid stations: the station values are not ours to republish.
+# Both files are rebuilt locally by validation/wetbulb_gate/03_compare.py and 04_anomaly_skill.py;
+# the aggregate figures stay in results/summary.txt and results/anomaly_skill.txt.
+validation/wetbulb_gate/results/wxgrid_comparison.csv
+validation/wetbulb_gate/results/anomaly_skill.csv
