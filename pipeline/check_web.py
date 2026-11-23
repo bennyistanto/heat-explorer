@@ -16,6 +16,7 @@
 Run:  bash tools/py.sh -W ignore pipeline/check_web.py
 Output: pipeline/results/check_web.txt
 """
+import gzip
 import json
 import os
 import struct
@@ -56,14 +57,34 @@ if __name__ == "__main__":
         fails.append("file list")
 
     total = sum(on_disk.values()) + os.path.getsize(f"{DST}/manifest.json")
-    first = ["manifest.json", "admins.json", "latest.json", "static/mask.png", "static/adm2.png", "static/adm2_parent.bin", f"daily/{man['last_date']}.png"]
+    # what the opening view fetches: the fixed files, the latest day and the day before it (warmed for the slider),
+    # the lines drawn on the map, and the numbers of the country the page opens on
+    adm, lat = json.load(open(f"{DST}/admins.json", encoding="utf-8")), json.load(open(f"{DST}/latest.json", encoding="utf-8"))
+    score = [(lat["adm1"]["severe"][i] * u["area_km2"] if lat["adm1"]["tier"][i] == 2 else 0) for i, u in enumerate(adm["adm1"])]
+    open_id = adm["adm0"][adm["adm1"][int(np.argmax(score))]["adm0"]]["id"]
+    day_before = str((pd.Timestamp(man["last_date"]) - pd.Timedelta(days=1)).date())
+    first = ["files.js", "manifest.json", "admins.json", "latest.json", "static/mask.png", "static/adm2.png", "static/adm2_parent.dat", "static/countries.json", "static/coast.json",
+             f"daily/{man['last_date']}.png", f"daily/{day_before}.png", f"admin/{open_id}.dat", f"events/{open_id}.json"]
+    first = [(q, f"{DST}/{q}") for q in first if os.path.exists(f"{DST}/{q}")]
+    DIST = os.path.join(DST, "..", "..", "dist")                                  # the page and its libraries, when the static site has been built
+    built = os.path.exists(f"{DIST}/index.html")
+    if built:
+        first = [r for r in first if r[0] != "files.js"]                          # the built copy of the file list is counted instead
+        first.append(("(built) index.html", f"{DIST}/index.html"))
+        for sub in ("_import", "_npm", "_observablehq"):
+            for root, _, fs in os.walk(f"{DIST}/{sub}"):
+                first += [(f"(built) {sub}/{f}", os.path.join(root, f)) for f in fs if f.endswith((".js", ".css"))]
+
+    def served(path):                                                             # bytes if text is gzipped by the host; images are already compressed
+        raw = open(path, "rb").read()
+        return len(raw) if path.endswith(".png") else len(gzip.compress(raw, 6))
     gz = {f["path"]: f["gzip_bytes"] for f in man["files"]}
-    fl = sum(os.path.getsize(f"{DST}/{p}") for p in first)
-    flz = sum(gz.get(p, os.path.getsize(f"{DST}/{p}")) for p in first)
+    fl = sum(os.path.getsize(q) for _, q in first)
+    flz = sum(served(q) for _, q in first)
     big = sorted(((v, k) for k, v in on_disk.items() if v > 2e6), reverse=True)
-    out.append(f"\n2. Total {total / 1e6:.1f} MB (target under 500). First load {fl / 1e6:.2f} MB as stored, {flz / 1e6:.2f} MB if text is served gzipped (target under 3):")
-    for p in first:
-        out.append(f"      {p:28s} {os.path.getsize(f'{DST}/{p}') / 1e6:6.2f} MB")
+    out.append(f"\n2. Total {total / 1e6:.1f} MB (target under 500). First load, {len(first)} files{'' if built else ' (static site not built: page and libraries NOT counted)'}: {fl / 1e6:.2f} MB as stored, {flz / 1e6:.2f} MB if text is served gzipped (target under 3). Province lines (fetched on zooming in) and the small maps (fetched on scrolling to them) are not in it. Largest:")
+    for q, path in sorted(first, key=lambda r: -os.path.getsize(r[1]))[:12]:
+        out.append(f"      {q[:60]:60s} {os.path.getsize(path) / 1e6:6.2f} MB  served {served(path) / 1e6:5.2f}")
     out.append(f"   files over 2 MB: {len(big)}" + "".join(f"\n      {k} {v / 1e6:.2f} MB (gzip {gz.get(k, v) / 1e6:.2f})" for v, k in big[:12]))
     out.append("   by group: " + "; ".join(f"{k} {b['bytes'] / 1e6:.1f} MB in {b['files']} files" for k, b in sorted(man["size_by_group"].items(), key=lambda kv: -kv[1]["bytes"])))
     if total > 500e6:
@@ -98,7 +119,7 @@ if __name__ == "__main__":
     adm = json.load(open(f"{DST}/admins.json", encoding="utf-8"))
     j = next(i for i, u in enumerate(adm["adm1"]) if u["name"] == "British Columbia")
     a0 = adm["adm0"][adm["adm1"][j]["adm0"]]["id"]
-    head, arr = read_bin(f"{DST}/admin/{a0}.bin")
+    head, arr = read_bin(f"{DST}/admin/{a0}.dat")
     r = next(i for i, u in enumerate(head["units"]) if u["level"] == "adm1" and u["row"] == j)
     A = zarr.open_group(f"{V1}/admin/series.zarr", mode="r")
     ref = (A["adm1_spell"][:head["days"], j] // 100).astype("u1")
@@ -146,7 +167,7 @@ if __name__ == "__main__":
     have = {q[6:16] for q in on_disk if q.startswith("daily/")}
     okp = want == have
     out.append(f"\n8. Periods: {len(man.get('periods', []))}; days they cover {len(want):,}; daily layers on disk {len(have):,}; sets equal: {okp}")
-    ap = f"{DST}/admin_arch/{a0}.bin"
+    ap = f"{DST}/admin_arch/{a0}.dat"
     if os.path.exists(ap):
         ah, aa = read_bin(ap)
         ra = next(i for i, u in enumerate(ah["units"]) if u["level"] == "adm1" and u["row"] == j)

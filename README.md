@@ -1,7 +1,7 @@
 # Heat Explorer
 
 An interactive dashboard of heat spells over the world's land, day by day from
-1 January 1979 to 13 September 2026, for every country, province and district.
+1 January 1979 to 29 October 2026, for every country, province and district.
 
 ## What the dashboard can tell you
 
@@ -13,12 +13,12 @@ For any country, province or district, and for any point on the map:
   event there since 1979.
 - **Whether the heat is by day, by night, or both.**
 - **Where inside the area the heat sat**, week by week.
-- **What past heat waves looked like**: 58 documented events since 1995 can be
+- **What past heat waves looked like**: 61 documented events since 1995 can be
   opened from the Period menu.
 - **Whether heat spell days are becoming more common** over the decades.
 - **How far to trust the numbers** in that place.
 
-It describes the record up to 13 September 2026. It is not a forecast and not a
+It describes the record up to 29 October 2026. It is not a forecast and not a
 warning service.
 
 ![The dashboard: controls, map and place summary](docs/img/dashboard.png)
@@ -35,13 +35,13 @@ Not published yet. To see it, build it locally (see "Run it").
 |---|---|
 | Heat spell severity, by day | the class that day: heat spell, severe or extreme |
 | Severe days, or heat spell days, in a year | the count for the chosen year, 1979 to 2025 |
-| Severe days, or heat spell days, in a month | the count for the chosen month, January 1979 to August 2026 |
+| Severe days, or heat spell days, in a month | the count for the chosen month, January 1979 to September 2026 |
 | Season status, last 12 weeks | whether heat there is new, back again, continuing or over |
 | Trend in heat spell days | the change per decade, where it passes a significance test |
 | Humid heat spell (experimental) | whether heat and humidity together were unusual |
 
 **Choose when.** The daily map covers the last 365 days of data and the days
-around each of the 58 past events. The Period menu switches between them and
+around each of the 61 past events. The Period menu switches between them and
 moves the map to the event.
 
 **Choose where.** Click the map, or type a country or province in the Find box.
@@ -107,6 +107,10 @@ npm run serve
 
 and open http://localhost:3312. The steps that read the whole record take
 hours.
+
+Some script headers cite `references/indicators.md` and similar files. Those
+are working notes kept outside this repository; the definitions that matter are
+in `docs/`.
 
 ## Built with
 

@@ -38,6 +38,7 @@ from scipy import sparse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import periods as PER  # noqa: E402
+import rawfiles  # noqa: E402
 
 RAW = "E:/temp/agera5"
 V1 = "E:/temp/agera5/derived-products/heat-explorer/v1"
@@ -69,8 +70,8 @@ def cal_p90(x, doy, half=7, win=31):
 
 def read(v, years, r0, r1, c0, c1, land=None):
     parts, tt = [], []
-    for y in years:
-        d = nc.Dataset(f"{RAW}/{v}/agera5_{v}_{y}.nc")
+    for path in rawfiles.files(v, years):
+        d = nc.Dataset(path)
         d.set_auto_mask(False)
         x = np.asarray(d.variables[VARS[v]][:, r0:r1, c0:c1])
         tt.append(np.asarray(d.variables["time"][:]))

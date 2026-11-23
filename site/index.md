@@ -14,7 +14,7 @@ title: Heat Explorer
 .screen header .date {color: var(--ink-2); margin-left: auto; text-align: right;}
 .screen header .date b {color: var(--ink); font-weight: 600;}
 .controls {display: flex; gap: 12px; align-items: center; flex-wrap: wrap;}
-.controls label {color: var(--ink-2); font-size: 12px; display: flex; gap: 6px; align-items: center;}
+.controls label, .controls .ctl {color: var(--ink-2); font-size: 12px; display: flex; gap: 6px; align-items: center;}
 .controls select, .seg button {font: inherit; font-size: 13px; padding: 4px 8px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); border-radius: 6px;}
 .seg {display: inline-flex;}
 .seg button {border-radius: 0; margin-left: -1px; cursor: pointer;}
@@ -53,7 +53,6 @@ title: Heat Explorer
 .here, .notes {border-top: 1px solid var(--rule); padding-top: 10px; display: grid; gap: 4px;}
 .hk, .notes {color: var(--ink-2); font-size: 12.5px;}
 .notes b {color: var(--ink); font-weight: 600;}
-.lag {background: #fff3c4; color: #5b4a00; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 999px;}
 .caveat {font-size: 12.5px; color: var(--ink-2); margin-top: -8px;}
 .caveat.warn {background: #fff3c4; color: #5b4a00; border-radius: 8px; padding: 6px 10px; font-weight: 600; margin-top: -4px;}
 #story .ph.warn {background: #fff3c4; color: #5b4a00;}
@@ -109,6 +108,13 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
   #story section > ul {max-width: 1560px; columns: 2; column-gap: 48px;}
   #story section > ul li {break-inside: avoid; margin-top: 0;}
 }
+@media (min-width: 1001px) and (max-height: 860px) {
+  /* short screens: the place summary is drawn tighter so it fits beside the map without scrolling */
+  .screen aside {gap: 8px; padding: 10px 16px;}
+  .place h2 {font-size: 19px;}
+  .spark svg {height: 56px;}
+  .here, .notes {padding-top: 6px; gap: 2px;}
+}
 @media (max-width: 1000px) {
   .screen {height: auto;}
   .screen main {grid-template-columns: 1fr;}
@@ -117,8 +123,10 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
   .mapwrap {display: contents;}
   #map {order: 1;}
   .slider {order: 2;}
-  .screen aside {order: 3;}
-  .legend {position: static; max-width: none; margin: 10px 12px; order: 4;}
+  .legend {position: static; max-width: none; margin: 10px 12px; order: 3;}
+  .screen aside {order: 4;}
+  #story .blk .fig {overflow-x: auto;}
+  canvas.matrix {min-width: 700px;}
   .slider {position: static; width: auto; margin: 0 12px 10px;}
   .screen aside {border-left: 0; border-top: 1px solid var(--rule);}
   .screen footer {flex-direction: column; align-items: flex-start;}
@@ -135,11 +143,11 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
         <datalist id="places"></datalist>
       </label>
       <label>Layer
-        <select id="layer" aria-label="Map layer"><option value="sev">Heat spell severity, by day</option><option value="severe">Severe days in a year</option><option value="spell">Heat spell days in a year</option><option value="msevere">Severe days in a month</option><option value="mspell">Heat spell days in a month</option><option value="season">Season status, last 12 weeks</option><option value="trend">Trend in heat spell days</option><option value="humid">Humid heat spell (experimental)</option></select>
+        <select id="layer" aria-label="Map layer"><option value="sev">Heat spell severity, by day</option><option value="severe">Severe days in a year</option><option value="spell">Heat spell days in a year</option><option value="msevere">Severe days in a month</option><option value="mspell">Heat spell days in a month</option><option value="season">Season status, latest 12 weeks of data</option><option value="trend">Trend in heat spell days</option><option value="humid">Humid heat spell (experimental)</option></select>
       </label>
-      <label>Summarise by
+      <span class="ctl">Summarise by
         <span class="seg" id="levels" role="group" aria-label="Admin level"><button data-level="adm0" aria-pressed="false">Country</button><button data-level="adm1" aria-pressed="true">Province</button><button data-level="adm2" aria-pressed="false">District</button></span>
-      </label>
+      </span>
     </div>
     <span class="date">Data coverage: <b id="hdate"></b></span>
   </header>
@@ -153,16 +161,16 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
           <div class="row">Counted by the class of each day, including the first two days of a spell, which the daily map does not show.</div>
         </div>
         <div id="leg-trend" style="display:none">
-          <div class="row"><span>-20</span><span class="ramp" style="flex:1;height:10px;border-radius:2px;background:linear-gradient(90deg,#1854a0,#deebf7 49%,#f6e8d6 51%,#74290c)"></span><span>+20 days per decade</span></div>
+          <div class="row"><span>-20</span><span class="ramp" style="flex:1;height:10px;border-radius:2px;background:linear-gradient(90deg,#1854a0,#b0d0ec 49%,#f0c496 51%,#74290c)"></span><span>+20 days per decade</span></div>
           <div class="row"><span class="sw" style="background:var(--land)"></span>No trend that passes the test</div>
           <div class="row">Change in heat spell days per year, on blocks of 3 by 3 cells. Coloured only where a Mann-Kendall test passes, plainly and after allowing for one year resembling the next, at a false discovery rate of 10%.</div>
           <div class="row" style="color:#5b4a00;background:#fff3c4;border-radius:6px;padding:4px 6px"><span>The source is a reanalysis whose inputs change over the years, which can add or hide a trend, and the yardstick is fixed on 1991 to 2020 and not adjusted for warming.</span></div>
         </div>
         <div id="leg-season" style="display:none">
-          <div class="row"><span class="sw" style="background:#eb6834"></span>New this week: no heat spell in the 11 weeks before</div>
-          <div class="row"><span class="sw" style="background:#a14fb0"></span>Again this week, after a break</div>
+          <div class="row"><span class="sw" style="background:#f0c419"></span>New in the latest week of data: no heat spell in the 11 weeks before</div>
+          <div class="row"><span class="sw" style="background:#a14fb0"></span>Again in the latest week, after a break</div>
           <div class="row"><span class="sw" style="background:linear-gradient(90deg,#d9783c,#74290c)"></span>Still in a heat spell: 2 weeks running to 8 or more</div>
-          <div class="row"><span class="sw" style="background:#7fa3c7"></span>No longer in a heat spell: was last week</div>
+          <div class="row"><span class="sw" style="background:#7fa3c7"></span>No longer in a heat spell: was the week before</div>
           <div class="row"><span class="sw" style="background:var(--land)"></span>None of these</div>
           <div class="row">For the week ending on the last day of data. This project's own grouping, not tested on events.</div>
         </div>
@@ -182,7 +190,7 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
         <div class="base">Relative to each place's own 1991 to 2020 climate. Shares are of land area. Thin lines are coasts and country borders, and province borders once you zoom in. White is sea, or land south of 60 S. Click the map to choose a place.</div>
       </div>
       <div class="slider">
-        <select id="period" aria-label="Period shown: the last year, or a past event"></select>
+        <select id="period" aria-label="Period shown: the latest year of data, or a past event"></select>
         <div class="lab"><span id="sfirst"></span><b id="sdate"></b></div>
         <input type="range" id="slider" min="0" max="89" value="89" aria-label="Date or year shown on the map">
         <div class="layernote" id="layernote" style="display:none"></div>
@@ -230,5 +238,9 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
 import {files} from "./data/files.js";
 import {start} from "./components/app.js";
 
-start(files);
+start(files).catch((err) => {
+  console.error(err);
+  const el = document.getElementById("sentence") || document.getElementById("pname");
+  if (el) el.textContent = "The page could not load its data. Reload to try again.";
+});
 ```

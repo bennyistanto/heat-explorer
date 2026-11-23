@@ -1,7 +1,7 @@
 # Third held-out event suite: protocol
 
 Written on 2026-11-21 (evening), **before any detector output for these units,
-places or dates was computed or looked at**. The user asked for a third set
+places or dates was computed or looked at**. A third set was wanted
 after two candidates were adopted the same evening: the calendar-day class and
 the location readout. Neither has been tested on events it was not built from.
 
@@ -121,3 +121,9 @@ Annual means and confidence classes of all cells; results of both earlier
 held-out suites for their own units; the diagnosis runs for Maryland, Makkah
 province and Sindh. Nothing from any detector for the ten units, the ten
 readout places or the dates listed here.
+
+---
+
+Note added 2026-11-23, after the run: the second sentence of the opening
+paragraph was reworded for style. Nothing else in this file was changed; the
+registered text is in the git history.

@@ -1,0 +1,186 @@
+=== centre-cell validity ===
+
+=== A. RH fields vs dewpoint ===
+site          MAD rhmin MAD rhmax  rhmax>=99.5 %d RH<5 %days outside Stull %
+Singapore          0.08      0.02            37.4        0.0             0.0
+Jakarta            0.15      0.00            29.4        0.0             0.0
+Lagos              1.40      1.83            13.7        0.4             0.4
+Manaus             0.68      0.16            20.3        0.0             0.0
+Delhi              2.51      4.67             6.5        0.3             0.3
+Jacobabad          2.49      2.84             1.4        2.2             2.2
+Hyderabad_IN       2.32      7.21             4.5        0.1             0.1
+Dhahran            5.70      4.25             5.4        5.3             5.3
+Phoenix            2.40      2.92             3.0        2.5             2.5
+Paris              0.66      0.24            50.1        0.0             0.0
+Moscow             0.65      0.33            54.0        0.0             0.3
+Portland_OR        0.57      0.48            52.2        0.0             0.0
+Sydney_W           0.80      0.23            38.7        0.0             0.0
+Nairobi            1.80      3.16            23.4        0.0             0.0
+LaPaz              1.06      0.61            16.6        0.2             0.2
+Verkhoyansk        0.68      0.28            40.1        0.0            36.4
+DomeC              0.59      0.20            29.9        0.0            99.9
+
+=== B. EHF on (Tmax+Tmin)/2, all-year T95, base 1991-2020. Heatwave days per year ===
+site             T95   sdT  79-90  91-20  21-25  min  max zeroYrs accl>1%  EHF85  sev%  ext%   tau       p    r1  top months
+Singapore       27.9  0.73    6.1   19.8   62.6    0  105      11      10   0.47  13.9   0.0  0.55 8.3e-08  0.11  5:33% 6:23% 4:14%
+Jakarta         28.1  0.67    5.2   18.9   58.6    0  129      11       6   0.40  19.8   0.3  0.56 6.4e-08  0.22  10:37% 9:21% 11:14%
+Lagos           29.1  1.40    3.7   20.3   68.8    0  116      13       7   0.56  15.8   0.0  0.54 2.0e-07  0.13  3:43% 2:29% 4:19%
+Manaus          28.9  0.95    1.9   21.2   40.4    0   99      16      27   0.89  17.8   0.0  0.49 2.7e-06  0.01  10:34% 9:33% 8:17%
+Delhi           34.0  6.61   23.3   22.1   21.8    0   65       1      86   6.79  13.8   0.3 -0.07 4.9e-01 -0.19  6:53% 5:33% 7:12%
+Jacobabad       36.6  7.40   37.8   23.0   16.0    0   51       1      69   3.30  16.4   1.4 -0.39 1.3e-04  0.16  6:57% 7:28% 5:12%
+Hyderabad_IN    32.1  3.21   20.3   21.5    5.0    0   44       4      83   3.29  14.5   0.1 -0.17 1.1e-01 -0.02  5:74% 4:14% 6:11%
+Dhahran         37.1  7.90    5.1   22.4   55.6    0   66       7      70   2.88  14.4   1.1  0.67 5.3e-11  0.52  7:47% 8:28% 6:21%
+Phoenix         35.4  8.45   13.8   23.4   38.6    0   58       2      85   6.09  14.8   0.6  0.43 2.2e-05  0.09  7:51% 8:33% 6:14%
+Paris           21.5  6.41   12.8   23.5   37.4    0   52       2      90  14.85  16.2   1.7  0.41 6.0e-05 -0.02  7:41% 8:36% 6:16%
+Moscow          21.2 10.86   12.8   22.2   28.2    0   58       2      92  15.25  15.6   1.3  0.32 1.6e-03 -0.13  7:49% 6:23% 8:23%
+Portland_OR     22.2  6.45   16.3   23.0   40.4    0   50       3      92  16.15  15.8   1.5  0.40 9.2e-05  0.03  8:44% 7:37% 9:9%
+Sydney_W        25.3  4.89   18.8   21.6   21.4    0   56       1      96   9.39  13.7   0.5  0.12 2.3e-01  0.25  1:40% 2:26% 12:23%
+Nairobi         21.1  1.50    9.2   22.5   27.2    0   68       5      32   0.95  12.3   0.3  0.40 9.7e-05 -0.25  3:52% 2:34% 4:9%
+LaPaz            9.6  1.33    9.6   21.6   29.2    0   60       3      26   0.50  17.1   0.0  0.40 8.8e-05 -0.08  11:35% 12:34% 1:15%
+Verkhoyansk     16.7 21.81   18.3   22.8   32.0    3   41       0      96  32.68  14.7   0.1  0.21 3.9e-02  0.03  7:58% 6:28% 8:14%
+DomeC          -32.5 10.18   21.8   23.0   29.8    3   42       0      86  20.02  15.8   3.4  0.31 2.4e-03  0.11  12:50% 1:45% 2:2%
+
+=== B2. Sensitivity to T definition: heatwave days/yr 1991-2020, Jaccard overlap with default ===
+Singapore     default  19.8 | t2mmean  20.3 J=0.74 mean(tm-(tx+tn)/2)=-0.34K | Tmax+next Tmin  21.3 J=0.83
+Jakarta       default  18.9 | t2mmean  20.5 J=0.64 mean(tm-(tx+tn)/2)=-0.44K | Tmax+next Tmin  19.4 J=0.79
+Lagos         default  20.3 | t2mmean  21.1 J=0.76 mean(tm-(tx+tn)/2)=-0.61K | Tmax+next Tmin  20.9 J=0.81
+Manaus        default  21.2 | t2mmean  21.3 J=0.83 mean(tm-(tx+tn)/2)=-0.42K | Tmax+next Tmin  21.1 J=0.88
+Delhi         default  22.1 | t2mmean  22.6 J=0.87 mean(tm-(tx+tn)/2)=-0.26K | Tmax+next Tmin  23.2 J=0.84
+Jacobabad     default  23.0 | t2mmean  23.9 J=0.82 mean(tm-(tx+tn)/2)=-0.12K | Tmax+next Tmin  23.8 J=0.83
+Hyderabad_IN  default  21.5 | t2mmean  21.4 J=0.81 mean(tm-(tx+tn)/2)=-0.31K | Tmax+next Tmin  21.6 J=0.87
+Dhahran       default  22.4 | t2mmean  23.6 J=0.77 mean(tm-(tx+tn)/2)=-0.39K | Tmax+next Tmin  23.4 J=0.79
+Phoenix       default  23.4 | t2mmean  23.2 J=0.82 mean(tm-(tx+tn)/2)=+0.20K | Tmax+next Tmin  22.4 J=0.82
+Paris         default  23.5 | t2mmean  22.9 J=0.86 mean(tm-(tx+tn)/2)=+0.00K | Tmax+next Tmin  22.8 J=0.83
+Moscow        default  22.2 | t2mmean  22.8 J=0.87 mean(tm-(tx+tn)/2)=+0.12K | Tmax+next Tmin  22.2 J=0.84
+Portland_OR   default  23.0 | t2mmean  22.4 J=0.87 mean(tm-(tx+tn)/2)=-0.34K | Tmax+next Tmin  22.1 J=0.87
+Sydney_W      default  21.6 | t2mmean  21.8 J=0.82 mean(tm-(tx+tn)/2)=-0.49K | Tmax+next Tmin  21.1 J=0.85
+Nairobi       default  22.5 | t2mmean  22.1 J=0.66 mean(tm-(tx+tn)/2)=-0.62K | Tmax+next Tmin  21.9 J=0.78
+LaPaz         default  21.6 | t2mmean  20.7 J=0.63 mean(tm-(tx+tn)/2)=-0.44K | Tmax+next Tmin  19.7 J=0.74
+Verkhoyansk   default  22.8 | t2mmean  22.8 J=0.88 mean(tm-(tx+tn)/2)=+0.28K | Tmax+next Tmin  22.6 J=0.88
+DomeC         default  23.0 | t2mmean  23.4 J=0.92 mean(tm-(tx+tn)/2)=-0.00K | Tmax+next Tmin  23.5 J=0.88
+
+=== C. EHHF on mean Stull wet-bulb ===
+site            Tw95  sdTw  79-90  91-20  21-25  min  max accl>1% EHHF85  ext%   tau P(EHF|EHHF) P(EHHF|EHF)  top months
+Singapore       25.8  0.72    5.7   20.6   51.4    0  108       2   0.42   0.0  0.51          71          66  5:42% 6:29% 4:12%
+Jakarta         25.1  0.62    1.9   21.0   67.2    0  176       0   0.37   0.0  0.50          24          26  5:34% 4:23% 6:10%
+Lagos           25.9  1.48    4.7   21.3   59.2    0  111      26   0.56   2.5  0.56          61          60  3:34% 4:30% 2:17%
+Manaus          25.5  0.52    8.8   18.5    0.0    0  101       2   0.28   0.0 -0.18          14          11  11:31% 10:21% 12:13%
+Delhi           26.4  5.91    5.2   23.2   55.0    0   81      48   0.85   2.8  0.72           2           2  7:46% 8:41% 9:8%
+Jacobabad       26.7  6.33    8.9   21.9   38.2    0   69      45   1.43   1.6  0.39          11           8  8:46% 7:36% 9:11%
+Hyderabad_IN    23.2  2.94    4.9   20.5   51.0    0  106      43   0.58   0.8  0.58           6           6  6:35% 9:18% 5:14%
+Dhahran         25.2  4.90    7.4   21.0   30.4    0   55      92   9.54   0.0  0.41          23          19  8:57% 7:22% 9:19%
+Phoenix         22.3  5.63   29.8   22.6   41.6    0   60      78   5.25   0.0 -0.02          22          26  8:49% 7:38% 9:12%
+Paris           17.2  5.57   16.9   21.8   31.2    3   49      92   7.52   1.0  0.24          78          74  7:39% 8:35% 6:17%
+Moscow          17.2  9.85   15.3   22.4   31.2    4   56      92   9.49   0.0  0.31          76          81  7:53% 8:23% 6:22%
+Portland_OR     16.2  5.18   14.9   22.9   39.4    3   46      88   5.63   2.0  0.38          77          74  8:46% 7:34% 9:10%
+Sydney_W        20.2  4.40   12.7   21.0   30.2    0   50      92   3.57   0.3  0.31          57          55  1:42% 2:37% 12:11%
+Nairobi         16.5  1.26    4.5   20.4   27.2    0   98      25   0.61   0.0  0.44          12          11  4:40% 3:20% 5:10%
+LaPaz            6.3  2.18   12.8   20.8   26.8    0   77      13   0.54   0.0  0.17          30          31  1:42% 2:29% 12:20%
+Verkhoyansk     12.2 19.95   15.8   21.9   21.8    3   45      96  20.08   0.0  0.14          87          78  7:65% 8:18% 6:17%
+DomeC          -32.6  9.63   21.7   23.2   29.8    3   44      86  17.53   3.4  0.32          98          99  12:51% 1:45% 2:2%
+
+=== D. Tw_day = Stull(Tmax, rh2mmin): distribution, days/yr above cuts (1991-2020), error vs thermodynamic Tw ===
+site            p50   p95   p99   max   >=24   >=26   >=28  >=30  >=31 n>=35 |  p_hPa St-true@p mean  top1%    min    max | St-true@1013 top1% >=26 true@p >=28 true@p
+Singapore      25.3  26.4  26.8  27.5  351.6   58.6    0.0   0.0  0.00     0 |   1011           0.06   0.09  -0.05   0.33 |               0.09        49.3         0.0
+Jakarta        25.2  26.0  26.4  27.2  350.8   20.2    0.0   0.0  0.00     0 |   1012           0.14   0.16  -0.03   0.49 |               0.15        10.3         0.0
+Lagos          25.1  26.7  27.2  28.1  277.3   84.3    0.0   0.0  0.00     0 |   1011           0.14   0.19  -1.22   0.57 |               0.19        62.4         0.0
+Manaus         25.4  26.3  26.7  27.3  360.6   60.8    0.0   0.0  0.00     0 |   1006           0.12   0.18  -0.03   0.65 |               0.17        39.3         0.0
+Delhi          19.5  27.1  27.9  29.7  112.1   58.2    2.3   0.0  0.00     0 |    988           0.34   0.38  -1.08   1.02 |               0.33        45.0         0.5
+Jacobabad      19.8  27.8  28.7  30.7  121.7   83.8   16.0   0.2  0.00     0 |   1007           0.34   0.68  -1.23   1.03 |               0.66        60.1         3.8
+Hyderabad_IN   21.5  24.2  24.9  25.9   27.4    0.0    0.0   0.0  0.00     0 |    950           0.52   0.61  -0.72   1.07 |               0.45         0.0         0.0
+Dhahran        18.3  25.2  27.7  29.7   33.0   13.7    3.0   0.0  0.00     0 |   1011           0.18   0.85  -1.25   0.99 |               0.85         8.3         0.8
+Phoenix        14.4  23.6  24.9  27.5   10.5    0.7    0.0   0.0  0.00     0 |    973           0.15   0.74  -0.97   1.05 |               0.61         0.1         0.0
+Paris          10.9  19.2  21.4  24.7    0.0    0.0    0.0   0.0  0.00     0 |   1006          -0.21   0.45  -0.68   0.75 |               0.43         0.0         0.0
+Moscow          5.1  19.1  21.4  24.8    0.1    0.0    0.0   0.0  0.00     0 |    995          -0.29   0.39  -0.67   1.09 |               0.35         0.0         0.0
+Portland_OR    10.5  19.3  21.4  25.4    0.1    0.0    0.0   0.0  0.00     0 |   1010          -0.16   0.62  -0.81   0.78 |               0.60         0.0         0.0
+Sydney_W       15.6  22.3  23.9  26.5    3.5    0.1    0.0   0.0  0.00     0 |   1008           0.04   0.61  -0.46   0.90 |               0.59         0.0         0.0
+Nairobi        16.5  18.2  18.8  19.7    0.0    0.0    0.0   0.0  0.00     0 |    825           0.64   0.57  -0.02   1.29 |               0.12         0.0         0.0
+LaPaz           6.7   8.7   9.3  10.2    0.0    0.0    0.0   0.0  0.00     0 |    633           1.25   0.90   0.07   2.65 |              -0.25         0.0         0.0
+Verkhoyansk    -8.4  14.4  17.7  21.5    0.0    0.0    0.0   0.0  0.00     0 |    997           0.41   0.35  -0.68   6.01 |               0.29         0.0         0.0
+DomeC         -46.0 -29.1 -26.1 -16.6    0.0    0.0    0.0   0.0  0.00     0 |    681           2.04   0.27  -0.31  11.06 |               0.05         0.0         0.0
+
+=== E. TX90/TN90 calendar-day (15-day window, base 1991-2020): exceedance rates % ===
+site           TXin  TXcv TX79-90 TX21-26  TNin  TNcv TN79-90 TN21-26  comp% P(N|D)
+Singapore      10.0  10.5     2.1    24.8   9.9  10.5     2.4    24.5    4.2     43  winter-quarter share of compound days: 20%
+Jakarta        10.0  10.5     3.4    20.0  10.0  10.7     1.1    31.2    3.1     32  winter-quarter share of compound days: 25%
+Lagos           8.5   9.0     3.1    35.4   9.8  10.3     1.7    40.5    4.6     44  winter-quarter share of compound days: 19%
+Manaus          9.8  10.3     5.5    21.2   9.9  10.5     4.3    17.3    4.0     40  winter-quarter share of compound days: 23%
+Delhi           8.9   9.5     9.4     8.7   9.3   9.9     6.1    14.6    3.2     35  winter-quarter share of compound days: 17%
+Jacobabad       9.0   9.6    17.0     7.9   9.1   9.6    12.6    11.5    3.2     29  winter-quarter share of compound days: 16%
+Hyderabad_IN    9.6  10.2     6.8     4.9   9.3   9.9     6.7    13.4    2.6     31  winter-quarter share of compound days: 14%
+Dhahran         9.5   9.8     6.1    18.8   9.4   9.9     3.4    20.6    2.9     30  winter-quarter share of compound days: 35%
+Phoenix         9.4  10.0     7.6    15.6   9.3   9.9     5.3    18.5    2.5     26  winter-quarter share of compound days: 14%
+Paris           9.8  10.2     5.6    17.1   9.9  10.4     6.8    14.9    4.4     46  winter-quarter share of compound days: 31%
+Moscow          9.8  10.2     5.5    14.6   9.8  10.2     7.0    11.9    5.0     54  winter-quarter share of compound days: 28%
+Portland_OR     9.7  10.2     9.1    13.4   9.7  10.2     6.6    13.9    3.3     33  winter-quarter share of compound days: 34%
+Sydney_W        9.8  10.1     8.6    10.8   9.7  10.1     7.5    13.5    2.0     20  winter-quarter share of compound days: 21%
+Nairobi         9.7  10.2     5.4    16.8   9.7  10.3     1.7    16.9    1.0     11  winter-quarter share of compound days: 18%
+LaPaz           9.9  10.4     5.7    17.8   9.6  10.2     4.1    15.9    1.4     15  winter-quarter share of compound days: 16%
+Verkhoyansk     8.9   9.5     9.1    13.1   8.9   9.4     8.1    10.9    5.2     55  winter-quarter share of compound days: 32%
+DomeC           9.8  10.1    10.9    12.7   9.7  10.1    12.3    11.8    7.6     73  winter-quarter share of compound days: 26%
+
+=== F. Documented events ===
+Europe Aug 2003          Paris        EHF peak    44.9 K2 =   3.0 x EHF85 [extreme] rank  5/48 | hw days 15/15 | TX90 11 TN90 11 comp 10 | Tx max 37.3 | Tw_day max 23.9 | EHHF peak   22.3 [severe] days 14
+Russia Jul-Aug 2010      Moscow       EHF peak    38.0 K2 =   2.5 x EHF85 [severe ] rank  5/48 | hw days 41/42 | TX90 40 TN90 38 comp 38 | Tx max 37.4 | Tw_day max 24.8 | EHHF peak   15.2 [severe] days 41
+India May 2015           Hyderabad_IN EHF peak     6.7 K2 =   2.0 x EHF85 [severe ] rank  4/48 | hw days 14/17 | TX90  5 TN90  3 comp  2 | Tx max 40.6 | Tw_day max 24.2 | EHHF peak   -0.1 [NONE] days 0
+India May 2015           Delhi        EHF peak     5.3 K2 =   0.8 x EHF85 [low    ] rank 31/48 | hw days  7/17 | TX90  3 TN90  0 comp  0 | Tx max 43.7 | Tw_day max 24.6 | EHHF peak   -5.8 [NONE] days 0
+Pakistan Jun 2015        Jacobabad    EHF peak     1.0 K2 =   0.3 x EHF85 [low    ] rank 44/48 | hw days  4/14 | TX90  0 TN90  0 comp  0 | Tx max 44.7 | Tw_day max 28.1 | EHHF peak   -0.3 [NONE] days 0
+India-Pak Mar-May 2022   Delhi        EHF peak     4.4 K2 =   0.6 x EHF85 [low    ] rank 38/48 | hw days 10/72 | TX90 29 TN90 18 comp  7 | Tx max 43.7 | Tw_day max 26.3 | EHHF peak   -4.6 [NONE] days 0
+India-Pak Mar-May 2022   Jacobabad    EHF peak    -0.9 K2 =  -0.3 x EHF85 [NONE   ] rank 49/48 | hw days  0/72 | TX90 30 TN90 15 comp 10 | Tx max 45.7 | Tw_day max 25.1 | EHHF peak   -5.3 [NONE] days 0
+Pacific NW Jun 2021      Portland_OR  EHF peak   114.6 K2 =   7.1 x EHF85 [extreme] rank  1/48 | hw days  6/6 | TX90  5 TN90  6 comp  5 | Tx max 45.1 | Tw_day max 24.5 | EHHF peak   30.9 [extreme] days 6
+SE Australia 2019-20     Sydney_W     EHF peak    20.5 K2 =   2.2 x EHF85 [severe ] rank  8/48 | hw days 27/53 | TX90 10 TN90 13 comp  2 | Tx max 45.8 | Tw_day max 26.5 | EHHF peak    9.2 [severe] days 16
+Siberia Jun 2020         Verkhoyansk  EHF peak   106.7 K2 =   3.3 x EHF85 [extreme] rank  1/48 | hw days 16/16 | TX90 13 TN90 12 comp 11 | Tx max 33.6 | Tw_day max 19.1 | EHHF peak   32.2 [severe] days 15
+
+Top 5 yearly EHF peaks per site; top Tw_day dates for humid sites:
+  Paris        2026-06-23 87, 2019-07-23 64, 2020-08-08 49, 1990-08-02 46, 2003-08-05 45
+  Moscow       1996-07-10 75, 2025-07-10 61, 2007-05-28 58, 1998-06-13 40, 2010-07-27 38
+  Portland_OR  2021-06-26 115, 2009-07-27 63, 1981-08-08 57, 2006-07-21 54, 2023-08-14 54
+  Delhi        2007-06-08 22, 1988-05-28 21, 2012-05-31 19, 2004-05-20 18, 1986-06-11 16
+  Jacobabad    2024-05-26 15, 1979-06-10 13, 1987-06-06 12, 2010-05-25 11, 1986-06-17 11
+  Hyderabad_IN 1988-05-08 11, 1995-06-02 9, 1984-05-21 7, 2015-05-21 7, 2005-05-17 7
+  Tw_day top: Dhahran    2016-07-26 29.7 (Tx 41, RH 43), 1998-09-13 29.6 (Tx 42, RH 39), 1998-07-29 29.6 (Tx 44, RH 33), 2017-07-09 29.6 (Tx 42, RH 39), 2000-08-14 29.4 (Tx 43, RH 35)
+  Tw_day top: Jacobabad  2020-08-12 30.7 (Tx 40, RH 51), 2020-08-11 30.4 (Tx 39, RH 51), 2020-08-13 30.4 (Tx 39, RH 50), 2020-08-15 30.4 (Tx 40, RH 47), 2020-08-16 30.1 (Tx 40, RH 47)
+  Tw_day top: Delhi      2024-07-30 29.7 (Tx 36, RH 63), 2024-07-28 29.6 (Tx 36, RH 60), 2024-07-31 29.4 (Tx 35, RH 64), 2024-07-29 29.2 (Tx 36, RH 59), 2022-07-05 29.1 (Tx 37, RH 54)
+  Tw_day top: Singapore  1998-05-23 27.5 (Tx 31, RH 75), 1998-05-22 27.5 (Tx 31, RH 77), 2024-04-29 27.4 (Tx 32, RH 72), 1998-05-21 27.4 (Tx 31, RH 74), 2024-04-30 27.4 (Tx 31, RH 74)
+  Tw_day top: Lagos      2024-03-29 28.1 (Tx 33, RH 67), 2024-03-28 28.0 (Tx 33, RH 67), 2016-03-29 28.0 (Tx 33, RH 70), 2024-04-02 27.9 (Tx 33, RH 67), 2020-03-05 27.8 (Tx 33, RH 66)
+
+=== G. Spatial redundancy in the 11x11 window (centre vs cells at Chebyshev distance 1, 3, 5) ===
+site          land% r daily anom d1    d3    d5 | r annual hw d1    d3    d5 | T95 range K
+Singapore        99           0.997 0.902 0.852 |          0.993 0.912 0.890 |         1.8
+Jakarta          91           0.968 0.891 0.812 |          0.929 0.867 0.819 |         7.7
+Lagos           100           0.960 0.876 0.847 |          0.974 0.942 0.932 |         2.6
+Manaus          100           0.989 0.968 0.940 |          0.994 0.985 0.971 |         1.7
+Delhi           100           0.994 0.981 0.974 |          0.981 0.945 0.935 |         1.5
+Jacobabad       100           0.990 0.971 0.939 |          0.958 0.876 0.702 |         2.1
+Hyderabad_IN    100           1.000 0.973 0.937 |          0.998 0.950 0.896 |         3.0
+Dhahran          95           0.997 0.958 0.931 |          0.990 0.909 0.876 |         4.3
+Phoenix         100           0.993 0.986 0.965 |          0.987 0.971 0.946 |         5.3
+Paris           100           0.999 0.996 0.989 |          0.997 0.987 0.974 |         1.9
+Moscow          100           0.999 0.997 0.994 |          0.996 0.991 0.986 |         1.1
+Portland_OR     100           0.995 0.981 0.958 |          0.989 0.968 0.943 |         5.0
+Sydney_W        100           0.986 0.945 0.923 |          0.976 0.913 0.874 |         4.5
+Nairobi         100           0.939 0.892 0.812 |          0.929 0.852 0.807 |        15.9
+LaPaz           100           0.919 0.796 0.744 |          0.900 0.782 0.792 |        19.1
+Verkhoyansk     100           0.999 0.988 0.977 |          0.996 0.980 0.960 |         4.1
+DomeC           100           1.000 0.995 0.985 |          0.997 0.981 0.960 |         0.5
+
+=== H. What a cube-wide Gi* reference sees ===
+mean over sites, EHF heatwave days/yr: 1979-1990 13.9 | 1991-2005 17.4 | 2006-2020 26.5 | 2021-2025 36.1
+pooled sd over sites and years 17.2; between-site sd of 2021-25 means 16.7; of 1979-90 means 8.8
+Singapore     weekly zero share, all record  89.7% | last 26 weeks: zero weeks 11/26, hw days  65 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio  10.3
+Jakarta       weekly zero share, all record  90.8% | last 26 weeks: zero weeks 19/26, hw days  28 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio  11.3
+Lagos         weekly zero share, all record  90.6% | last 26 weeks: zero weeks 20/26, hw days  30 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio  18.8
+Manaus        weekly zero share, all record  91.8% | last 26 weeks: zero weeks 20/26, hw days  42 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio  21.1
+Delhi         weekly zero share, all record  89.8% | last 26 weeks: zero weeks 20/26, hw days  22 | annual MK p<0.05 no  sign -1 | 2021-25 / 1979-90 ratio   0.9
+Jacobabad     weekly zero share, all record  88.2% | last 26 weeks: zero weeks 23/26, hw days   7 | annual MK p<0.05 yes sign -1 | 2021-25 / 1979-90 ratio   0.4
+Hyderabad_IN  weekly zero share, all record  92.3% | last 26 weeks: zero weeks 23/26, hw days   8 | annual MK p<0.05 no  sign -1 | 2021-25 / 1979-90 ratio   0.2
+Dhahran       weekly zero share, all record  89.2% | last 26 weeks: zero weeks 13/26, hw days  57 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio  10.9
+Phoenix       weekly zero share, all record  89.5% | last 26 weeks: zero weeks 15/26, hw days  50 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   2.8
+Paris         weekly zero share, all record  89.0% | last 26 weeks: zero weeks 11/26, hw days  74 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   2.9
+Moscow        weekly zero share, all record  90.6% | last 26 weeks: zero weeks 20/26, hw days  20 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   2.2
+Portland_OR   weekly zero share, all record  88.2% | last 26 weeks: zero weeks 16/26, hw days  26 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   2.5
+Sydney_W      weekly zero share, all record  88.3% | last 26 weeks: zero weeks 26/26, hw days   0 | annual MK p<0.05 no  sign +1 | 2021-25 / 1979-90 ratio   1.1
+Nairobi       weekly zero share, all record  91.0% | last 26 weeks: zero weeks 26/26, hw days   0 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   3.0
+LaPaz         weekly zero share, all record  90.4% | last 26 weeks: zero weeks 26/26, hw days   0 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   3.0
+Verkhoyansk   weekly zero share, all record  89.8% | last 26 weeks: zero weeks 20/26, hw days  20 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   1.7
+DomeC         weekly zero share, all record  89.9% | last 26 weeks: zero weeks 26/26, hw days   0 | annual MK p<0.05 yes sign +1 | 2021-25 / 1979-90 ratio   1.4

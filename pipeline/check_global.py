@@ -51,24 +51,27 @@ if __name__ == "__main__":
 
     S = np.load(f"{V1}/run_summary_global.npz")["days_per_year"]
     z = np.load(CELLS)
-    same_time = np.array_equal(z["time"], days)
-    out.append(f"\n3. Independent path, 17 windows (time axes equal: {same_time})")
+    nz = len(z["time"])                                                        # the windows were extracted when the record was shorter
+    same_time = np.array_equal(z["time"], days[:nz])
+    cut = 4 if nz < len(days) else 0                                           # a run at the end of the shorter record can still grow into a spell: those days are left out
+    zd = days[:nz]
+    out.append(f"\n3. Independent path, 17 windows, first {nz - cut:,} days (the windows' time axis is the start of the store's: {same_time})")
     vals, tot_diff, tot_days = set(), 0, 0
     for s, (la, lo) in SITES.items():
         i, j = int(round((90 - la) / 0.1)), int(round((lo + 180) / 0.1))
-        st = C[:, i - 5:i + 6, j - 5:j + 6].reshape(len(days), -1)
+        st = C[:nz, i - 5:i + 6, j - 5:j + 6].reshape(nz, -1)
         vals |= set(np.unique(st).tolist())
-        tx, tn = z[f"t2mmax__{s}"].astype("f4").reshape(len(days), -1), z[f"t2mmin__{s}"].astype("f4").reshape(len(days), -1)
+        tx, tn = z[f"t2mmax__{s}"].astype("f4").reshape(nz, -1), z[f"t2mmin__{s}"].astype("f4").reshape(nz, -1)
         ld = tx[0] != -9999.0
-        tm = np.full((len(days), int(ld.sum())), np.nan, "f4")
+        tm = np.full((nz, int(ld.sum())), np.nan, "f4")
         tm[:-1] = ((tx[:-1, ld] - np.float32(273.15)) + (tn[1:, ld] - np.float32(273.15))) / 2
-        r = detector.detect_block(tm, days)
+        r = detector.detect_block(tm, zd)
         tail = int(dict(g.attrs).get("unclassed_tail_days", 0))               # those days hold 253 in the store
-        nd = len(days) - tail
-        d = int((st[:nd, ld] != r["cls_day"][:nd]).sum()) + int((st[nd:, ld] != 253).sum())
+        nd = nz - cut if cut else nz - tail
+        d = int((st[:nd, ld] != r["cls_day"][:nd]).sum()) + (0 if cut else int((st[nd:, ld] != 253).sum()))
         mask_ok = bool(np.array_equal(st[0] != 255, ld))
         tot_diff += d
-        tot_days += r["cls_day"].size
+        tot_days += r["cls_day"][:nd].size
         out.append(f"   {s:13s} land cells {int(ld.sum()):3d}  land mask equal: {mask_ok}  differing cell-days: {d}")
         if d or not mask_ok:
             fails.append(f"independent path {s}")

@@ -15,7 +15,7 @@ Every product here stops two days before the end of the record.
     static/mask.png               palette PNG, 3600 x 1801: bit 0 low confidence, bit 1 reduced
                                   confidence, bit 2 data suspect; 255 sea
     static/adm2.png               RGB PNG: district row index + 1 packed in 24 bits, 0 none
-    static/adm2_parent.bin        uint16 per district row: row index of its province
+    static/adm2_parent.dat        uint16 per district row: row index of its province
     static/countries.json         country lines and name points, for drawing only (pipeline/web_outlines.py)
     static/coast.json,            coastline and borders between provinces of one country, for drawing only
     static/provinces.json         (pipeline/web_lines.py)
@@ -24,12 +24,12 @@ Every product here stops two days before the end of the record.
                                   Bits 2-7: day of the spell, capped at 62 (shown from day 3). 255 sea
     annual/spell_YYYY.png,        8-bit PNG: days in the year in a heat spell / severe or extreme
     annual/severe_YYYY.png        (class of the day, not live labelling); 254 = 254 or more, 255 sea
-    admin/<adm0_id>.bin           country and its provinces: daily share in a heat spell since 1979
+    admin/<adm0_id>.dat           country and its provinces: daily share in a heat spell since 1979
                                   (uint8 percent), severe and extreme for the last 365 days,
                                   heat spell area-days per year (uint16, x 10), hot day and hot night
                                   shares for the last 180 days when run_daynight.py has been run, and daily
                                   degree-days for the last 365 days (uint16, x 1000)
-    admin2/<adm0_id>.bin          its districts: three shares for the last 90 days, and per year the
+    admin2/<adm0_id>.dat          its districts: three shares for the last 90 days, and per year the
                                   spell and severe area-days (uint16, x 10)
     static/trend.png              trend in heat spell days per year, 3 by 3 blocks: 0 no significant trend,
                                   1 to 254 slope as (v - 128) / 2 days per decade, 255 sea (pipeline/trend.py)
@@ -39,13 +39,14 @@ Every product here stops two days before the end of the record.
                                   static/mask_humid.png is this layer's own confidence mask (bit 0 low, bit 1 reduced)
     monthly/spell_YYYY-MM.png,    8-bit PNG: days in the month in a heat spell / severe or extreme (class of the
     monthly/severe_YYYY-MM.png    day, not live labelling), every complete month since 1979-01; 255 sea
-    admin_arch/<adm0_id>.bin      the day-keyed numbers of admin/<id>.bin (severe, extreme, degree-days, hot day and
+    admin_arch/<adm0_id>.dat      the day-keyed numbers of admin/<id>.dat (severe, extreme, degree-days, hot day and
                                   night, humid) for the days of the past events listed in config/archive_events.csv
     weekly/wNN.png                8-bit PNG: highest class shown on any day of the week (0 to 3), 255 sea;
                                   w00 is the week ending on the last day. Dates are in the manifest
     events/<adm0_id>.json         events of the country and its provinces: start, days, peak share,
                                   size in degree-days
-    .bin layout: uint32 little-endian header length, UTF-8 JSON header, then the arrays the
+    (.dat and not .bin: download managers take .bin files away from the browser)
+    .dat layout: uint32 little-endian header length, UTF-8 JSON header, then the arrays the
     header lists, in order, with no padding.
 
 Not built here, and why: trend and season layers (classes not defined), hot
@@ -83,7 +84,7 @@ V1 = f"{DP}/v1"
 DST = os.path.join(ROOT, "site", "data")
 NLAT, NLON, TR, TC = 1801, 3600, 200, 400
 WINDOW, TRAIL1, TRAIL2 = PER.RECENT, 365, 90   # daily layers of the recent window; province trailing days; district trailing days
-FLOOR = 9                                   # land cells below which a unit gets no area shares (set by the project owner, 2026-11-22)
+FLOOR = 9                                   # land cells below which a unit gets no area shares (set by the author, 2026-11-22)
 SHARE_DAY, GAP, MIN_DAYS = 0.25, 2, 3       # event rule (not frozen)
 TIER = (0.25, 0.50)                         # severe share: part of the area (setting), most of the area (frozen)
 PAL = [231, 230, 225, 240, 190, 140, 217, 120, 60, 116, 41, 12, 251, 250, 247]
@@ -168,12 +169,12 @@ if __name__ == "__main__":
     mask[cs.row.values, cs.col.values] |= 4
     mask[~land] = 255
     Image.fromarray(mask, "L").save(f"{DST}/static/mask.png", optimize=True)
-    for k in ("adm2",):                                        # the page finds the province through adm2_parent.bin
+    for k in ("adm2",):                                        # the page finds the province through adm2_parent.dat
         v = (LK[k].astype("i8") + 1).astype("u4")
         rgb = np.stack([(v >> 16) & 255, (v >> 8) & 255, v & 255], axis=-1).astype("u1")
         Image.fromarray(rgb, "RGB").save(f"{DST}/static/{k}.png", optimize=True)
     a1_of_a2 = pd.Series(np.arange(len(U1)), index=U1.adm1_id).reindex(U2.adm1_id).fillna(65535).values.astype("u2")
-    a1_of_a2.tofile(f"{DST}/static/adm2_parent.bin")
+    a1_of_a2.tofile(f"{DST}/static/adm2_parent.dat")
     for nm in ("countries", "coast", "provinces"):             # lines and names for orientation, from pipeline/web_outlines.py and web_lines.py
         if os.path.exists(f"{V1}/web/{nm}.json"):
             shutil.copyfile(f"{V1}/web/{nm}.json", f"{DST}/static/{nm}.json")
@@ -379,7 +380,7 @@ if __name__ == "__main__":
                 head["arrays"].append({"name": "humid_days", "dtype": "uint16", "shape": [len(units), 2], "unit": "area-mean humid heat spell days a year x 10: 1991-2020, 2021-2025"})
                 extra += [np.stack([pct(HU[lv][:, k]) for lv, k, _ in units]),
                           np.array([[int(round(float(np.nan_to_num(v)) * 10)) for v in HU["dpy"][lv][:, k]] for lv, k, _ in units], "u2")]
-            write_bin(f"{DST}/admin/{r0.adm0_id}.bin", head, [np.stack([pct(S[m][-n:, k]) for _, k, S in units]) for m, n in (("spell", T), ("severe", TRAIL1), ("extreme", TRAIL1))] + [ann1, np.stack([np.minimum(S["degdays"][-TRAIL1:, k], 65534).astype("u2") for _, k, S in units]), np.stack([SEAS[lv][:, k] for lv, k, _ in units])] + extra)
+            write_bin(f"{DST}/admin/{r0.adm0_id}.dat", head, [np.stack([pct(S[m][-n:, k]) for _, k, S in units]) for m, n in (("spell", T), ("severe", TRAIL1), ("extreme", TRAIL1))] + [ann1, np.stack([np.minimum(S["degdays"][-TRAIL1:, k], 65534).astype("u2") for _, k, S in units]), np.stack([SEAS[lv][:, k] for lv, k, _ in units])] + extra)
             if len(arch):                                      # the same day-keyed numbers for the days of the past events
                 ah = {"start": "1979-01-01", "days": [int(v) for v in arch], "units": [{"level": lv, "row": k} for lv, k, _ in units],
                       "arrays": [{"name": "severe", "dtype": "uint8", "shape": [len(units), len(arch)]}, {"name": "extreme", "dtype": "uint8", "shape": [len(units), len(arch)]},
@@ -391,7 +392,7 @@ if __name__ == "__main__":
                 if HU is not None:
                     ah["arrays"].append({"name": "humid", "dtype": "uint8", "shape": [len(units), len(arch)]})
                     aarr.append(np.stack([pct(HU["arch"][lv][:, k]) for lv, k, _ in units]))
-                write_bin(f"{DST}/admin_arch/{r0.adm0_id}.bin", ah, aarr)
+                write_bin(f"{DST}/admin_arch/{r0.adm0_id}.dat", ah, aarr)
             evj = []
             for lv, k, S in units:
                 shr = S["spell"][:, k] / 1e4
@@ -411,7 +412,7 @@ if __name__ == "__main__":
                     "units": [{"row": int(k), "id": U2.adm2_id[k], "name": s(U2.adm2_name[k]), "adm1": int(a1_of_a2[k]), "cells": int(U2.land_cells[k]), "area_km2": int(U2.area_km2[k])} for k in k2],
                     "arrays": [{"name": m, "dtype": "uint8", "shape": [len(k2), TRAIL2], "unit": "percent of land area"} for m in ("spell", "severe", "extreme")]
                     + [{"name": f"annual_{m}", "dtype": "uint16", "shape": [len(k2), len(years)], "unit": "area-days x 10"} for m in ("spell", "severe")]}
-            write_bin(f"{DST}/admin2/{r0.adm0_id}.bin", head, [pct(S2[m][-TRAIL2:, k2]).T for m in ("spell", "severe", "extreme")] + ann)
+            write_bin(f"{DST}/admin2/{r0.adm0_id}.dat", head, [pct(S2[m][-TRAIL2:, k2]).T for m in ("spell", "severe", "extreme")] + ann)
     print(f"admin {time.time() - t0:.0f} s", flush=True)
 
     # ---- manifest
@@ -457,8 +458,8 @@ if __name__ == "__main__":
            "not_built": ["hot spot layer", "space-time cube files", "district events", "largest severe patch"],
            "boundaries": {"licence": "Open Database License (ODbL) 1.0", "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
                           "credit": "Boundaries: FieldMaps Global Edge-matched Subnational Boundaries (adm1, adm2) and OpenStreetMap contributors (adm0), under the Open Database License 1.0.",
-                          "source": "FieldMaps edge-matched subnational boundaries, release 2025-07-29", "licence_decision": "project owner, 2026-11-22: clear. adm0 from OpenStreetMap, adm1 and adm2 from the HDX edge-matched set, credited under ODbL 1.0. Rows whose source licence reads 'Other' were checked by the project owner on the source pages on 2026-11-22: Honduras, Lebanon, Niger and Türkiye are CC BY-IGO on HDX; Tuvalu is CC BY 4.0 on geoBoundaries",
-                          "source_licences_checked_by_owner": {"Honduras": "CC BY-IGO", "Lebanon": "CC BY-IGO", "Niger": "CC BY-IGO", "Türkiye": "CC BY-IGO", "Tuvalu": "CC BY 4.0"},
+                          "source": "FieldMaps edge-matched subnational boundaries, release 2025-07-29", "licence_decision": "Checked by the author, 2026-11-22: clear. adm0 from OpenStreetMap, adm1 and adm2 from the HDX edge-matched set, credited under ODbL 1.0. Rows whose source licence reads 'Other' were checked on the source pages on 2026-11-22: Honduras, Lebanon, Niger and Türkiye are CC BY-IGO on HDX; Tuvalu is CC BY 4.0 on geoBoundaries",
+                          "source_licences_checked": {"Honduras": "CC BY-IGO", "Lebanon": "CC BY-IGO", "Niger": "CC BY-IGO", "Türkiye": "CC BY-IGO", "Tuvalu": "CC BY 4.0"},
                           "units_with_other_licence_adm1": int(U1.src_lic.astype(str).str.startswith("Other").sum()), "countries_with_other_licence": hold},
            "size_by_group": by, "total_bytes": int(sum(f["bytes"] for f in files)), "files": files}
     with open(f"{DST}/manifest.json", "w", encoding="utf-8") as f:

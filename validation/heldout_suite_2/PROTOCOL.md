@@ -1,7 +1,7 @@
 # Second held-out event suite: protocol
 
 Written on 2026-11-21, **before any detector output for these units or dates
-was computed or looked at**. The user asked for a second held-out set after
+was computed or looked at**. A second held-out set was wanted after
 the first one (`validation/heldout_suite/`) came out at 6 of 9 against a bar
 of 7 and nothing was frozen.
 
@@ -112,3 +112,9 @@ the two sets were not built by the same rules.
 Annual mean temperature and the confidence class of every cell; the 2007
 change map; the results of the first held-out suite for its own units.
 Nothing from any detector for these ten units or these dates.
+
+---
+
+Note added 2026-11-23, after the run: the second sentence of the opening
+paragraph was reworded for style. Nothing else in this file was changed; the
+registered text is in the git history.

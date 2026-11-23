@@ -1,6 +1,6 @@
 """Heat spell detector, revision 3 (single-cell reference implementation).
 
-VERSION 1.0, FROZEN on 2026-11-21 (project owner, after validation/heldout_suite_3): the fields
+VERSION 1.0, FROZEN on 2026-11-21 (the author, after validation/heldout_suite_3): the fields
 flag, spell and cls_day, and the constants MIN_RUN, CAL_Q and SEV_Q. Definition in plain words:
 docs/detector-v1-frozen.md. Do not change these without a new version number and a new test on
 events not used before. Other fields (excess, running, cls_intensity, cls_causal, cls_final) are

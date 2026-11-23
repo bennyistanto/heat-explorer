@@ -12,7 +12,7 @@ The plan was to show two things: heat that is unusual for a place, and heat
 that is dangerous for a human body anywhere, measured by wet-bulb temperature.
 
 The second idea carries a hidden assumption. A map that says "wet-bulb reached
-30 C here" is only honest if the dataset reproduces the real value at the real
+30 C here" only holds if the dataset reproduces the real value at the real
 peak. A map that says "unusually hot for this place" needs less: the dataset
 only has to rise and fall on the right days. So the question splits in two:
 
@@ -220,7 +220,7 @@ not to hide them.
 ## 8. Sixth finding: the 0.1 degree grid is finer than the information in it
 
 A separate experiment looked at 11 by 11 cell windows around 17 locations
-(`temp/critique-2026-11-20/hx_neff.py`). Annual heatwave day counts in adjacent
+(`validation/first_look/hx_neff.py`). Annual heatwave day counts in adjacent
 cells correlate between 0.90 and 0.998. Among the 121 cells of a window there
 are only about 1.0 to 1.5 effectively independent values.
 
@@ -239,7 +239,7 @@ close to all-or-nothing for small districts.
 These came from the single-cell experiments, not from the station comparison,
 and they are listed here because stations are the only way to settle them.
 
-- **The Indus plain appears to be cooling its heat extremes.** At the Jacobabad cell, days above the calendar 90th percentile of maximum temperature fall from 17.0 percent in 1979 to 1990 to 7.9 percent in 2021 to 2026 (`temp/critique-2026-11-20/hx_analyse.py`). Irrigation and aerosols could produce a real effect; a reanalysis artefact could produce the same number.
+- **The Indus plain appears to be cooling its heat extremes.** At the Jacobabad cell, days above the calendar 90th percentile of maximum temperature fall from 17.0 percent in 1979 to 1990 to 7.9 percent in 2021 to 2026 (`validation/first_look/hx_analyse.py`). Irrigation and aerosols could produce a real effect; a reanalysis artefact could produce the same number.
 - **Humid heat at Manaus vanishes.** Humid heat spell days fall from 6.4 a year in 1991 to 2020 to zero in 2021 to 2025 while temperature spells rise (`validation/heat_spell_prototype/01_prototype.py`). That is hard to believe physically and points to an inconsistency in the humidity record.
 - **Tropical exceedance explodes.** In 2021 to 2026 the share of days above the 1991 to 2020 calendar 90th percentile reaches 25 percent for maximum temperature at Singapore and 40 percent for minimum temperature at Lagos, against 1 to 3 percent in 1979 to 1990. Real warming in a narrow-range climate does this, and so would a step in the observing system.
 
@@ -342,7 +342,7 @@ These were found before any station was opened, by reading the files and the
 product documentation. They explain part of what the stations later showed.
 
 - **The humidity extremes are not observations.** The file metadata says minimum relative humidity is derived from the 24 hour maximum temperature and the mean vapour pressure, and the documentation says the maximum is derived the same way from minimum temperature. So "afternoon humidity" in AgERA5 is the daily mean moisture placed against the afternoon temperature. This is the root of section 5a.
-- **Minimum relative humidity is not the same as dewpoint with maximum temperature.** At 17 test cells the two differed by a mean of 0.1 to 5.7 relative humidity points, largest at Dhahran, because mean vapour pressure is not vapour pressure at mean dewpoint (`temp/critique-2026-11-20/hx_analyse.py`). The comparison in this document uses dewpoint directly.
+- **Minimum relative humidity is not the same as dewpoint with maximum temperature.** At 17 test cells the two differed by a mean of 0.1 to 5.7 relative humidity points, largest at Dhahran, because mean vapour pressure is not vapour pressure at mean dewpoint (`validation/first_look/hx_analyse.py`). The comparison in this document uses dewpoint directly.
 - **Maximum relative humidity is saturated much of the time.** It is at or above 99.5 percent on 30 to 54 percent of days at Paris, Moscow, Portland, Singapore and Sydney cells, so a "night wet-bulb" would mostly repeat minimum temperature (same script).
 - **A common shortcut formula would have made things worse.** The Stull (2011) wet-bulb formula, which needs no pressure, changed the count of days above a wet-bulb level by up to four times against a pressure-aware solve (Jacobabad at 28 C: 16.0 against 3.8 days a year), and read 1.25 K high on average at La Paz, at 3,800 m (same script). Its published validity range excludes relative humidity below 5 percent.
 - **There is no surface pressure variable.** Pressure has to be estimated from elevation.
@@ -354,7 +354,7 @@ product documentation. They explain part of what the stations later showed.
 
 ## 10. Where the station side is the weak one
 
-The disagreement is not all AgERA5's fault, and an honest account says where
+The disagreement is not all AgERA5's fault, and a fair account says where
 the reference is shaky.
 
 - **ISD-Lite is not quality controlled**, which is why every comparison here uses the 99th percentile and never the maximum. The repeat with quality-controlled HadISD (section 10b) shows this caution was enough: quality control changed some record maxima and almost nothing else.
@@ -443,17 +443,16 @@ bash tools/py.sh -W ignore validation/wetbulb_gate/04_anomaly_skill.py
 | Sections 3, 4, 5 | `validation/wetbulb_gate/results/summary.txt`, `isd_comparison.csv`, `wxgrid_comparison.csv` |
 | Sections 6, 7 | `validation/wetbulb_gate/results/anomaly_skill.txt`, `anomaly_skill.csv` |
 | Section 10b | `validation/wetbulb_gate/results/hadisd_summary.txt`, `hadisd_comparison.csv`, `hadisd_skill.csv` (scripts `05_download_hadisd.py`, `06_compare_hadisd.py`) |
-| Section 8 | `temp/critique-2026-11-20/hx_neff.txt` |
+| Section 8 | `validation/first_look/hx_neff.txt` |
 
 `wxgrid_comparison.csv` and `anomaly_skill.csv` hold one row per wxgrid station and are not
 in the repository (gitignored); the scripts above rebuild them.
-| Section 9 | `temp/critique-2026-11-20/hx_results.txt`, `validation/heat_spell_prototype/results/summary.txt` |
+| Section 9 | `validation/first_look/hx_results.txt`, `validation/heat_spell_prototype/results/summary.txt` |
 
 Data: NOAA Integrated Surface Database (ISD-Lite), public bucket
 `noaa-isd-pds`; HadISD 3.4.3.2025f, Met Office Hadley Centre (Dunn et al. 2012,
 2014, 2016; Dunn 2019; Smith et al. 2011, as the provider asks); AgERA5, Copernicus Climate Change Service, doi
 10.24381/cds.6c68c9bb; ETOPO1, NOAA NGDC; Indonesian station records through
 the wxgrid project. The AgERA5 construction described in section 8 is from the
-ECMWF product documentation, listed in
-`.claude/skills/heat-explorer/references/sources.md`. Station values from the
+ECMWF product documentation. Station values from the
 wxgrid dataset are not reproduced here beyond summary statistics.

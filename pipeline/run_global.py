@@ -36,7 +36,7 @@ import zarr
 from multiprocessing import Pool
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-from pipeline import detector  # noqa: E402
+from pipeline import detector, rawfiles  # noqa: E402
 
 RAW = "E:/temp/agera5"
 OUT = "E:/temp/agera5/derived-products/heat-explorer/v1/heat_state.zarr"
@@ -51,8 +51,8 @@ _G = {}
 
 def time_axis():
     out = []
-    for y in YEARS:
-        d = nc.Dataset(f"{RAW}/t2mmax/agera5_t2mmax_{y}.nc")
+    for path in rawfiles.files("t2mmax", YEARS):
+        d = nc.Dataset(path)
         out.append(np.asarray(d.variables["time"][:]))
         d.close()
     return np.concatenate(out)
@@ -60,8 +60,8 @@ def time_axis():
 
 def read_tile(v, r0, r1, c0, c1, land=None):
     parts, tt = [], []
-    for y in YEARS:
-        d = nc.Dataset(f"{RAW}/{v}/agera5_{v}_{y}.nc")
+    for path in rawfiles.files(v, YEARS):
+        d = nc.Dataset(path)
         d.set_auto_mask(False)
         x = np.asarray(d.variables[VARS[v]][:, r0:r1, c0:c1])
         tt.append(np.asarray(d.variables["time"][:]))

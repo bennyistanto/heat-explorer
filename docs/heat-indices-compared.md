@@ -5,7 +5,7 @@ Heat Explorer uses its own definition of a heat spell (detector version 1.0,
 indices people are most likely to know, says where it differs, and says where
 it is the weaker choice.
 
-Short answer: the ingredients are not new. A three-day average of daily mean
+The ingredients are not new. A three-day average of daily mean
 temperature and a percentile threshold are both borrowed ideas. What differs is
 the purpose. The standard indices give one number per year for climate trend
 studies. Heat Explorer gives a state for every day and place, with a severity
@@ -17,7 +17,7 @@ class, for monitoring.
 |---|---|---|
 | WSDI, TX90p, TN90p | [ETCCDI list of 27 core indices](http://etccdi.pacificclimate.org/list_27_indices.shtml) | read on 2026-11-23 |
 | Excess Heat Factor (EHF) | Nairn and Fawcett (2015), [doi:10.3390/ijerph120100227](https://doi.org/10.3390/ijerph120100227) | read on 2026-11-23 |
-| HWDI | Frich et al. (2002), Climate Research 19, 193-212 | **not checked**: the publisher's site refused the request. The row below is from memory |
+| HWDI | Frich et al. (2002), Climate Research 19, 193-212, Table 1 | read on 2026-11-23 |
 | Heat Explorer | [detector-v1-frozen.md](detector-v1-frozen.md) | this repository |
 
 Two more families are named at the end and not compared, because their sources
@@ -25,7 +25,7 @@ could not be opened.
 
 ## Side by side
 
-| | WSDI (ETCCDI) | HWDI (not checked) | EHF | Heat Explorer 1.0 |
+| | WSDI (ETCCDI) | HWDI | EHF | Heat Explorer 1.0 |
 |---|---|---|---|---|
 | Temperature used | daily maximum | daily maximum | three-day average of daily mean | three-day average of daily mean |
 | Daily mean made from | not used | not used | the maximum and the minimum that follows it | the maximum and the minimum that follows it |
@@ -34,13 +34,14 @@ could not be opened.
 | Shortest run | 6 days | more than 5 days | one three-day period | 3 flagged days in a row |
 | Severity | none | none | severe at the 85th percentile of positive EHF (taken over 1958 to 2011), extreme at 3 times that | severe above the calendar-day 95th percentile, extreme above the 99th |
 | Recent weather | not used | not used | yes: compared with the previous 30 days | not used |
-| What comes out | days per year | days per year | a value in °C² for each day | a class for each day and grid cell |
+| What comes out | days per year | the longest such run in the year, in days | a value in °C² for each day | a class for each day and grid cell |
 
 Notes on the table:
 
 - HWDI is not one of the ETCCDI indices. The ETCCDI list has one heat-duration
-  index, WSDI. HWDI is an older index (this last point is from memory, not
-  checked).
+  index, WSDI. HWDI is one of the ten indicators of Frich et al. (2002), whose
+  Table 1 gives it as the "maximum period > 5 consecutive days with Tmax > 5 °C
+  above the 1961-1990 daily Tmax normal".
 - The ETCCDI page gives WSDI as the "annual count of days with at least 6
   consecutive days when TX > 90th percentile".
 - EHF is the product of two parts: how far the three-day mean is above the

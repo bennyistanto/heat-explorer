@@ -30,7 +30,7 @@ def periods(days):
     days = np.asarray(days)
     idx = pd.DatetimeIndex(pd.Timestamp("1900-01-01") + pd.to_timedelta(days, unit="D"))
     last = len(days) - TAIL                                     # one past the last day that can be classed
-    out = [{"name": f"Last {RECENT} days", "start": str(idx[last - RECENT].date()), "end": str(idx[last - 1].date()), "idx": np.arange(last - RECENT, last)}]
+    out = [{"name": f"Year to {idx[last - 1].day} {idx[last - 1]:%b %Y}", "start": str(idx[last - RECENT].date()), "end": str(idx[last - 1].date()), "idx": np.arange(last - RECENT, last)}]
     ev = pd.read_csv(EVENTS, parse_dates=["start", "end"]).sort_values("start")
     for r in ev.itertuples():
         a = int(np.searchsorted(idx.values, np.datetime64(r.start - pd.Timedelta(days=PAD))))

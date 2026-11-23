@@ -1,20 +1,25 @@
 Checks on site/data. Produced by pipeline/check_web.py
-built 2026-11-23 00:34:40; last date 2026-09-13; last input day 2026-09-15
+built 2026-11-23 13:43:53; last date 2026-10-29; last input day 2026-10-31
 
-1. Files listed 4,931; missing, changed or unlisted: 0
+1. Files listed 4,993; missing, changed or unlisted: 0
 
-2. Total 452.2 MB (target under 500). First load 1.79 MB as stored, 1.18 MB if text is served gzipped (target under 3):
-      manifest.json                  0.48 MB
-      admins.json                    0.57 MB
-      latest.json                    0.03 MB
-      static/mask.png                0.05 MB
-      static/adm2.png                0.47 MB
-      static/adm2_parent.bin         0.09 MB
-      daily/2026-09-13.png           0.10 MB
+2. Total 459.2 MB (target under 500). First load, 53 files: 6.86 MB as stored, 1.94 MB if text is served gzipped (target under 3). Province lines (fetched on zooming in) and the small maps (fetched on scrolling to them) are not in it. Largest:
+      (built) _import/files.f7bb29ae.js                              1.14 MB  served  0.12
+      (built) index.html                                             1.04 MB  served  0.13
+      static/coast.json                                              0.83 MB  served  0.24
+      (built) _npm/f817eb97.js                                       0.80 MB  served  0.22
+      admins.json                                                    0.57 MB  served  0.07
+      manifest.json                                                  0.49 MB  served  0.06
+      static/adm2.png                                                0.47 MB  served  0.47
+      (built) _npm/2e9f152c.js                                       0.21 MB  served  0.07
+      static/countries.json                                          0.20 MB  served  0.06
+      admin/RUS-20250729.dat                                         0.19 MB  served  0.05
+      daily/2026-10-28.png                                           0.11 MB  served  0.11
+      daily/2026-10-29.png                                           0.10 MB  served  0.10
    files over 2 MB: 0
-   by group: monthly 132.7 MB in 1144 files; daily 117.8 MB in 1441 files; admin 57.6 MB in 202 files; humid 49.9 MB in 1441 files; annual 45.6 MB in 94 files; admin_arch 28.1 MB in 202 files; admin2 9.1 MB in 182 files; events 6.7 MB in 202 files; static 2.7 MB in 9 files; weekly 0.9 MB in 12 files; admins.json 0.6 MB in 1 files; latest.json 0.0 MB in 1 files
+   by group: monthly 133.1 MB in 1146 files; daily 122.2 MB in 1471 files; admin 57.8 MB in 202 files; humid 51.2 MB in 1471 files; annual 45.6 MB in 94 files; admin_arch 28.8 MB in 202 files; admin2 9.1 MB in 182 files; events 6.7 MB in 202 files; static 2.7 MB in 9 files; weekly 0.9 MB in 12 files; admins.json 0.6 MB in 1 files; latest.json 0.0 MB in 1 files
 
-3. Latest daily layer: codes [0, 1, 2, 3, 4]; cells where the class or the day count disagrees with the store: 0; longest day count 62; in a heat spell 64,209, severe 145,494, extreme 144,594
+3. Latest daily layer: codes [0, 1, 2, 3, 4]; cells where the class or the day count disagrees with the store: 0; longest day count 62; in a heat spell 82,087, severe 176,979, extreme 197,901
 
 4. District id raster: cells differing from the lookup: 0
 
@@ -23,14 +28,14 @@ built 2026-11-23 00:34:40; last date 2026-09-13; last input day 2026-09-15
 
 6. Annual severe days, mean of 2021 to 2025 against the global run summary: largest difference 0.000 days over 2,394,240 cells
 
-7. Last date shown is 2 days behind the last input day; daily layers after it: 0; series length 17423 days (expected 17423)
+7. Last date shown is 2 days behind the last input day; daily layers after it: 0; series length 17469 days (expected 17469)
 
-8. Periods: 59; days they cover 1,441; daily layers on disk 1,441; sets equal: True
-   past-event file of CAN-20250729: 1076 days; British Columbia severe share differs from the admin series on 0 days; arrays ['daynight', 'degdays', 'extreme', 'humid', 'severe']
+8. Periods: 62; days they cover 1,471; daily layers on disk 1,471; sets equal: True
+   past-event file of CAN-20250729: 1106 days; British Columbia severe share differs from the admin series on 0 days; arrays ['daynight', 'degdays', 'extreme', 'humid', 'severe']
 
-9. Monthly layers: 1979-01 to 2026-08, 572 months, 1144 files; severe days in June 2021 over western Canada differ from the store at 0 cells
+9. Monthly layers: 1979-01 to 2026-09, 573 months, 1146 files; severe days in June 2021 over western Canada differ from the store at 0 cells
 
 Suppressed below the cell floor of 9: {'adm0': 116, 'adm1': 763, 'adm2': 26823}
-Boundary licence: project owner, 2026-11-22: clear. adm0 from OpenStreetMap, adm1 and adm2 from the HDX edge-matched set, credited under ODbL 1.0. Rows whose source licence reads 'Other' were checked by the project owner on the source pages on 2026-11-22: Honduras, Lebanon, Niger and Türkiye are CC BY-IGO on HDX; Tuvalu is CC BY 4.0 on geoBoundaries; countries with an 'Other' licence: Honduras, Lebanon, Niger, Tuvalu, Türkiye
+Boundary licence: Checked by the author, 2026-11-22: clear. adm0 from OpenStreetMap, adm1 and adm2 from the HDX edge-matched set, credited under ODbL 1.0. Rows whose source licence reads 'Other' were checked on the source pages on 2026-11-22: Honduras, Lebanon, Niger and Türkiye are CC BY-IGO on HDX; Tuvalu is CC BY 4.0 on geoBoundaries; countries with an 'Other' licence: Honduras, Lebanon, Niger, Tuvalu, Türkiye
 
 RESULT: ALL CHECKS PASS

@@ -1,5 +1,5 @@
 Checks on E:/temp/agera5/derived-products/heat-explorer/v1/admin/series.zarr. Produced by pipeline/check_admin.py
-17425 days, 1979-01-01 to 2026-09-15
+17471 days, 1979-01-01 to 2026-10-31
 
 1. Values
    adm0: 318 units, 256 with land cells; unit-days out of range or out of order: 0

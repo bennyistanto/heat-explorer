@@ -18,11 +18,54 @@ const iso = (t) => new Date(EPOCH + t * DAY).toISOString().slice(0, 10);
 const fmt = (t, year = true) => new Date(EPOCH + t * DAY).toLocaleDateString("en-GB", {day: "numeric", month: "short", ...(year ? {year: "numeric"} : {}), timeZone: "UTC"});
 const ordinal = (n) => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th");
 
-async function pixels(file) {
+// The map layers are PNG files whose bytes are codes, not colours. They are decoded here and not read back from a canvas,
+// because browsers with fingerprinting protection add noise to canvas pixels, which would change the codes.
+// Returns one byte per pixel (greyscale files) or three (colour files). 8-bit, not interlaced, as pipeline/web_products.py writes them.
+async function decodePng(file) {
+  const b = new Uint8Array(await file.arrayBuffer()), dv = new DataView(b.buffer, b.byteOffset, b.byteLength), idat = [];
+  let at = 8, w = 0, h = 0, ch = 0;
+  while (at + 12 <= b.length) {
+    const len = dv.getUint32(at), tag = String.fromCharCode(b[at + 4], b[at + 5], b[at + 6], b[at + 7]);
+    if (tag === "IHDR") {
+      w = dv.getUint32(at + 8); h = dv.getUint32(at + 12);
+      ch = b[at + 17] === 0 ? 1 : b[at + 17] === 2 ? 3 : 0;
+      if (!ch || b[at + 16] !== 8 || b[at + 20] !== 0) throw new Error("png of a kind this reader does not handle");
+    } else if (tag === "IDAT") idat.push(b.subarray(at + 8, at + 8 + len));
+    else if (tag === "IEND") break;
+    at += 12 + len;
+  }
+  if (!w || !idat.length) throw new Error("not a png");
+  const raw = new Uint8Array(await new Response(new Blob(idat).stream().pipeThrough(new DecompressionStream("deflate"))).arrayBuffer());
+  const rb = w * ch, out = new Uint8Array(rb * h);
+  if (raw.length !== (rb + 1) * h) throw new Error("png size does not match its header");
+  for (let y = 0; y < h; y++) {                                               // undo the row filters
+    const f = raw[y * (rb + 1)], src = y * (rb + 1) + 1, o = y * rb, up = o - rb;
+    if (f === 0) out.set(raw.subarray(src, src + rb), o);
+    else if (f === 1) for (let x = 0; x < rb; x++) out[o + x] = raw[src + x] + (x >= ch ? out[o + x - ch] : 0);
+    else if (f === 2) for (let x = 0; x < rb; x++) out[o + x] = raw[src + x] + (y ? out[up + x] : 0);
+    else if (f === 3) for (let x = 0; x < rb; x++) out[o + x] = raw[src + x] + (((x >= ch ? out[o + x - ch] : 0) + (y ? out[up + x] : 0)) >> 1);
+    else if (f === 4) for (let x = 0; x < rb; x++) {
+      const A = x >= ch ? out[o + x - ch] : 0, B = y ? out[up + x] : 0, C = x >= ch && y ? out[up + x - ch] : 0, q = A + B - C;
+      const pa = Math.abs(q - A), pb = Math.abs(q - B), pc = Math.abs(q - C);
+      out[o + x] = raw[src + x] + (pa <= pb && pa <= pc ? A : pb <= pc ? B : C);
+    } else throw new Error("png row filter " + f);
+  }
+  return {w, h, ch, data: out};
+}
+async function viaCanvas(file, ch) {                                          // only where the browser cannot inflate, or the file is of another kind
   const bmp = await createImageBitmap(await file.blob(), {colorSpaceConversion: "none", premultiplyAlpha: "none"});
   const c = new OffscreenCanvas(bmp.width, bmp.height), x = c.getContext("2d", {willReadFrequently: true});
   x.drawImage(bmp, 0, 0);
-  return x.getImageData(0, 0, bmp.width, bmp.height).data;
+  const px = x.getImageData(0, 0, bmp.width, bmp.height).data, n = bmp.width * bmp.height, out = new Uint8Array(n * ch);
+  bmp.close();
+  for (let i = 0; i < n; i++) for (let k = 0; k < ch; k++) out[i * ch + k] = px[4 * i + k];
+  return out;
+}
+async function pixels(file, ch = 1) {                                         // ch bytes per pixel: 1 for the code layers, 3 for the district raster
+  if (typeof DecompressionStream === "function") {
+    try { const d = await decodePng(file); if (d.ch === ch) return d.data; } catch (err) { console.warn(err); }
+  }
+  return viaCanvas(file, ch);
 }
 async function readBin(file) {
   const buf = await file.arrayBuffer(), n = new DataView(buf).getUint32(0, true);
@@ -41,7 +84,10 @@ export async function start(files) {
   const t00 = performance.now(), timing = [], mark = (k) => timing.push([k, Math.round(performance.now() - t00)]);
   const need = (p) => { if (!files[p]) throw new Error("file not in the build: " + p); return files[p]; };
   const cache = new Map();
-  const once = (key, make) => { if (!cache.has(key)) cache.set(key, make()); return cache.get(key); };
+  const once = (key, make) => {
+    if (!cache.has(key)) { const v = make(); cache.set(key, v); if (v && v.catch) v.catch(() => cache.delete(key)); }   // a failed download is forgotten, so the next try fetches again
+    return cache.get(key);
+  };
   const [man, admins, latest] = await Promise.all([need("manifest.json").json(), need("admins.json").json(), need("latest.json").json()]);
   mark("json");
   const T = Math.round((Date.parse(man.last_date) - EPOCH) / DAY) + 1;       // days in the series
@@ -56,13 +102,13 @@ export async function start(files) {
   const monthKey = (m) => { const y = +M0.slice(0, 4) + Math.floor((+M0.slice(5) - 1 + m) / 12), mo = ((+M0.slice(5) - 1 + m) % 12) + 1; return `${y}-${String(mo).padStart(2, "0")}`; };
   const monthName = (m) => new Date(monthKey(m) + "-01T00:00:00Z").toLocaleDateString("en-GB", {month: "long", year: "numeric", timeZone: "UTC"});
   const isMonth = () => S.layer === "mspell" || S.layer === "msevere";
-  const [maskPx, admPx, parentBuf] = await Promise.all([pixels(need("static/mask.png")), pixels(need("static/adm2.png")), need("static/adm2_parent.bin").arrayBuffer()]);
+  const [maskPx, admPx, parentBuf] = await Promise.all([pixels(need("static/mask.png")), pixels(need("static/adm2.png"), 3), need("static/adm2_parent.dat").arrayBuffer()]);
   mark("static images");
   const parent = new Uint16Array(parentBuf);
   const N = NR * NC, mask = new Uint8Array(N), cell = {adm2: new Int32Array(N), adm1: new Int16Array(N), adm0: new Int16Array(N)};
   for (let i = 0; i < N; i++) {
-    mask[i] = maskPx[4 * i];
-    const a2 = ((admPx[4 * i] << 16) | (admPx[4 * i + 1] << 8) | admPx[4 * i + 2]) - 1;
+    mask[i] = maskPx[i];
+    const a2 = ((admPx[3 * i] << 16) | (admPx[3 * i + 1] << 8) | admPx[3 * i + 2]) - 1;
     const a1 = a2 >= 0 && parent[a2] !== 65535 ? parent[a2] : -1;
     cell.adm2[i] = a2; cell.adm1[i] = a1; cell.adm0[i] = a1 >= 0 ? admins.adm1[a1].adm0 : -1;
   }
@@ -72,7 +118,7 @@ export async function start(files) {
     if (dayCache.has(k)) { const v = dayCache.get(k); dayCache.delete(k); dayCache.set(k, v); return v; }
     const pr = (async () => {
       const px = await pixels(need(`daily/${iso(k)}.png`)), out = new Uint8Array(N);   // k is the day, counted from 1979-01-01
-      for (let i = 0; i < N; i++) out[i] = px[4 * i];                        // one byte: bits 0-1 class shown, bits 2-7 day of the spell, 255 sea
+      for (let i = 0; i < N; i++) out[i] = px[i];                        // one byte: bits 0-1 class shown, bits 2-7 day of the spell, 255 sea
       return out;
     })();
     dayCache.set(k, pr);
@@ -85,14 +131,14 @@ export async function start(files) {
   const yearly = (name, y) => {                                               // days in the year in a heat spell, or severe: one byte per cell, 254 = 254 or more, 255 sea
     const key = name + y;
     if (!yearCache.has(key)) {
-      yearCache.set(key, (async () => { const px = await pixels(need(`annual/${name}_${Y0 + y}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
+      yearCache.set(key, (async () => { const px = await pixels(need(`annual/${name}_${Y0 + y}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[i]; return out; })());
       while (yearCache.size > 4) yearCache.delete(yearCache.keys().next().value);
     }
     return yearCache.get(key);
   };
   const weekCache = new Map();
   const weekly = (w) => {                                                     // highest class shown in week w (0 = the week ending on the last day): 0 to 3, 255 sea
-    if (!weekCache.has(w)) weekCache.set(w, (async () => { const px = await pixels(need(man.weekly[w].file)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
+    if (!weekCache.has(w)) weekCache.set(w, (async () => { const px = await pixels(need(man.weekly[w].file)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[i]; return out; })());
     return weekCache.get(w);
   };
   const evCache = new Map();                                                  // weeks of one past event, worked out here from its daily maps; kept for one event at a time
@@ -104,7 +150,7 @@ export async function start(files) {
         const out = new Uint8Array(N);
         for (let n = 0; n < days.length; n++) {
           const px = await pixels(need(`daily/${iso(days[n])}.png`));          // not through the day cache: these are read once and dropped
-          for (let i = 0; i < N; i++) { const v = px[4 * i]; if (v === 255) out[i] = 255; else if ((v & 3) > out[i]) out[i] = v & 3; }
+          for (let i = 0; i < N; i++) { const v = px[i]; if (v === 255) out[i] = 255; else if ((v & 3) > out[i]) out[i] = v & 3; }
         }
         return out;
       })();
@@ -139,11 +185,15 @@ export async function start(files) {
       });
     }
     return out;
-  })());
+  })().catch((err) => { lineSetsP = null; throw err; }));
   async function drawWeeks(wrap, arr, id) {
     const LS = await lineSets();                                   // up to eight small maps of one unit, oldest week first
     let r0 = NR, r1 = -1, c0 = NC, c1 = -1;
-    for (let i = 0; i < N; i++) if (arr[i] === id) { const r = Math.floor(i / NC), c = i % NC; if (r < r0) r0 = r; if (r > r1) r1 = r; if (c < c0) c0 = c; if (c > c1) c1 = c; }
+    const ext = (ra, rb, ca, cb) => { r0 = NR; r1 = -1; c0 = NC; c1 = -1; for (let r = ra; r <= rb; r++) for (let c = ca; c <= cb; c++) if (arr[r * NC + c] === id) { if (r < r0) r0 = r; if (r > r1) r1 = r; if (c < c0) c0 = c; if (c > c1) c1 = c; } };
+    ext(0, NR - 1, 0, NC - 1);
+    const vb = PERIODS[S.p].bbox;
+    if (vb && c1 - c0 >= 1800)                                                // a place too wide to draw, in a past event: only the part inside the event's view
+      ext(Math.max(0, Math.round((90 - vb[3]) / 0.1)), Math.min(NR - 1, Math.round((90 - vb[1]) / 0.1)), Math.max(0, Math.round((vb[0] + 180) / 0.1)), Math.min(NC - 1, Math.round((vb[2] + 180) / 0.1)));
     if (r1 < 0 || c1 - c0 >= 1800) { wrap.append(el(`<p class="ph">These maps cannot be drawn for a place that crosses the 180th meridian.</p>`)); return; }
     // a margin around the place: at least one cell, more for a small place so it is seen with its surroundings (10 rows or more),
     // and enough on the short side that every small map comes out between about 4:3 and 3:2 on the ground
@@ -192,19 +242,19 @@ export async function start(files) {
   const humCache = new Map();
   const humidDay = (k) => {                                                   // EXPERIMENTAL layer: 1 in a humid heat spell, 0 not, 255 sea
     if (!humCache.has(k)) {
-      humCache.set(k, (async () => { const px = await pixels(need(`humid/${iso(k)}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
+      humCache.set(k, (async () => { const px = await pixels(need(`humid/${iso(k)}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[i]; return out; })());
       while (humCache.size > 6) humCache.delete(humCache.keys().next().value);
     }
     return humCache.get(k);
   };
   let maskHum = null;                                                         // this layer's own confidence (bits 0-1), with the data-suspect bit of the main mask
   const humidMask = async () => {
-    if (!maskHum) { const px = await pixels(need("static/mask_humid.png")); maskHum = new Uint8Array(N); for (let i = 0; i < N; i++) maskHum[i] = (px[4 * i] & 3) | (mask[i] & 4); }
+    if (!maskHum) { const px = await pixels(need("static/mask_humid.png")); maskHum = new Uint8Array(N); for (let i = 0; i < N; i++) maskHum[i] = (px[i] & 3) | (mask[i] & 4); }
     return maskHum;
   };
   const fixedCache = new Map();
   const fixedLayer = (name) => {                                              // layers with one picture: trend, season status
-    if (!fixedCache.has(name)) fixedCache.set(name, (async () => { const px = await pixels(need(`static/${name}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
+    if (!fixedCache.has(name)) fixedCache.set(name, (async () => { const px = await pixels(need(`static/${name}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[i]; return out; })());
     return fixedCache.get(name);
   };
   const isFixed = () => S.layer === "trend" || S.layer === "season";
@@ -215,7 +265,7 @@ export async function start(files) {
   const monthlyLayer = (name, m) => {                                         // days in the month in a heat spell, or severe: 0 to 31, 255 sea
     const key = name + m;
     if (!monthCache.has(key)) {
-      monthCache.set(key, (async () => { const px = await pixels(need(`monthly/${MONTHLY[name].file}_${monthKey(m)}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[4 * i]; return out; })());
+      monthCache.set(key, (async () => { const px = await pixels(need(`monthly/${MONTHLY[name].file}_${monthKey(m)}.png`)), out = new Uint8Array(N); for (let i = 0; i < N; i++) out[i] = px[i]; return out; })());
       while (monthCache.size > 6) monthCache.delete(monthCache.keys().next().value);
     }
     return monthCache.get(key);
@@ -229,15 +279,15 @@ export async function start(files) {
     return `Unnamed territory${u.iso3 ? " (" + u.iso3 + ")" : ""}`;
   };
   const SOUTH = Math.round((90 - LAT_BOT) / 0.1);                             // rows beyond this are south of 60 S: not drawn, not selectable
-  const country = (a0) => once("a" + a0, () => readBin(need(`admin/${admins.adm0[a0].id}.bin`)));
+  const country = (a0) => once("a" + a0, () => readBin(need(`admin/${admins.adm0[a0].id}.dat`)));
   const countryArch = (a0) => once("r" + a0, async () => {                    // numbers for the days of the listed past events
-    const f = files[`admin_arch/${admins.adm0[a0].id}.bin`];
+    const f = files[`admin_arch/${admins.adm0[a0].id}.dat`];
     if (!f) return null;
     const b = await readBin(f);
     b.pos = new Map(b.head.days.map((d, i) => [d, i]));
     return b;
   });
-  const districts = (a0) => once("b" + a0, () => files[`admin2/${admins.adm0[a0].id}.bin`] ? readBin(files[`admin2/${admins.adm0[a0].id}.bin`]) : null);
+  const districts = (a0) => once("b" + a0, () => files[`admin2/${admins.adm0[a0].id}.dat`] ? readBin(files[`admin2/${admins.adm0[a0].id}.dat`]) : null);
   const events = (a0) => once("e" + a0, () => need(`events/${admins.adm0[a0].id}.json`).json());
 
   // ---------- state
@@ -254,7 +304,12 @@ export async function start(files) {
   {
     const q = new URLSearchParams(location.hash.slice(1));
     if (LEVELS[q.get("lvl")]) S.level = q.get("lvl");
-    if (q.get("d")) { const want = dayOf(q.get("d")); for (let pi = 0; pi < PERIODS.length; pi++) { const kk = PERIODS[pi].days.indexOf(want); if (kk >= 0) { S.p = pi; S.k = kk; break; } } }
+    if (q.get("d")) {
+      const want = dayOf(q.get("d")), first = q.get("p") ? dayOf(q.get("p")) : NaN;
+      const has = PERIODS.map((pp, pi) => pi).filter((pi) => PERIODS[pi].days.includes(want));
+      const pi = has.find((i) => i > 0 && PERIODS[i].days[0] === first) ?? has[0];   // the period the link names, else the first that holds the date
+      if (pi !== undefined) { S.p = pi; S.k = PERIODS[pi].days.indexOf(want); }
+    }
     const pt = (q.get("pt") || "").split(",").map(Number);
     if (pt.length === 2 && pt.every(Number.isFinite) && Math.abs(pt[0]) <= 90) {
       const row = Math.round((90 - pt[0]) / 0.1), col = ((Math.round((pt[1] + 180) / 0.1) % NC) + NC) % NC;
@@ -299,8 +354,8 @@ export async function start(files) {
     return o;
   };
   const TREND_CAP = 20;                                                       // days per decade at the ends of the colour scale
-  const TREND = lutSet((v) => { if (v === 0) return RGB[0]; const d = Math.max(-1, Math.min(1, (v - 128) / 2 / TREND_CAP)); return d >= 0 ? mix([246, 232, 214], [116, 41, 12], d) : mix([222, 235, 247], [24, 84, 160], -d); });
-  const SEASON = lutSet((v) => v === 1 ? [235, 104, 52] : v === 2 ? [161, 79, 176] : v === 5 ? [127, 163, 199] : v >= 10 ? mix([217, 120, 60], [116, 41, 12], Math.min(1, (v - 12) / 6)) : RGB[0]);
+  const TREND = lutSet((v) => { if (v === 0) return RGB[0]; const d = Math.max(-1, Math.min(1, (v - 128) / 2 / TREND_CAP)); return d >= 0 ? mix([240, 196, 150], [116, 41, 12], d) : mix([176, 208, 236], [24, 84, 160], -d); });
+  const SEASON = lutSet((v) => v === 1 ? [240, 196, 25] : v === 2 ? [161, 79, 176] : v === 5 ? [127, 163, 199] : v >= 10 ? mix([217, 120, 60], [116, 41, 12], Math.min(1, (v - 12) / 6)) : RGB[0]);
   const MONTHLY = {mspell: {...lutSet((v) => v === 0 ? RGB[0] : rampAt(v / 31)), title: "Days in a heat spell in the month", cap: "31 days", file: "spell"},
     msevere: {...lutSet((v) => v === 0 ? RGB[0] : rampAt(v / 20)), title: "Severe or extreme days in the month", cap: "20 or more days", file: "severe"}};
   const HUMID = {lut: new Uint32Array(256), hatch: new Uint32Array(256), dot: new Uint32Array(256)};
@@ -420,7 +475,7 @@ export async function start(files) {
   async function unitData() {
     if (!S.sel) return null;
     const t = curT(), a0 = S.sel.adm0;
-    if (!files[`admin/${admins.adm0[a0].id}.bin`])             // below the cell floor: the build has no area shares for this country
+    if (!files[`admin/${admins.adm0[a0].id}.dat`])             // below the cell floor: the build has no area shares for this country
       return {t, a0, shown: null, story: null, note: `${nameOf("adm0", a0)} has fewer than ${man.settings.cell_floor} grid cells, so it has no area share. The reading for the clicked point is below.`};
     const cf = await country(a0), ev = await events(a0);
     const ar = t < T - cf.head.trailing ? await countryArch(a0) : null;       // a past event's day: its numbers are in the past-events file
@@ -518,16 +573,16 @@ export async function start(files) {
   function eventWords(e, t) {
     if (e.rankTo !== undefined) {
       const after = e.open ? "it was still running on the last day of data" : `the whole event went on to rank ${ordinal(e.rank)}`;
-      return {rank: e.rankTo, k4: `largest event here since 1979, by its size up to ${fmt(t)}; ${after}`,
-        tail: ` It was day ${e.day} of an event that ranked ${ordinal(e.rankTo)} of ${e.n} here since 1979 by its size up to that date; ${after}.`,
-        lead: `this is day ${e.day}. By its size up to this date (${e.sizeTo.toFixed(1)} degree-days) it ranks ${ordinal(e.rankTo)} among ${e.n} events here since 1979; ${after}.`};
+      return {rank: e.rankTo, k4: `largest event on record here, by its size up to ${fmt(t)}; ${after}`,
+        tail: ` It was day ${e.day} of an event that ranked ${ordinal(e.rankTo)} of ${e.n} here on record (1979 to ${fmt(T - 1)}) by its size up to that date; ${after}.`,
+        lead: `this is day ${e.day}. By its size up to this date (${e.sizeTo.toFixed(1)} degree-days) it ranks ${ordinal(e.rankTo)} among ${e.n} events here on record (1979 to ${fmt(T - 1)}); ${after}.`};
     }
-    if (e.open) return {rank: e.rank, k4: `largest event here since 1979, so far: still running, size as of ${fmt(T - 1)}`,
-      tail: ` It was day ${e.day} of an event that is still running and so far ranks ${ordinal(e.rank)} of ${e.n} here since 1979 (size as of ${fmt(T - 1)}).`,
-      lead: `this is day ${e.day} of an event that was still running on ${fmt(T - 1)}, the last day of data. By its size so far it ranks ${ordinal(e.rank)} among ${e.n} events here since 1979; that rank uses its size on ${fmt(T - 1)}, not on the chosen date.`};
-    return {rank: e.rank, k4: "largest event here since 1979" + (e.whole ? ", counting the whole event" : ""),
-      tail: ` It was day ${e.day} of an event that ranks ${ordinal(e.rank)} of ${e.n} here since 1979${e.whole ? ", counting the whole event" : ""}.`,
-      lead: `this is day ${e.day} of ${e.days} days. By size it ranks ${ordinal(e.rank)} among ${e.n} events here since 1979${e.whole ? ", counting the whole event" : ""}.`};
+    if (e.open) return {rank: e.rank, k4: `largest event on record here, so far: still running, size as of ${fmt(T - 1)}`,
+      tail: ` It was day ${e.day} of an event that is still running and so far ranks ${ordinal(e.rank)} of ${e.n} here on record (1979 to ${fmt(T - 1)}) (size as of ${fmt(T - 1)}).`,
+      lead: `this is day ${e.day} of an event that was still running on ${fmt(T - 1)}, the last day of data. By its size so far it ranks ${ordinal(e.rank)} among ${e.n} events here on record (1979 to ${fmt(T - 1)}); that rank uses its size on ${fmt(T - 1)}, not on the chosen date.`};
+    return {rank: e.rank, k4: "largest event on record here" + (e.whole ? ", counting the whole event" : ""),
+      tail: ` It was day ${e.day} of an event that ranks ${ordinal(e.rank)} of ${e.n} here on record (1979 to ${fmt(T - 1)})${e.whole ? ", counting the whole event" : ""}.`,
+      lead: `this is day ${e.day} of ${e.days} days. By size it ranks ${ordinal(e.rank)} among ${e.n} events here on record (1979 to ${fmt(T - 1)})${e.whole ? ", counting the whole event" : ""}.`};
   }
   async function hereReading() {
     if (!S.pt) return null;
@@ -646,7 +701,7 @@ export async function start(files) {
     }
     $("pnote").textContent = d.note;
     $("pnote").style.display = d.note ? "" : "none";
-    const lic0 = S.sel.adm1 >= 0 ? admins.adm1[S.sel.adm1].licence : "", checked = (man.boundaries.source_licences_checked_by_owner || {})[admins.adm0[d.a0].name];
+    const lic0 = S.sel.adm1 >= 0 ? admins.adm1[S.sel.adm1].licence : "", checked = (man.boundaries.source_licences_checked || {})[admins.adm0[d.a0].name];
     const lic = lic0.startsWith("Other") && checked ? checked : lic0;
     $("pcells").textContent = u.cells.toLocaleString("en-GB") + " grid cells of about 10 km." + (lic ? ` Boundary source licence: ${lic}.` : "");
     const ev = e && e.i !== undefined ? eventWords(e, t).tail : "";
@@ -676,7 +731,7 @@ export async function start(files) {
     }
   };
   const key = (items) => el(`<div class="key">${items.map(([c, t]) => `<span><i style="background:${c}"></i>${t}</span>`).join("")}</div>`);
-  const po = {style: {fontSize: "12px", fontFamily: "inherit", background: "transparent"}, marginLeft: 44, marginBottom: 30};
+  const po = {style: {fontSize: "12px", fontFamily: "inherit", background: "transparent"}, marginLeft: 44, marginBottom: 36};
   function renderStory(d) {
     story.innerHTML = "";
     if (!d || !d.story) return;
@@ -686,7 +741,7 @@ export async function start(files) {
     if (d.dist || (S.level === "adm2")) story.append(el(`<p class="ph">The sections below are for ${nm}, the ${LEVELS[u.level].toLowerCase()} this district belongs to. Full histories are not published for districts.</p>`));
     { // 1
       const s = section("How much of it was in heat on the chosen date?", `${cav}On ${fmt(t)}, ${u.now.spell}% of ${nm}'s land area was in a heat spell: ${u.now.extreme}% of the land area extreme, ${u.now.severe - u.now.extreme}% severe and ${u.now.spell - u.now.severe}% in the lowest class.`);
-      block(s, "Share of land area in a heat spell, by class, last 90 days", "Each day's column adds up to the share of land in a heat spell. Darker is more severe. A day's class describes that day only and does not change afterwards.");
+      block(s, `Share of land area in a heat spell, by class, 90 days to ${fmt(t)}`, "Each day's column adds up to the share of land in a heat spell. Darker is more severe. A day's class describes that day only and does not change afterwards.");
       s.append(key([[C.extreme, "Extreme"], [C.severe, "Severe"], [C.spell, "Heat spell"]]));
       const rows = [], tips = [];
       let unknown = false;
@@ -714,10 +769,10 @@ export async function start(files) {
           r2.push({date: D(q), cls: "both", v: bo / 100}, {date: D(q), cls: "day", v: dy / 100}, {date: D(q), cls: "night", v: ni / 100}, {date: D(q), cls: "off", v: of / 100});
           tip2.push({date: D(q), top: (bo + dy + ni + of) / 100, t: `${fmt(q)}\nDay and night ${bo}%\nDay only ${dy}%\nNight only ${ni}%\nOutside the warm season ${of}%`});
         }
-        block(s, "Hot days and hot nights, last 90 days", "A day counts as hot when the maximum is above its usual top tenth for the date, a night when the minimum is. \"Both\" means no relief at night. The classes never overlap, so a column is the share of land area that was hot by day, by night, or both. Grey is land that was hot for the date but outside its own warm half of the year: shown, not counted as heat. This is this project's own measure and has not been tested on documented events.");
+        block(s, `Hot days and hot nights, 90 days to ${fmt(t)}`, (r2.length < 4 * Math.min(90, t + 1) ? "Days with no column were not published for this measure. " : "") + "A day counts as hot when the maximum is above its usual top tenth for the date, a night when the minimum is. \"Both\" means no relief at night. The classes never overlap, so a column is the share of land area that was hot by day, by night, or both. Grey is land that was hot for the date but outside its own warm half of the year: shown, not counted as heat. This is this project's own measure and has not been tested on documented events.");
         s.append(key([[DNC.night, "Hot night only"], [DNC.day, "Hot day only"], [DNC.both, "Hot day and hot night"], [DNC.off, "Outside the warm season"]]));
         s.append(Plot.plot({...po, ariaLabel: `Stacked columns: share of land area hot by day, by night, or both, each day of the 90 days to ${fmt(t)}`, width: W, height: 200,
-          y: {label: "share of land area", tickFormat: "%", domain: [0, 1], grid: true}, x: {label: null}, color: {domain: ["night", "day", "both", "off"], range: [DNC.night, DNC.day, DNC.both, DNC.off]},
+          y: {label: "share of land area", tickFormat: "%", domain: [0, 1], grid: true}, x: {label: null, domain: [D(Math.max(0, t - 89)), D(t + 1)]}, color: {domain: ["night", "day", "both", "off"], range: [DNC.night, DNC.day, DNC.both, DNC.off]},
           marks: [Plot.rectY(r2, {x: "date", y: "v", fill: "cls", interval: "day", order: ["both", "day", "night", "off"], insetLeft: 0.5, insetRight: 0.5}), Plot.ruleY([0], {stroke: "#c3c2b7"}),
             Plot.tip(tip2, Plot.pointerX({x: "date", y: "top", title: "t"}))]}));
       }
@@ -726,7 +781,7 @@ export async function start(files) {
         s.append(el(`<p>On ${fmt(t)}, ${u.hu.share}% of ${nm}'s land area was in a humid heat spell: three or more days in a row when heat and humidity together were unusual for the date. This is a yes or no reading, with no severity.</p>`));
         s.append(el(`<p class="ph warn"><b>Experimental.</b> Humid heat here is judged against 1991 to 2020. The humidity record in the source data drifts, so recent years are flagged far more often than the past for reasons that are partly not climate. Here it was flagged on ${u.hu.base.toFixed(0)} days a year in 1991 to 2020 and on ${u.hu.rec.toFixed(0)} days a year in 2021 to 2025, averaged over the land area. It takes no part in the status, the events, the ranks or the trend on this page, and it is not a wet-bulb reading: the source data is too low in absolute humid heat to give one. Evidence: ${evid("humid", "humid heat against weather stations")}.</p>`));
       }
-      s.append(el(`<p class="ph">${u.dn ? "" : "Hot days against hot nights are not in this build. "}${u.hu ? "" : "Humid heat is not in this build."}</p>`));
+      if (!u.dn || !u.hu) s.append(el(`<p class="ph">${u.dn ? "" : "Hot days against hot nights are not in this build. "}${u.hu ? "" : "Humid heat is not in this build."}</p>`));
     }
     const e = u.ev, cur = eventAt(u, t), evs = e.start.map((st, i) => ({start: st, days: e.days[i], peak: e.peak[i] / 100, size: e.size[i], cur: cur && cur.i === i}));
     { // 2
@@ -806,7 +861,11 @@ export async function start(files) {
         s.append(el(`<p class="how">Dark lines are country borders; lighter lines are coasts and province borders. They are for orientation: the numbers count grid cells, so a line can cut through a coloured cell.</p>`));
         const wrap = el(`<div class="frames"></div>`);
         s.append(wrap);
-        drawWeeks(wrap, cell[u.level], u.row).catch((err) => { console.error(err); weekCache.clear(); evCache.clear(); wrap.append(el(`<p class="ph">The weekly maps could not be loaded.</p>`)); });
+        const go = () => drawWeeks(wrap, cell[u.level], u.row).catch((err) => { console.error(err); weekCache.clear(); evCache.clear(); wrap.append(el(`<p class="ph">The weekly maps could not be loaded.</p>`)); });
+        if ("IntersectionObserver" in window) {                               // the daily maps behind them are only fetched once the reader scrolls near
+          const io = new IntersectionObserver((en) => { if (en.some((q) => q.isIntersecting)) { io.disconnect(); go(); } }, {rootMargin: "800px"});
+          io.observe(wrap);
+        } else go();
       } else {
         const s = section("Where inside it, and is it the same places again?", "Not in this build.");
         s.append(el(`<p class="ph">Week-by-week maps of where the heat sat inside this place are not in this build.</p>`));
@@ -863,7 +922,9 @@ export async function start(files) {
     let d;
     try { d = await unitData(); } catch (err) {
       console.error(err);
-      $("pnote").textContent = "The data for this place could not be loaded."; $("pnote").style.display = "";
+      $("pname").textContent = "Could not load this place";
+      $("pnote").textContent = "The data for this place could not be loaded. Choose it again, or reload the page, to try once more."; $("pnote").style.display = "";
+      drawMap(my).catch((e2) => console.error(e2));                           // the map itself can still be shown
       return;
     }
     if (my !== token) return;
@@ -879,8 +940,9 @@ export async function start(files) {
     }
     if (my !== token) return;
     const link = new URLSearchParams({lvl: S.level, d: iso(curT())});
+    if (S.p > 0) link.set("p", iso(PERIODS[S.p].days[0]));
     if (S.pt) link.set("pt", S.pt.lat.toFixed(2) + "," + S.pt.lon.toFixed(2)); else if (S.sel && S.sel.adm1 >= 0) { link.set("u", admins.adm1[S.sel.adm1].id); if (d && d.dist) link.set("d2", d.dist.id); }
-    history.replaceState(null, "", "#" + link.toString());
+    try { history.replaceState(null, "", "#" + link.toString()); } catch (err) { /* some browsers limit how often the address may change */ }
     for (const k of [S.k - 1, S.k + 1]) if (k >= 0 && k < PERIODS[S.p].days.length) daily(PERIODS[S.p].days[k]).catch(() => {});   // warm the neighbouring days so the slider does not wait on a download
     if (full && my === token) { const ts = performance.now(); renderStory(d); twoCol(); window.__heat.storyMs = Math.round(performance.now() - ts); }
   }
@@ -893,33 +955,55 @@ export async function start(files) {
   psel.innerHTML = PERIODS.map((q, i) => `<option value="${i}">${esc(q.name)}</option>`).join("");
   psel.value = String(S.p);
   psel.addEventListener("change", async () => {
+    ++token;                                                                  // a draw still under way must not print the old place under the new date
     S.p = +psel.value;
-    S.k = S.p === 0 ? PERIODS[0].days.length - 1 : Math.floor(PERIODS[S.p].days.length / 2);       // a past event opens on its middle day
+    S.k = S.p === 0 ? PERIODS[0].days.length - 1 : Math.floor(PERIODS[S.p].days.length / 2);       // a past event: its middle day, until the place is known
     setSlider();
-    const bb = PERIODS[S.p].bbox;
-    if (bb) {                                                                 // a past event: move the map to its region and choose the province there with the most severe area that day
+    const bb = PERIODS[S.p].bbox, pi = S.p;
+    if (bb) try {                                                             // a past event: move the map to its region and choose a province there
       map.fitBounds([[bb[0], bb[1]], [bb[2], bb[3]]], {animate: false, padding: 20});
-      const code = await daily(curT()), sev = new Map(), any = new Map(), inBox = new Map();
-      const r0 = Math.max(0, Math.round((90 - bb[3]) / 0.1)), r1 = Math.min(SOUTH, Math.round((90 - bb[1]) / 0.1));
-      const c0 = Math.max(0, Math.round((bb[0] + 180) / 0.1)), c1 = Math.min(NC - 1, Math.round((bb[2] + 180) / 0.1));
-      for (let r = r0; r <= r1; r++) {
-        const w = Math.cos((90 - 0.1 * r) * Math.PI / 180);
-        for (let c = c0; c <= c1; c++) {
-          const i = r * NC + c, a1 = cell.adm1[i], raw = code[i];
-          if (a1 < 0 || raw === 255 || !admins.adm1[a1].series) continue;
-          inBox.set(a1, (inBox.get(a1) || 0) + 1);
-          const cl = raw & 3;
-          if (cl >= 1) any.set(a1, (any.get(a1) || 0) + w);
-          if (cl >= 2) sev.set(a1, (sev.get(a1) || 0) + w);
+      // the event's own focus place decides the province: its cell, or failing that a cell next to it (a focus on the coast can fall in the sea)
+      const fo = PERIODS[pi].focus;
+      let top = null;
+      if (fo) {
+        const fr = Math.round((90 - fo[0]) / 0.1), fc = ((Math.round((fo[1] + 180) / 0.1) % NC) + NC) % NC;
+        for (const [dr, dc] of [[0, 0], [0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+          const r = fr + dr, c = (fc + dc + NC) % NC, a1 = r >= 0 && r < NR ? cell.adm1[r * NC + c] : -1;
+          if (a1 >= 0 && admins.adm1[a1].series) { top = [a1]; break; }
         }
       }
-      // only provinces that lie mostly inside the event's view, so a large neighbour that just reaches into it is not chosen
-      const inside = (m) => [...m].filter(([a1]) => inBox.get(a1) >= 0.6 * admins.adm1[a1].cells).sort((x, y) => y[1] - x[1])[0];
-      // the event's own focus place decides the province; the most severe province in view is only the fallback
-      const fo = PERIODS[S.p].focus, fi = fo ? Math.round((90 - fo[0]) / 0.1) * NC + ((Math.round((fo[1] + 180) / 0.1) % NC) + NC) % NC : -1;
-      const top = fi >= 0 && cell.adm1[fi] >= 0 && admins.adm1[cell.adm1[fi]].series ? [cell.adm1[fi]] : inside(sev) || inside(any);
-      if (top) { S.sel = {adm1: top[0], adm0: admins.adm1[top[0]].adm0, adm2: -1}; S.level = "adm1"; S.pt = null; S.msg = ""; pin.remove(); $("find").value = ""; }
-    }
+      if (!top) {                                                             // no focus: the province in view with the most severe area on the middle day
+        const code = await daily(curT()), sev = new Map(), any = new Map(), inBox = new Map();
+        const r0 = Math.max(0, Math.round((90 - bb[3]) / 0.1)), r1 = Math.min(SOUTH, Math.round((90 - bb[1]) / 0.1));
+        const c0 = Math.max(0, Math.round((bb[0] + 180) / 0.1)), c1 = Math.min(NC - 1, Math.round((bb[2] + 180) / 0.1));
+        for (let r = r0; r <= r1; r++) {
+          const w = Math.cos((90 - 0.1 * r) * Math.PI / 180);
+          for (let c = c0; c <= c1; c++) {
+            const i = r * NC + c, a1 = cell.adm1[i], raw = code[i];
+            if (a1 < 0 || raw === 255 || !admins.adm1[a1].series) continue;
+            inBox.set(a1, (inBox.get(a1) || 0) + 1);
+            const cl = raw & 3;
+            if (cl >= 1) any.set(a1, (any.get(a1) || 0) + w);
+            if (cl >= 2) sev.set(a1, (sev.get(a1) || 0) + w);
+          }
+        }
+        // only provinces that lie mostly inside the event's view, so a large neighbour that just reaches into it is not chosen
+        const inside = (m) => [...m].filter(([a1]) => inBox.get(a1) >= 0.6 * admins.adm1[a1].cells).sort((x, y) => y[1] - x[1])[0];
+        top = inside(sev) || inside(any);
+      }
+      if (pi !== S.p) return;                                                 // another period was chosen meanwhile
+      if (top) {
+        S.sel = {adm1: top[0], adm0: admins.adm1[top[0]].adm0, adm2: -1}; S.level = "adm1"; S.pt = null; S.msg = ""; pin.remove(); $("find").value = "";
+        // open on the day of the event when most of that province was severe or extreme, not on a quiet day
+        const d = await unitData(), u = d && d.shown;
+        if (pi !== S.p) return;
+        if (u) {
+          let bk = -1, bv = 0;
+          PERIODS[pi].days.forEach((q, k) => { const v = u.sevAt(q); if (v !== undefined && v !== 255 && v > bv) { bv = v; bk = k; } });
+          if (bk >= 0) { S.k = bk; setSlider(); }
+        }
+      }
+    } catch (err) { console.error(err); }
     render(true);
   });
   setSlider();
@@ -937,9 +1021,13 @@ export async function start(files) {
   admins.adm0.forEach((u, i) => { if (u.series) places.set(nameOf("adm0", i), {level: "adm0", row: i}); });
   admins.adm1.forEach((u, i) => { if (u.series) places.set(`${nameOf("adm1", i)}, ${nameOf("adm0", u.adm0)}`, {level: "adm1", row: i}); });
   $("places").innerHTML = [...places.keys()].sort().map((k) => `<option value="${esc(k).replace(/"/g, "&quot;")}">`).join("");
+  $("find").addEventListener("input", () => $("find").setCustomValidity(""));
   $("find").addEventListener("change", () => {
     const hit = places.get($("find").value);
-    if (!hit) return;
+    if (!hit) {
+      if ($("find").value.trim()) { $("find").setCustomValidity("No country or province has that name. Choose one from the list."); $("find").reportValidity(); }
+      return;
+    }
     S.level = hit.level; S.msg = ""; S.pt = null; pin.remove();
     S.sel = hit.level === "adm0" ? {adm0: hit.row, adm1: admins.adm1.findIndex((u) => u.adm0 === hit.row && u.series), adm2: -1} : {adm0: admins.adm1[hit.row].adm0, adm1: hit.row, adm2: -1};
     const b = unitBounds(cell[hit.level], hit.row);
