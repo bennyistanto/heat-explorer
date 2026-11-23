@@ -9,6 +9,14 @@ export default {
   toc: false,
   pager: false,
   pages: [],
+  // visitor counts with Google Analytics; the tag loads from Google, the only third-party request the page makes
+  head: `<script async src="https://www.googletagmanager.com/gtag/js?id=G-FD4Q7PHZ2E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-FD4Q7PHZ2E");
+</script>`,
   globalStylesheets: [], // no font download from a third party: the page uses the visitor's system fonts
   footer: "Heat data: AgERA5, Copernicus Climate Change Service (DOI 10.24381/cds.6c68c9bb). Boundaries: FieldMaps Global Edge-matched Subnational Boundaries and OpenStreetMap contributors, under the Open Database License 1.0. Built with Observable Framework. Developed by <a href=\"https://benny.istan.to\" target=\"_blank\" rel=\"noopener\">Benny Istanto</a> as a casual-weekend project. Repo is accessible from <a href=\"https://github.com/bennyistanto/heat-explorer\" target=\"_blank\" rel=\"noopener\">https://github.com/bennyistanto/heat-explorer</a>."
 };
