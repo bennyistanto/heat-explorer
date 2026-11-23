@@ -88,6 +88,42 @@ title: Heat Explorer
 .key {display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin: 4px 0 6px; align-items: center;}
 .key i {display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 5px; vertical-align: -1px;}
 .key .ramp {display: inline-block; width: 160px; height: 10px; border-radius: 2px;}
+/* opening section of the story, one per map layer */
+.lensfig {display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: flex-start; max-width: 1100px;}
+.lensfig > .key, .lensfig > .lensnote, .lensfig > .ph {flex-basis: 100%;}
+#story .lensnote {color: var(--ink-2); font-size: 13px; margin: 2px 0 0; max-width: 820px;}
+svg.ring {width: 100%; max-width: 440px; height: auto;}
+svg.ring text {font-family: inherit; text-anchor: middle; fill: var(--ink-2);}
+svg.ring .tk {font-size: 9px; fill: #898781;}
+svg.ring .mo {font-size: 11px;}
+svg.ring .yr {font-size: 15px; font-weight: 600; fill: var(--ink);}
+svg.ring .big {font-size: 30px; font-weight: 700; fill: var(--c3);}
+svg.ring .sm {font-size: 11px;}
+.stripes {flex: 1 1 100%; max-width: 1100px;}
+.stripes .row {display: flex; height: 64px; border-radius: 4px; overflow: hidden;}
+.stripes .row span {display: block; height: 100%; cursor: default;}
+.stripes .row span[role="button"] {cursor: pointer;}
+.stripes .row span.on {outline: 2.5px solid var(--ink); outline-offset: -2.5px; position: relative; z-index: 1;}
+.stripes .row span[role="button"]:hover, .stripes .row span:focus-visible {outline: 2px solid var(--ink-2); outline-offset: -2px;}
+.stripes .ax {display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); margin-top: 3px;}
+.waffle {display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; width: 100%; max-width: 280px; direction: ltr;}
+.waffle i {display: block; aspect-ratio: 1; border-radius: 2px;}
+.spread {flex: 1 1 100%; max-width: 820px;}
+.spread .bar {display: flex; height: 26px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule);}
+.spread .bar span {display: block; height: 100%;}
+.spread .key b {color: var(--ink); font-weight: 600;}
+svg.mcal {width: 100%; max-width: 440px; height: auto;}
+svg.mcal text {font-family: inherit;}
+svg.mcal .wd {font-size: 10px; text-anchor: middle; fill: var(--ink-2);}
+svg.mcal .dn {font-size: 10px; fill: var(--ink-2);}
+svg.mcal .dn.inv {fill: #fff;}
+svg.mgrid {width: 100%; max-width: 420px; height: auto;}
+svg.mgrid text {font-family: inherit; fill: var(--ink-2);}
+svg.mgrid .mo {font-size: 10px; text-anchor: middle;}
+svg.mgrid .yl {font-size: 9px; text-anchor: end;}
+svg.mgrid rect {cursor: pointer;}
+svg.mgrid rect.on {stroke: var(--ink); stroke-width: 2;}
+svg.mgrid rect:hover {stroke: var(--ink-2); stroke-width: 1.5;}
 .frames {display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 14px; max-width: 1100px;}
 .frames canvas {width: 100%; height: auto; display: block; background: #fbfaf7; border: 1px solid var(--rule); border-radius: 4px;}
 .frames .lab {font-size: 12px; color: var(--ink-2); margin-top: 3px;}
@@ -207,13 +243,13 @@ table.ev tr.cur {background: #fdf1e7; font-weight: 600;}
       <div class="caveat" id="pcaveat" style="display:none"></div>
       <div class="caveat" id="phumid" style="display:none"></div>
       <div class="nums">
-        <div class="num"><div class="v" id="n1"></div><div class="k">of land area in a heat spell</div></div>
-        <div class="num"><div class="v" id="n2"></div><div class="k">of land area severe or extreme</div></div>
+        <div class="num"><div class="v" id="n1"></div><div class="k" id="k1">of land area in a heat spell</div></div>
+        <div class="num"><div class="v" id="n2"></div><div class="k" id="k2">of land area severe or extreme</div></div>
         <div class="num"><div class="v" id="n3"></div><div class="k" id="k3"></div></div>
         <div class="num"><div class="v" id="n4"></div><div class="k" id="k4"></div></div>
       </div>
       <div class="spark">
-        <h3>Share of land area in a heat spell, 60 days to the chosen date</h3>
+        <h3 id="sparkh">Share of land area in a heat spell, 60 days to the chosen date</h3>
         <div class="sparkbox"><svg id="spark" role="img" viewBox="0 0 320 86" preserveAspectRatio="none" aria-label="Share of land area in a heat spell over 60 days"></svg><div class="tip" id="tip"></div></div>
       </div>
       <div class="pnote" id="pnote" style="display:none"></div>

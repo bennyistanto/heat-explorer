@@ -628,7 +628,8 @@ export async function start(files) {
     $("sfirst").textContent = fx ? "" : yrl ? yrl.first : fmt(PERIODS[S.p].days[0]);
     $("period").style.display = yrl || fx ? "none" : "";
     $("slider").disabled = fx;
-    $("layernote").textContent = fx ? `This map does not change with the slider. The panel beside it describes ${fmt(t)}.` : yrl ? `The map shows ${yrl.label}. The panel beside it describes ${fmt(t)}.` : "";
+    $("layernote").textContent = S.level === "adm2" ? (fx ? `This map does not change with the slider. The panel beside it describes ${fmt(t)}.` : yrl ? `The map shows ${yrl.label}. The panel beside it describes ${fmt(t)}.` : "")
+      : fx ? "This map does not change with the slider. The panel and the page below describe the same thing as the map." : yrl ? `The map, the panel beside it and the page below all describe ${yrl.label}.` : "";
     $("layernote").style.display = yrl || fx ? "" : "none";
     $("leg-trend").style.display = S.layer === "trend" ? "" : "none"; $("leg-season").style.display = S.layer === "season" ? "" : "none";
     $("leg-daily").style.display = yrl || hum || fx ? "none" : ""; $("leg-yearly").style.display = yrl ? "" : "none"; $("leg-humid").style.display = hum ? "" : "none";
@@ -680,6 +681,7 @@ export async function start(files) {
     $("phumid").style.display = hu ? "" : "none";
     if (hu) $("phumid").textContent = `Humid heat spell (experimental): ${hu.share === undefined ? "not published for" : hu.share + "% of land area on"} ${fmt(t)}. Humid spell days a year here: ${hu.base.toFixed(0)} in 1991 to 2020, ${hu.rec.toFixed(0)} in 2021 to 2025.`;
     $("pchip").style.background = [C.land, C.severe, C.extreme][Math.max(0, tier)];
+    $("k1").textContent = "of land area in a heat spell"; $("k2").textContent = "of land area severe or extreme"; $("sparkh").textContent = "Share of land area in a heat spell, 60 days to the chosen date";
     $("n1").innerHTML = u.now.spell + "<small>%</small>";
     $("n2").innerHTML = u.now.severe + "<small>%</small>";
     const e = u.level === "adm2" ? null : eventAt(u, t);
@@ -706,6 +708,134 @@ export async function start(files) {
     $("pcells").textContent = u.cells.toLocaleString("en-GB") + " grid cells of about 10 km." + (lic ? ` Boundary source licence: ${lic}.` : "");
     const ev = e && e.i !== undefined ? eventWords(e, t).tail : "";
     $("sentence").textContent = `${cav}On ${fmt(t)}, ${u.now.spell}% of ${nm}'s land area was in a heat spell, and ${u.now.severe}% of its land area was severe or extreme.${ev}`;
+    if (S.layer !== "sev" && u.level !== "adm2") layerPanel(u, t, cav, my);   // the other layers: the panel is about what the map shows
+  }
+
+  // ---------- the side panel for the layers other than the daily one: it describes what the map shows, not the chosen date
+  function sparkAny(vals, top, tipOf, firstLab, lastLab, topLab) {
+    const W = 320, Hh = 86, p = {l: 2, r: 2, t: 6, b: 16}, n = vals.length;
+    const x = (i) => p.l + i * (W - p.l - p.r) / Math.max(1, n - 1), y = (v) => p.t + (1 - Math.min(1, v / top)) * (Hh - p.t - p.b);
+    const line = vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+    const svg = $("spark");
+    svg.innerHTML = `<line x1="${p.l}" x2="${W - p.r}" y1="${y(0)}" y2="${y(0)}" stroke="#c3c2b7" vector-effect="non-scaling-stroke"/>
+      <line x1="${p.l}" x2="${W - p.r}" y1="${y(top)}" y2="${y(top)}" stroke="#e1e0d9" stroke-dasharray="2 3" vector-effect="non-scaling-stroke"/>
+      <path d="${line}L${x(n - 1)},${y(0)}L${x(0)},${y(0)}Z" fill="#d9783c" opacity="0.18"/><path d="${line}" fill="none" stroke="#b24d1c" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <line id="cross" y1="${p.t}" y2="${y(0)}" stroke="#52514e" vector-effect="non-scaling-stroke" style="display:none"/>
+      <text x="${p.l}" y="${Hh - 3}" font-size="10" fill="#898781">${firstLab}</text><text x="${W - p.r}" y="${Hh - 3}" font-size="10" fill="#898781" text-anchor="end">${lastLab}</text>
+      <text x="${W - p.r}" y="${y(top) - 2}" font-size="10" fill="#898781" text-anchor="end">${topLab}</text>`;
+    const tip = $("tip"), cross = svg.querySelector("#cross");
+    svg.onmousemove = (e) => {
+      const r = svg.getBoundingClientRect(), i = Math.max(0, Math.min(n - 1, Math.round((e.clientX - r.left) / r.width * (n - 1))));
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.style.display = "";
+      tip.style.display = "block"; tip.style.left = (x(i) / W * r.width) + "px"; tip.style.top = (y(vals[i]) / Hh * r.height) + "px";
+      tip.textContent = tipOf(i);
+    };
+    svg.onmouseleave = () => { tip.style.display = "none"; cross.style.display = "none"; };
+  }
+  function layerPanel(u, t, cav, my) {
+    const L = S.layer, nm = u.name || "this area", yN = man.annual_years[1];
+    const set = (i, v, k) => { $("n" + i).innerHTML = v; $("k" + i).textContent = k; };
+    const head = (text, colour, sparkTitle, sentence) => { $("pstatus").textContent = text; $("pchip").style.background = colour; $("sparkh").textContent = sparkTitle; $("sentence").textContent = cav + sentence; };
+    const pctOf = (q0, q1) => Array.from(u.spell.subarray(Math.max(0, q0), Math.min(q1, T)));
+    const live = () => my === undefined || my === token;
+    if (L === "spell" || L === "severe") {
+      const Y = Y0 + S.y, years = yearRow(u), me = years.find((q) => q.y === Y), rank = 1 + years.filter((q) => q.v > me.v).length;
+      const usual = median(years.filter((q) => q.y >= 1991 && q.y <= 2020).map((q) => q.v)), q0 = dayIx(Y), vals = pctOf(q0, dayIx(Y + 1));
+      let pk = 0; vals.forEach((v, i) => { if (v > vals[pk]) pk = i; });
+      const sent = `In ${Y}, ${nm} had ${me.v.toFixed(1)} heat spell days, averaged over its land area: the ${ordinal(rank)} most of the ${years.length} years from 1979 to ${yN}. A usual year in 1991 to 2020 had ${usual.toFixed(1)}.`;
+      head(`${Y}: ${me.v >= 1.5 * usual ? "far more heat than usual" : me.v > usual ? "more heat than usual" : "no more heat than usual"}`, me.v >= 1.5 * usual ? C.extreme : me.v > usual ? C.severe : C.land, `Share of land area in a heat spell, each day of ${Y}`, sent);
+      sparkAny(vals, 100, (i) => `${fmt(q0 + i)}: ${vals[i]}% of land area in a heat spell`, fmt(q0, false), fmt(q0 + vals.length - 1, false), "100%");
+      if (L === "spell") {
+        set(1, me.v.toFixed(1), `heat spell days in ${Y}, averaged over the land area`);
+        set(2, usual.toFixed(1), "in a usual year, 1991 to 2020");
+        set(3, ordinal(rank) + `<small> of ${years.length}</small>`, `most heat spell days among the years 1979 to ${yN}`);
+        set(4, vals[pk] + "<small>%</small>", `of land area in a heat spell on the widest day, ${fmt(q0 + pk)}`);
+      } else {
+        set(1, "…", `severe or extreme days in ${Y} on half of the land area, or more`);
+        set(2, "…", "of the heat spell days were severe or extreme");
+        set(3, "…", "severe or extreme days on the most affected tenth of the land, or more");
+        set(4, "…", "of the land area had at least one severe or extreme day");
+        Promise.all([yearly("spell", S.y), yearly("severe", S.y)]).then(([sp, sv]) => {
+          if (!live() || S.layer !== "severe") return;
+          const cells = unitCells(u.level, u.row), res = spread(sv, cells, YBINS);
+          let a = 0, b = 0;
+          for (let k = 0; k < cells.ix.length; k++) { const x = sp[cells.ix[k]], z = sv[cells.ix[k]]; if (x === 255 || z === 255) continue; a += cells.w[k] * x; b += cells.w[k] * z; }
+          $("n1").innerHTML = res.q(0.5); $("n2").innerHTML = (a ? Math.round(100 * b / a) : 0) + "<small>%</small>"; $("n3").innerHTML = res.q(0.9); $("n4").innerHTML = Math.round(100 - res.share[0]) + "<small>%</small>";
+          $("sentence").textContent = `${cav}In ${Y}, half of ${nm}'s land area had ${res.q(0.5)} or more severe or extreme days, and ${a ? Math.round(100 * b / a) : 0}% of its heat spell days were severe or extreme, counted on the map's cells.`;
+        }).catch((err) => console.error(err));
+      }
+      return;
+    }
+    if (L === "mspell" || L === "msevere") {
+      const mkey = monthKey(S.m), Y = +mkey.slice(0, 4), mo = +mkey.slice(5) - 1, mname = monthName(S.m), q0 = dayIx(Y, mo, 1), vals = pctOf(q0, dayIx(Y, mo + 1, 1));
+      const calName = new Date(Date.UTC(2001, mo, 1)).toLocaleDateString("en-GB", {month: "long", timeZone: "UTC"}), same = [];
+      for (let y = 1979; y <= Y0 + NY; y++) { const a = dayIx(y, mo, 1), b = dayIx(y, mo + 1, 1); if (b <= T) same.push({y, v: spanDays(u, a, b)}); }
+      const me = same.find((q) => q.y === Y), rank = 1 + same.filter((q) => q.v > me.v).length, usual = median(same.filter((q) => q.y >= 1991 && q.y <= 2020).map((q) => q.v));
+      let pk = 0; vals.forEach((v, i) => { if (v > vals[pk]) pk = i; });
+      const half = vals.filter((v) => v >= 50).length;
+      head(`${mname}: ${me.v >= 1.5 * usual && me.v >= 1 ? "far more heat than usual" : me.v > usual ? "more heat than usual" : "no more heat than usual"}`, me.v >= 1.5 * usual && me.v >= 1 ? C.extreme : me.v > usual ? C.severe : C.land, `Share of land area in a heat spell, each day of ${mname}`,
+        `In ${mname}, ${nm} had ${me.v.toFixed(1)} heat spell days, averaged over its land area: the ${ordinal(rank)} most for a ${calName} in ${same.length} years. A usual ${calName} in 1991 to 2020 had ${usual.toFixed(1)}.`);
+      sparkAny(vals, 100, (i) => `${fmt(q0 + i)}: ${vals[i]}% of land area in a heat spell`, fmt(q0, false), fmt(q0 + vals.length - 1, false), "100%");
+      if (L === "mspell") {
+        set(1, me.v.toFixed(1), `heat spell days in ${mname}, averaged over the land area`);
+        set(2, usual.toFixed(1), `in a usual ${calName}, 1991 to 2020`);
+        set(3, ordinal(rank) + `<small> of ${same.length}</small>`, `most heat spell days among the months of ${calName} since 1979`);
+        set(4, vals[pk] + "<small>%</small>", `of land area in a heat spell on the widest day, ${fmt(q0 + pk)}`);
+      } else {
+        let hs = 0, known = 0;
+        for (let i = 0; i < vals.length; i++) { const sv = u.sevAt(q0 + i); if (sv !== undefined && sv !== 255) { known++; if (sv >= 50) hs++; } }
+        set(1, String(half), `days of ${mname} with half or more of the land in a heat spell`);
+        set(2, known ? String(hs) : "n/a", known ? "days with half or more of the land severe or extreme" : "severe share by day is not published for this month");
+        set(3, "…", `severe or extreme days in ${mname} on half of the land area, or more`);
+        set(4, "…", "severe or extreme days on the most affected tenth of the land, or more");
+        monthlyLayer("msevere", S.m).then((code) => {
+          if (!live() || S.layer !== "msevere") return;
+          const res = spread(code, unitCells(u.level, u.row), MBINS);
+          $("n3").innerHTML = res.q(0.5); $("n4").innerHTML = res.q(0.9);
+        }).catch((err) => console.error(err));
+      }
+      return;
+    }
+    if (L === "season") {
+      const se = u.season, ok = se && se[0] !== 255, vals = pctOf(T - 84, T), v = (i) => (ok ? se[i] + "<small>%</small>" : "n/a");
+      head(`Season status, week to ${fmt(T - 1)}`, ok && se[2] >= 25 ? C.severe : ok && se[0] + se[1] >= 25 ? "#f0c419" : C.land, `Share of land area in a heat spell, 12 weeks to ${fmt(T - 1)}`,
+        ok ? `In the week to ${fmt(T - 1)}, ${se[0]}% of ${nm}'s land area was newly in a heat spell, ${se[1]}% was in one again after a break, ${se[2]}% was still in one from the week before, and ${se[3]}% was no longer in one.` : `Season status is not published for ${nm}.`);
+      set(1, v(0), "of land area newly in a heat spell: none in the 11 weeks before");
+      set(2, v(1), "in one again, after a break");
+      set(3, v(2), "still in one from the week before");
+      set(4, v(3), "no longer in one: was the week before");
+      sparkAny(vals, 100, (i) => `${fmt(T - vals.length + i)}: ${vals[i]}% of land area in a heat spell`, fmt(T - vals.length, false), fmt(T - 1, false), "100%");
+      return;
+    }
+    if (L === "trend") {
+      const years = yearRow(u), a = years.slice(0, 10), b = years.slice(-10), av = (g) => g.reduce((x, q) => x + q.v, 0) / g.length, top = Math.max(1, ...years.map((q) => q.v));
+      const slope = u.trend ? u.trend[0] : NaN, pm = u.trend ? Math.max(u.trend[1], u.trend[2]) : NaN, pass = pm < 0.05;
+      head(!u.trend ? "No trend computed" : pass ? (slope > 0 ? "More heat spell days over time" : "Fewer heat spell days over time") : "No trend that passes the test", pass ? (slope > 0 ? C.severe : "#1854a0") : C.land, `Heat spell days per year, 1979 to ${yN}`,
+        u.trend ? `From 1979 to ${yN}, heat spell days per year in ${nm} changed by ${slope > 0 ? "+" : ""}${slope.toFixed(1)} days per decade; ${pass ? "a change of this size is unlikely to be chance alone" : "this cannot be told apart from no trend"}.` : `No trend is computed for ${nm}.`);
+      set(1, u.trend ? (slope > 0 ? "+" : "") + slope.toFixed(1) : "n/a", "heat spell days per decade, change over the record");
+      set(2, av(a).toFixed(1), `days a year in ${a[0].y} to ${a[a.length - 1].y}`);
+      set(3, av(b).toFixed(1), `days a year in ${b[0].y} to ${b[b.length - 1].y}`);
+      set(4, "…", "of the land area has an upward trend that passes the test on the map");
+      sparkAny(years.map((q) => q.v), top, (i) => `${years[i].y}: ${years[i].v.toFixed(1)} heat spell days`, "1979", String(yN), top.toFixed(0) + " days");
+      fixedLayer("trend").then((code) => {
+        if (!live() || S.layer !== "trend") return;
+        const cells = unitCells(u.level, u.row);
+        let all = 0, up = 0;
+        for (let k = 0; k < cells.ix.length; k++) { const v = code[cells.ix[k]]; if (v === 255) continue; all += cells.w[k]; if (v > 128) up += cells.w[k]; }
+        $("n4").innerHTML = (all ? Math.round(100 * up / all) : 0) + "<small>%</small>";
+      }).catch((err) => console.error(err));
+      return;
+    }
+    // humid heat (experimental)
+    const hu = u.hu, h = hu ? u.huAt(t) : undefined, okH = h !== undefined && h !== 255, n = Math.min(60, t + 1), vals = [];
+    for (let q = t - n + 1; q <= t; q++) { const x = hu ? u.huAt(q) : undefined; vals.push(x === undefined || x === 255 ? 0 : x); }
+    head(`Humid heat (experimental) on ${fmt(t)}`, okH && h >= 50 ? css(HUMCOL) : C.land, `Share of land area in a humid heat spell, ${n} days to the chosen date`,
+      okH ? `On ${fmt(t)}, ${h}% of ${nm}'s land area was in a humid heat spell and ${u.now.spell}% was in a heat spell judged on temperature. Humid heat is experimental and takes no part in the status, the events or the ranks.` : `Humid heat is not published for ${nm} on ${fmt(t)}.`);
+    set(1, okH ? h + "<small>%</small>" : "n/a", "of land area in a humid heat spell");
+    set(2, u.now.spell + "<small>%</small>", "of land area in a heat spell, on temperature alone");
+    set(3, hu ? hu.base.toFixed(0) : "n/a", "humid heat spell days a year, 1991 to 2020");
+    set(4, hu ? hu.rec.toFixed(0) : "n/a", "days a year, 2021 to 2025: part of the rise is drift in the source data");
+    sparkAny(vals, 100, (i) => `${fmt(t - n + 1 + i)}: ${vals[i]}% of land area in a humid heat spell`, fmt(t - n + 1, false), fmt(t, false), "100%");
   }
 
   // ---------- story
@@ -714,7 +844,7 @@ export async function start(files) {
   const block = (s, title, how) => { s.append(el(`<h3>${title}</h3>`)); if (how) s.append(el(`<p class="how"><b>How to read this.</b> ${how}</p>`)); };
   // Each titled block of the story becomes: the words before its chart, the chart, the words after it.
   // On a wide screen the stylesheet puts the chart on the left and the words beside it; on a narrow one they stay in reading order.
-  const isFig = (n) => n.matches("svg, figure, canvas, table, .frames");
+  const isFig = (n) => n.matches("svg, figure, canvas, table, .frames, .lensfig");
   const twoCol = () => {
     for (const sec of story.querySelectorAll("section")) {
       const kids = [...sec.children], groups = [];
@@ -732,6 +862,370 @@ export async function start(files) {
   };
   const key = (items) => el(`<div class="key">${items.map(([c, t]) => `<span><i style="background:${c}"></i>${t}</span>`).join("")}</div>`);
   const po = {style: {fontSize: "12px", fontFamily: "inherit", background: "transparent"}, marginLeft: 44, marginBottom: 36};
+  // ---------- the opening section of the story: one per map layer, so the page under the map is about what the map shows
+  const dayIx = (y, m = 0, d = 1) => Math.round((Date.UTC(y, m, d) - EPOCH) / DAY);
+  const spanDays = (u, q0, q1) => { let a = 0; for (let q = Math.max(0, q0); q < Math.min(q1, T); q++) a += u.spell[q] / 100; return a; };   // heat spell days, averaged over the land area
+  const css = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
+  const cellsCache = new Map();
+  const unitCells = (level, row) => {                                         // the unit's grid cells and their area weights
+    const key = level + row;
+    if (!cellsCache.has(key)) {
+      const arr = cell[level], ix = [];
+      for (let i = 0; i < N; i++) if (arr[i] === row) ix.push(i);
+      const w = new Float32Array(ix.length);
+      for (let k = 0; k < ix.length; k++) w[k] = Math.cos((90 - 0.1 * Math.floor(ix[k] / NC)) * Math.PI / 180);
+      cellsCache.set(key, {ix, w});
+      while (cellsCache.size > 6) cellsCache.delete(cellsCache.keys().next().value);
+    }
+    return cellsCache.get(key);
+  };
+  const median = (a) => { const b = [...a].sort((x, y) => x - y); return b.length ? b[Math.floor(b.length / 2)] : NaN; };
+  // share of the unit's land area in each bin of a layer's cell values; bins = [[lo, hi, label, colour], ...]
+  const spread = (code, cells, bins) => {
+    const tot = new Float64Array(bins.length), vals = [];
+    let all = 0;
+    for (let k = 0; k < cells.ix.length; k++) {
+      const v = code[cells.ix[k]];
+      if (v === 255) continue;
+      all += cells.w[k]; vals.push([v, cells.w[k]]);
+      for (let b = 0; b < bins.length; b++) if (v >= bins[b][0] && v <= bins[b][1]) { tot[b] += cells.w[k]; break; }
+    }
+    vals.sort((x, y) => x[0] - y[0]);
+    const q = (f) => { let acc = 0; for (const [v, w] of vals) { acc += w; if (acc >= f * all) return v; } return NaN; };
+    return {share: Array.from(tot, (v) => all ? 100 * v / all : 0), q, n: vals.length};
+  };
+  const spreadBar = (res, bins) => {
+    const box = el(`<div class="spread"><div class="bar"></div><div class="key"></div></div>`);
+    res.share.forEach((p, b) => {
+      if (p < 0.05) return;
+      box.firstChild.append(el(`<span style="width:${p.toFixed(2)}%;background:${bins[b][3]}" title="${esc(bins[b][2])}: ${p.toFixed(0)}% of land area"></span>`));
+      box.lastChild.append(el(`<span><i style="background:${bins[b][3]}"></i>${esc(bins[b][2])} <b>${p < 1 ? "under 1" : p.toFixed(0)}%</b></span>`));
+    });
+    return box;
+  };
+  // 100 small squares, one per percent of the land area; parts = [[percent, colour, label], ...]
+  const waffle = (parts) => {
+    const fl = parts.map((p) => Math.floor(p[0])), order = parts.map((p, i) => [p[0] - fl[i], i]).sort((a, b) => b[0] - a[0]);
+    let left = 100 - fl.reduce((a, b) => a + b, 0);
+    for (const [, i] of order) { if (left <= 0) break; fl[i]++; left--; }
+    const box = el(`<div class="waffle" role="img" aria-label="${esc(parts.map((p) => `${p[2]} ${Math.round(p[0])}%`).join(", "))}"></div>`);
+    parts.forEach((p, i) => { for (let k = 0; k < fl[i]; k++) box.append(el(`<i style="background:${p[1]}" title="${esc(p[2])}"></i>`)); });
+    return box;
+  };
+  const yearRow = (u) => { const yN = man.annual_years[1], out = []; for (let y = 1979; y <= yN; y++) out.push({y, v: spanDays(u, dayIx(y), dayIx(y + 1))}); return out; };
+  // one stripe per year, coloured by heat spell days; pick(y) is called when a stripe is clicked
+  const stripes = (years, chosen, pick) => {
+    const top = Math.max(1, ...years.map((q) => q.v)), w = 100 / years.length;
+    const box = el(`<div class="stripes"><div class="row"></div><div class="ax"><span>${years[0].y}</span><span>${years[years.length - 1].y}</span></div></div>`);
+    for (const q of years) {
+      const s = el(`<span class="${q.y === chosen ? "on" : ""}" style="width:${w}%;background:${css(rampAt(q.v / top))}" title="${q.y}: ${q.v.toFixed(1)} heat spell days"></span>`);
+      if (pick) { s.tabIndex = 0; s.setAttribute("role", "button"); s.setAttribute("aria-label", `Show ${q.y}`); s.addEventListener("click", () => pick(q.y)); s.addEventListener("keydown", (ev) => { if (ev.key === "Enter") pick(q.y); }); }
+      box.firstChild.append(s);
+    }
+    return box;
+  };
+  // the year as a ring: one spoke per day, its length the share of land in a heat spell; the dashed line is the usual share for the date
+  const yearRing = (u, Y, days, rank, nYears) => {
+    const q0 = dayIx(Y), n = dayIx(Y + 1) - q0, R0 = 62, R1 = 196, c = 220, parts = [];
+    const pt = (i, r) => { const a = 2 * Math.PI * i / n - Math.PI / 2; return [c + r * Math.cos(a), c + r * Math.sin(a)]; };
+    for (const f of [0.5, 1]) parts.push(`<circle cx="${c}" cy="${c}" r="${R0 + (R1 - R0) * f}" fill="none" stroke="#e1e0d9" stroke-width="1"/>`);
+    parts.push(`<text x="${c}" y="${c - R0 - (R1 - R0) * 0.5 - 3}" class="tk">50% of land</text><text x="${c}" y="${c - R1 - 3}" class="tk">100%</text>`);
+    const sw = 2 * Math.PI * ((R0 + R1) / 2) / n;
+    for (let i = 0; i < n && q0 + i < T; i++) {
+      const s = u.spell[q0 + i] / 100;
+      if (s <= 0) continue;
+      const a = pt(i, R0), b = pt(i, R0 + (R1 - R0) * s);
+      parts.push(`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${css(rampAt(0.25 + 0.75 * s))}" stroke-width="${Math.max(1.4, sw * 0.9).toFixed(2)}"/>`);
+    }
+    const usual = [];                                                         // median share for each calendar day over the baseline
+    for (let i = 0; i < 365; i++) {
+      const v = [];
+      for (let y = 1991; y <= 2020; y++) { const leap = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; v.push(u.spell[dayIx(y) + i + (leap && i >= 59 ? 1 : 0)] / 100); }
+      const p = pt(i * n / 365, R0 + (R1 - R0) * median(v));
+      usual.push(p[0].toFixed(1) + "," + p[1].toFixed(1));
+    }
+    parts.push(`<polygon points="${usual.join(" ")}" fill="none" stroke="#3f3e3a" stroke-width="1" stroke-dasharray="3 3"/>`);
+    parts.push(`<circle cx="${c}" cy="${c}" r="${R0}" fill="#fbfaf7" stroke="#c3c2b7" stroke-width="1"/>`);
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].forEach((mn, m) => {
+      const i = dayIx(Y, m, 1) - q0, a = pt(i, R1 + 2), b = pt(i, R1 + 8), t = pt(i + 15, R1 + 15);
+      parts.push(`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="#898781" stroke-width="1"/><text x="${t[0].toFixed(1)}" y="${(t[1] + 4).toFixed(1)}" class="mo">${mn}</text>`);
+    });
+    parts.push(`<text x="${c}" y="${c - 16}" class="yr">${Y}</text><text x="${c}" y="${c + 12}" class="big">${days.toFixed(1)}</text><text x="${c}" y="${c + 28}" class="sm">heat spell days</text><text x="${c}" y="${c + 43}" class="sm">${ordinal(rank)} of ${nYears} years</text>`);
+    return el(`<svg class="ring" viewBox="0 0 440 440" role="img" aria-label="Ring calendar of ${Y}: share of land area in a heat spell on each day, against the usual share for the date in 1991 to 2020">${parts.join("")}</svg>`);
+  };
+  const YBINS = [[0, 0, "No days", "#e7e6e1"], [1, 10, "1 to 10 days", css(rampAt(0.2))], [11, 25, "11 to 25", css(rampAt(0.4))], [26, 50, "26 to 50", css(rampAt(0.6))], [51, 100, "51 to 100", css(rampAt(0.8))], [101, 254, "over 100", css(rampAt(1))]];
+  const MBINS = [[0, 0, "No days", "#e7e6e1"], [1, 3, "1 to 3 days", css(rampAt(0.2))], [4, 7, "4 to 7", css(rampAt(0.4))], [8, 14, "8 to 14", css(rampAt(0.6))], [15, 21, "15 to 21", css(rampAt(0.8))], [22, 31, "22 or more", css(rampAt(1))]];
+  const later = (host, make, what) => make().then((node) => { if (host.isConnected) host.replaceChildren(...[].concat(node)); })
+    .catch((err) => { console.error(err); if (host.isConnected) host.replaceChildren(el(`<p class="ph">${what} could not be loaded.</p>`)); });
+
+  // Returns the standard sections to keep after the opening one. "sev" (the daily map) keeps the whole story and has no opening section.
+  function renderLens(u, t, W) {
+    const nm = esc(u.name || "this area"), L = S.layer, yN = man.annual_years[1];
+    if (L === "sev") return new Set([1, 2, 3, "where", 4, 5, 6]);
+    if (L === "spell") {
+      const Y = Y0 + S.y, years = yearRow(u), me = years.find((q) => q.y === Y), rank = 1 + years.filter((q) => q.v > me.v).length;
+      const usual = median(years.filter((q) => q.y >= 1991 && q.y <= 2020).map((q) => q.v));
+      const s = section(`${Y} in ${nm}`, `In ${Y}, ${nm} had ${me.v.toFixed(1)} heat spell days, averaged over its land area: the ${ordinal(rank)} most of the ${years.length} years from 1979 to ${yN}. A usual year in 1991 to 2020 had ${usual.toFixed(1)}.`);
+      block(s, `The year as a ring`, `Read it clockwise from January at the top. Each spoke is one day; the longer and darker it is, the more of the land was in a heat spell that day. The dashed line is the usual share for that date in 1991 to 2020, so spokes that reach past it mark days with more heat than usual.`);
+      const fig = el(`<div class="lensfig"></div>`);
+      fig.append(yearRing(u, Y, me.v, rank, years.length));
+      s.append(fig);
+      block(s, `Every year since 1979`, `One stripe per year, darker for more heat spell days. The outlined stripe is ${Y}. Click a stripe to move the map and this page to that year.`);
+      const f2 = el(`<div class="lensfig"></div>`);
+      f2.append(stripes(years, Y, (y) => { S.y = y - Y0; setSlider(); render(true); }));
+      s.append(f2);
+      block(s, `How evenly the heat was spread in ${Y}`, `The map coloured each grid cell by its days in a heat spell in ${Y}. This bar sorts ${nm}'s land area by that count. A year can be heavy in one corner and light in the rest.`);
+      const f3 = el(`<div class="lensfig"><p class="ph">Counting the map's cells.</p></div>`);
+      s.append(f3);
+      later(f3, async () => {
+        const res = spread(await yearly(L, S.y), unitCells(u.level, u.row), YBINS);
+        return [spreadBar(res, YBINS), el(`<p class="lensnote">Half of the land area had ${res.q(0.5)} or more heat spell days in ${Y}; the most affected tenth had ${res.q(0.9)} or more. Counted on ${res.n.toLocaleString("en-GB")} grid cells. The map counts a spell from its first day, the area figures above from its third, so the map's counts run a little higher.</p>`)];
+      }, "The map's cells");
+      return new Set([3, 5, 6]);
+    }
+    if (L === "severe") {                                                     // a cut across the place: how much of the year's heat was severe, and where
+      const Y = Y0 + S.y, cells = unitCells(u.level, u.row);
+      let r0 = NR, r1 = -1, c0 = NC, c1 = -1;
+      for (const i of cells.ix) { const r = Math.floor(i / NC), c = i % NC; if (r < r0) r0 = r; if (r > r1) r1 = r; if (c < c0) c0 = c; if (c > c1) c1 = c; }
+      const ns = (r1 - r0) >= (c1 - c0) * Math.cos((90 - 0.05 * (r0 + r1)) * Math.PI / 180), dir = ns ? "north to south" : "west to east";
+      const s = section(`Severe heat in ${Y} in ${nm}`, `How much of the heat of ${Y} was severe or extreme, and where across ${nm}. Counting the map's cells.`);
+      block(s, `A cut from ${dir}`, `${nm} is sliced into bands from ${dir}. For each band, the pale shape is the average number of heat spell days in ${Y} and the dark shape is how many of them were severe or extreme. Where the dark shape fills most of the pale one, the heat that came was mostly of the stronger kind.`);
+      s.append(key([[C.spell, "Days in a heat spell"], [C.extreme, "Of which severe or extreme"]]));
+      const fig = el(`<div class="lensfig"><p class="ph">Counting the map's cells.</p></div>`);
+      s.append(fig);
+      const child = u.level === "adm0" ? "adm1" : "adm2", childWord = child === "adm1" ? "provinces" : "districts";
+      block(s, `The ${childWord} with the most severe days`, `The ${childWord} of ${nm}, ranked by their severe or extreme days in ${Y}, each the average of its own grid cells. The last column is the share of its heat spell days that were severe or extreme.`);
+      const fT = el(`<div class="lensfig"><p class="ph">Counting the map's cells.</p></div>`);
+      s.append(fT);
+      block(s, `${Y} against the year before`, `Each bar is a share of ${nm}'s land area, sorted by how many more or fewer severe or extreme days it had in ${Y} than in ${Y - 1}. Orange bars to the right of zero had more; blue bars to the left had fewer.`);
+      const fD = el(`<div class="lensfig"><p class="ph">Counting the map's cells.</p></div>`);
+      s.append(fD);
+      later(fig, async () => {
+        const [sp, sv] = await Promise.all([yearly("spell", S.y), yearly("severe", S.y)]);
+        try {                                                                 // the table of places inside
+          const arr = cell[child], g = new Map();
+          for (let k = 0; k < cells.ix.length; k++) {
+            const i = cells.ix[k], a = sp[i], b = sv[i], id = arr[i];
+            if (a === 255 || b === 255 || id < 0) continue;
+            const q = g.get(id) || {w: 0, a: 0, b: 0, n: 0};
+            q.w += cells.w[k]; q.a += cells.w[k] * a; q.b += cells.w[k] * b; q.n++; g.set(id, q);
+          }
+          let names = null;
+          if (child === "adm2") { const df = await districts(S.sel.adm0); names = new Map(df ? df.head.units.map((q) => [q.row, q.name]) : []); }
+          const rowsT = [...g].filter(([, q]) => q.n >= man.settings.cell_floor).map(([id, q]) => ({name: child === "adm1" ? nameOf("adm1", id) : (names.get(id) || "Unnamed district"), sev: q.b / q.w, sp: q.a / q.w})).sort((x, y) => y.sev - x.sev);
+          if (fT.isConnected) fT.replaceChildren(rowsT.length >= 2
+            ? el(`<table class="ev"><thead><tr><th>Rank</th><th>${child === "adm1" ? "Province" : "District"}</th><th>Severe or extreme days</th><th>Heat spell days</th><th>Share severe</th></tr></thead><tbody>${rowsT.slice(0, 10).map((q, i) =>
+              `<tr><td>${i + 1}</td><td>${esc(q.name)}</td><td>${q.sev.toFixed(0)}</td><td>${q.sp.toFixed(0)}</td><td>${q.sp > 0 ? Math.round(100 * q.sev / q.sp) + "%" : "n/a"}</td></tr>`).join("")}</tbody></table>`)
+            : el(`<p class="ph">${nm} has fewer than two ${childWord} with ${man.settings.cell_floor} grid cells or more, so there is nothing to rank.</p>`),
+            ...(rowsT.length > 10 ? [el(`<p class="lensnote">The first 10 of ${rowsT.length} ${childWord}. Those with fewer than ${man.settings.cell_floor} grid cells are left out.</p>`)] : []));
+        } catch (err) { console.error(err); if (fT.isConnected) fT.replaceChildren(el(`<p class="ph">The table could not be built.</p>`)); }
+        try {                                                                 // the change from the year before
+          if (S.y < 1) throw new Error("first year");
+          const pv = await yearly("severe", S.y - 1), E = [], H = new Float64Array(21);
+          let all = 0, more = 0, fewer = 0;
+          for (let k = 0; k < cells.ix.length; k++) {
+            const i = cells.ix[k], b = sv[i], c = pv[i];
+            if (b === 255 || c === 255) continue;
+            const d = b - c, w = cells.w[k];
+            all += w; if (d > 0) more += w; else if (d < 0) fewer += w;
+            H[Math.max(0, Math.min(20, Math.round(d / 5) + 10))] += w;
+          }
+          for (let b = 0; b < 21; b++) if (H[b] > 0) E.push({x1: (b - 10) * 5 - 2.5, x2: (b - 10) * 5 + 2.5, v: H[b] / all, mid: (b - 10) * 5});
+          if (fD.isConnected) fD.replaceChildren(Plot.plot({...po, ariaLabel: `Share of land area by the change in severe or extreme days from ${Y - 1} to ${Y}`, width: Math.min(W, 760), height: 240, x: {label: `change in severe or extreme days, ${Y} minus ${Y - 1}`, tickFormat: (v) => (v > 0 ? "+" : "") + v}, y: {label: "share of land area", tickFormat: "%", grid: true},
+            marks: [Plot.rectY(E, {x1: "x1", x2: "x2", y: "v", fill: (q) => (q.mid > 0 ? C.severe : q.mid < 0 ? "#1854a0" : "#b9b7ae"), insetLeft: 1, insetRight: 1, title: (q) => `${q.mid > 0 ? "+" : ""}${q.mid} days (to the nearest 5): ${(q.v * 100).toFixed(0)}% of land area`}), Plot.ruleY([0], {stroke: "#c3c2b7"}), Plot.ruleX([0], {stroke: "#3f3e3a", strokeDasharray: "3 3"})]}),
+            el(`<p class="lensnote">${Math.round(100 * more / all)}% of the land area had more severe or extreme days in ${Y} than in ${Y - 1}, and ${Math.round(100 * fewer / all)}% had fewer. Changes beyond 50 days are drawn in the end bars.</p>`));
+        } catch (err) { if (fD.isConnected) fD.replaceChildren(el(`<p class="ph">${S.y < 1 ? "1979 is the first year on record, so there is no year before it to compare with." : "The year before could not be loaded."}</p>`)); }
+        const span = ns ? r1 - r0 + 1 : c1 - c0 + 1, nb = Math.max(1, Math.min(40, span)), W0 = new Float64Array(nb), A = new Float64Array(nb), B = new Float64Array(nb);
+        let ta = 0, tb = 0;
+        for (let k = 0; k < cells.ix.length; k++) {
+          const i = cells.ix[k], a = sp[i], b = sv[i];
+          if (a === 255 || b === 255) continue;
+          const band = Math.min(nb - 1, Math.floor(((ns ? Math.floor(i / NC) - r0 : i % NC - c0) / span) * nb)), w = cells.w[k];
+          W0[band] += w; A[band] += w * a; B[band] += w * b; ta += w * a; tb += w * b;
+        }
+        const rows = [];
+        for (let b = 0; b < nb; b++) if (W0[b] > 0) rows.push({pos: ns ? 90 - 0.1 * (r0 + (b + 0.5) * span / nb) : -180 + 0.1 * (c0 + (b + 0.5) * span / nb), spell: A[b] / W0[b], sev: B[b] / W0[b]});
+        const lead = s.querySelector(".lead"), pc = ta ? Math.round(100 * tb / ta) : 0, top = rows.reduce((x, q) => (q.sev > x.sev ? q : x), rows[0]);
+        if (lead) lead.textContent = `In ${Y}, ${pc}% of the heat spell days in ${u.name || "this area"} were severe or extreme, counted on the map's cells. The band with the most severe days is near ${Math.abs(top.pos).toFixed(1)}° ${ns ? (top.pos >= 0 ? "N" : "S") : (top.pos >= 0 ? "E" : "W")}, with ${top.sev.toFixed(0)} of them.`;
+        const deg = (v) => Math.abs(v).toFixed(v % 1 ? 1 : 0) + "°" + (ns ? (v >= 0 ? "N" : "S") : (v >= 0 ? "E" : "W"));
+        const plot = ns
+          ? Plot.plot({...po, ariaLabel: `Heat spell days and severe days in ${Y} by latitude band`, width: Math.min(W, 520), height: 420, marginLeft: 56, x: {label: "days in the year, average of the band", grid: true}, y: {label: null, tickFormat: deg},
+            marks: [Plot.areaX(rows, {y: "pos", x: "spell", fill: C.spell, curve: "monotone-y"}), Plot.areaX(rows, {y: "pos", x: "sev", fill: C.extreme, curve: "monotone-y"}), Plot.ruleX([0], {stroke: "#c3c2b7"}),
+              Plot.tip(rows, Plot.pointerY({y: "pos", x: "spell", title: (q) => `${deg(q.pos)}\nHeat spell days ${q.spell.toFixed(0)}\nSevere or extreme ${q.sev.toFixed(0)}`}))]})
+          : Plot.plot({...po, ariaLabel: `Heat spell days and severe days in ${Y} by longitude band`, width: W, height: 280, y: {label: "days in the year, average of the band", grid: true}, x: {label: null, tickFormat: deg},
+            marks: [Plot.areaY(rows, {x: "pos", y: "spell", fill: C.spell, curve: "monotone-x"}), Plot.areaY(rows, {x: "pos", y: "sev", fill: C.extreme, curve: "monotone-x"}), Plot.ruleY([0], {stroke: "#c3c2b7"}),
+              Plot.tip(rows, Plot.pointerX({x: "pos", y: "spell", title: (q) => `${deg(q.pos)}\nHeat spell days ${q.spell.toFixed(0)}\nSevere or extreme ${q.sev.toFixed(0)}`}))]});
+        return [plot, el(`<p class="lensnote">Each band is the average of its grid cells, weighted by area. Both counts are the map's, which count a spell from its first day.</p>`)];
+      }, "The map's cells");
+      return new Set([5, 6]);
+    }
+    if (L === "mspell") {
+      const mkey = monthKey(S.m), Y = +mkey.slice(0, 4), mo = +mkey.slice(5) - 1, mname = monthName(S.m);
+      const calName = new Date(Date.UTC(2001, mo, 1)).toLocaleDateString("en-GB", {month: "long", timeZone: "UTC"});
+      const yEnd = new Date(EPOCH + (T - 1) * DAY).getUTCFullYear(), grid = [];
+      for (let y = 1979; y <= yEnd; y++) for (let m = 0; m < 12; m++) {
+        const q0 = dayIx(y, m, 1), q1 = dayIx(y, m + 1, 1), mi = (y - +M0.slice(0, 4)) * 12 + m - (+M0.slice(5) - 1);
+        if (q1 <= T && mi >= 0 && mi < NM) grid.push({y, m, mi, v: spanDays(u, q0, q1)});
+      }
+      const same = grid.filter((q) => q.m === mo), me = grid.find((q) => q.mi === S.m), rank = 1 + same.filter((q) => q.v > me.v).length;
+      const usual = median(same.filter((q) => q.y >= 1991 && q.y <= 2020).map((q) => q.v));
+      const s = section(`${mname} in ${nm}`, `In ${mname}, ${nm} had ${me.v.toFixed(1)} heat spell days, averaged over its land area: the ${ordinal(rank)} most for a ${calName} in ${same.length} years. A usual ${calName} in 1991 to 2020 had ${usual.toFixed(1)}.`);
+      block(s, `Every month since 1979`, `One row per year, one column per month, darker for more heat spell days in that month. Read down a column to follow one month through the years; the outlined cell is ${mname}. Click a cell to move the map and this page to that month.`);
+      const top = Math.max(1, ...grid.map((q) => q.v)), cw = 30, ch = 9, x0 = 34, y0 = 16, rows = yEnd - 1979 + 1, parts = [];
+      "JFMAMJJASOND".split("").forEach((c, m) => parts.push(`<text x="${x0 + m * cw + cw / 2}" y="11" class="mo">${c}</text>`));
+      for (let y = 1979; y <= yEnd; y++) if (y % 5 === 0 || y === 1979) parts.push(`<text x="${x0 - 5}" y="${y0 + (y - 1979) * ch + ch - 1}" class="yl">${y}</text>`);
+      for (const q of grid) parts.push(`<rect data-mi="${q.mi}" x="${x0 + q.m * cw}" y="${y0 + (q.y - 1979) * ch}" width="${cw - 1}" height="${ch - 1}" fill="${q.v < 0.05 ? "#efede7" : css(rampAt(0.12 + 0.88 * q.v / top))}"${q.mi === S.m ? ` class="on"` : ""}><title>${monthName(q.mi)}: ${q.v.toFixed(1)} heat spell days</title></rect>`);
+      const g = el(`<svg class="mgrid" viewBox="0 0 ${x0 + 12 * cw + 2} ${y0 + rows * ch + 2}" role="img" aria-label="Grid of heat spell days in every month since 1979">${parts.join("")}</svg>`);
+      g.addEventListener("click", (ev) => { const mi = ev.target && ev.target.getAttribute && ev.target.getAttribute("data-mi"); if (mi !== null && mi !== undefined) { S.m = +mi; setSlider(); render(true); } });
+      const fig = el(`<div class="lensfig"></div>`);
+      fig.append(g);
+      s.append(fig);
+      block(s, `Every ${calName} on record`, `Each dot is one ${calName}, placed by its heat spell days; darker dots are more recent. The ringed dot is ${mname} and the grey line is the usual value for 1991 to 2020.`);
+      s.append(Plot.plot({...po, ariaLabel: `Heat spell days in every ${calName} from 1979, with ${Y} marked`, width: W, height: 120, marginBottom: 36, x: {label: "heat spell days in the month, averaged over the land area", grid: true, nice: true}, y: {axis: null, domain: [-1, 1]},
+        marks: [Plot.ruleX([usual], {stroke: "#898781", strokeWidth: 2}), Plot.dot(same, {x: "v", y: 0, r: 5, fill: (q) => css(mix([200, 198, 190], [60, 59, 56], (q.y - 1979) / (yEnd - 1979))), fillOpacity: 0.85, title: (q) => `${calName} ${q.y}: ${q.v.toFixed(1)} days`}),
+          Plot.dot([me], {x: "v", y: 0, r: 9, stroke: C.extreme, strokeWidth: 2.5, fill: "none"}), Plot.text([me], {x: "v", y: 0, text: () => String(Y), dy: -18, fontWeight: 600})]}));
+      const byV = [...grid].sort((x, y) => y.v - x.v), myAll = 1 + grid.filter((q) => q.v > me.v).length, topM = byV.slice(0, 10);
+      if (!topM.includes(me)) topM.push(me);
+      block(s, `The heaviest months on record`, `Every month since 1979, of any time of year, ranked by its heat spell days. ${mname} is ${ordinal(myAll)} of ${grid.length}.`);
+      s.append(el(`<table class="ev"><thead><tr><th>Rank</th><th>Month</th><th>Heat spell days</th><th>Against a usual month of that name</th></tr></thead><tbody>${topM.map((q) => {
+        const us = median(grid.filter((z) => z.m === q.m && z.y >= 1991 && z.y <= 2020).map((z) => z.v));
+        return `<tr class="${q === me ? "cur" : ""}"><td>${1 + grid.filter((z) => z.v > q.v).length}</td><td>${monthName(q.mi)}</td><td>${q.v.toFixed(1)}</td><td>${q.v - us >= 0 ? "+" : ""}${(q.v - us).toFixed(1)}</td></tr>`;
+      }).join("")}</tbody></table>`));
+      return new Set([5, 6]);
+    }
+    if (L === "msevere") {                                                    // the month as a wall calendar
+      const mkey = monthKey(S.m), Y = +mkey.slice(0, 4), mo = +mkey.slice(5) - 1, mname = monthName(S.m), q0 = dayIx(Y, mo, 1), nd = dayIx(Y, mo + 1, 1) - q0;
+      const days = [];
+      for (let d = 0; d < nd && q0 + d < T; d++) { const sv = u.sevAt(q0 + d); days.push({d: d + 1, q: q0 + d, sp: u.spell[q0 + d], sv: sv === undefined || sv === 255 ? null : sv}); }
+      const anySev = days.some((q) => q.sv !== null), half = days.filter((q) => q.sp >= 50).length, halfSev = days.filter((q) => q.sv !== null && q.sv >= 50).length, peak = days.reduce((x, q) => (q.sp > x.sp ? q : x), days[0]);
+      const s = section(`${mname}, day by day, in ${nm}`, `On ${half} of the ${days.length} days of ${mname}, half or more of ${nm}'s land area was in a heat spell${anySev ? `, and on ${halfSev} of them half or more was severe or extreme` : ""}. The widest day was ${fmt(peak.q)}, with ${peak.sp}%.`);
+      block(s, `The month as a calendar`, `One tile per day, Monday first. The tile's colour is the share of land in a heat spell that day: darker is more. ${anySev ? "The dark square inside a tile is the share that was severe or extreme: a square that fills the tile means all of the land." : "The share that was severe or extreme is published day by day only for the latest year and the days of the listed past events, so for this month the tiles show heat spells of any class."}`);
+      const tile = 56, gap = 5, off = (new Date(EPOCH + q0 * DAY).getUTCDay() + 6) % 7, rowsN = Math.ceil((off + days.length) / 7), parts = [];
+      ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach((w, i) => parts.push(`<text x="${i * (tile + gap) + tile / 2}" y="11" class="wd">${w}</text>`));
+      for (const q of days) {
+        const k = off + q.d - 1, x = (k % 7) * (tile + gap), y = 18 + Math.floor(k / 7) * (tile + gap), f = q.sp / 100, side = q.sv ? tile * Math.sqrt(q.sv / 100) : 0;
+        parts.push(`<g><title>${fmt(q.q)}: ${q.sp}% of land in a heat spell${q.sv !== null ? `, ${q.sv}% severe or extreme` : ""}</title><rect x="${x}" y="${y}" width="${tile}" height="${tile}" rx="4" fill="${q.sp ? css(rampAt(0.1 + 0.55 * f)) : "#efede7"}"/>`
+          + (side > 1 ? `<rect x="${(x + (tile - side) / 2).toFixed(1)}" y="${(y + (tile - side) / 2).toFixed(1)}" width="${side.toFixed(1)}" height="${side.toFixed(1)}" rx="2" fill="${C.extreme}"/>` : "")
+          + `<text x="${x + 5}" y="${y + 13}" class="dn${side > tile * 0.75 ? " inv" : ""}">${q.d}</text></g>`);
+      }
+      const fig = el(`<div class="lensfig"></div>`);
+      fig.append(el(`<svg class="mcal" viewBox="0 0 ${7 * (tile + gap) - gap} ${18 + rowsN * (tile + gap)}" role="img" aria-label="Calendar of ${mname}: share of land area in a heat spell on each day">${parts.join("")}</svg>`));
+      fig.append(key([[css(rampAt(0.2)), "Little of the land in a heat spell"], [css(rampAt(0.65)), "All of it"]].concat(anySev ? [[C.extreme, "Share severe or extreme (size of the square)"]] : [])));
+      const note = el(`<p class="lensnote">Counting the map's cells.</p>`);
+      fig.append(note);
+      s.append(fig);
+      const band = days.map((q) => {
+        const v = [];
+        for (let y = 1991; y <= 2020; y++) { const qq = dayIx(y, mo, q.d); if (new Date(EPOCH + qq * DAY).getUTCMonth() === mo) v.push(u.spell[qq] / 100); }
+        v.sort((x, y) => x - y);
+        return {d: q.d, sp: q.sp / 100, lo: v[Math.floor(0.1 * (v.length - 1))], md: v[Math.floor(0.5 * (v.length - 1))], hi: v[Math.ceil(0.9 * (v.length - 1))]};
+      });
+      const above = band.filter((q) => q.sp > q.hi).length;
+      block(s, `The month against its usual range`, `The dark line is the share of land in a heat spell on each day of ${mname}. The grey band is where that share fell on the same date in nine years out of ten in 1991 to 2020, and the dashed line is the middle year. On ${above} of the ${band.length} days the month was above the band.`);
+      s.append(Plot.plot({...po, ariaLabel: `Share of land area in a heat spell on each day of ${mname}, against the range for the same dates in 1991 to 2020`, width: W, height: 240, x: {label: "day of the month", ticks: band.filter((q) => q.d === 1 || q.d % 5 === 0).map((q) => q.d)}, y: {label: "share of land area", tickFormat: "%", grid: true, domain: [0, 1]},
+        marks: [Plot.areaY(band, {x: "d", y1: "lo", y2: "hi", fill: "#d9d7cf", curve: "step"}), Plot.lineY(band, {x: "d", y: "md", stroke: "#6b6963", strokeDasharray: "3 3", curve: "step"}),
+          Plot.lineY(band, {x: "d", y: "sp", stroke: C.extreme, strokeWidth: 2.2}), Plot.dot(band, {x: "d", y: "sp", r: 2.5, fill: C.extreme, title: (q) => `Day ${q.d}: ${(q.sp * 100).toFixed(0)}% of land; usual range ${(q.lo * 100).toFixed(0)}% to ${(q.hi * 100).toFixed(0)}%`})]}));
+      const wide = [...days].sort((x, y) => y.sp - x.sp || x.d - y.d).slice(0, 5);
+      block(s, `The five widest days`, `The days of ${mname} when the most land was in a heat spell.`);
+      s.append(el(`<table class="ev"><thead><tr><th>Rank</th><th>Date</th><th>Land in a heat spell</th><th>Of which severe or extreme</th></tr></thead><tbody>${wide.map((q, i) =>
+        `<tr><td>${i + 1}</td><td>${fmt(q.q)}</td><td>${q.sp}%</td><td>${q.sv === null ? "not published for this day" : q.sv + "%"}</td></tr>`).join("")}</tbody></table>`));
+      (async () => {
+        const res = spread(await monthlyLayer(L, S.m), unitCells(u.level, u.row), MBINS);
+        if (note.isConnected) note.textContent = `On the map's own count, half of the land area had ${res.q(0.5)} or more severe or extreme days in ${mname}, and the most affected tenth had ${res.q(0.9)} or more.`;
+      })().catch((err) => { console.error(err); if (note.isConnected) note.textContent = ""; });
+      return new Set([5, 6]);
+    }
+    if (L === "season") {
+      const s = section(`Where the season stands in ${nm}`, `In the week to ${fmt(T - 1)}: where heat is new, where it is back, where it has gone on for weeks, and where it has just ended. This uses the latest 12 weeks of data, whatever date the slider shows.`);
+      block(s, `The land area in 100 squares`, `Each square is one percent of ${nm}'s land area, coloured as on the map. Yellow is heat that is new, purple is heat that came back after a break, the oranges are heat that has gone on for two weeks or more (darker is longer), and blue is where it has just ended.`);
+      const f1 = el(`<div class="lensfig"><p class="ph">Counting the map's cells.</p></div>`);
+      s.append(f1);
+      block(s, `How long the heat has gone on`, `Of the land still in a heat spell, how many weeks in a row it has been in one. A cell counts for a week when it was in a heat spell on at least one day of it.`);
+      const f2 = el(`<div class="lensfig"></div>`);
+      s.append(f2);
+      later(f1, async () => {
+        const code = await fixedLayer("season"), cells = unitCells(u.level, u.row), run = new Float64Array(13);
+        let all = 0, nw = 0, ag = 0, en = 0;
+        for (let k = 0; k < cells.ix.length; k++) { const v = code[cells.ix[k]], w = cells.w[k]; if (v === 255) continue; all += w; if (v === 1) nw += w; else if (v === 2) ag += w; else if (v === 5) en += w; else if (v >= 10) run[Math.min(12, v - 10)] += w; }
+        const p = (v) => all ? 100 * v / all : 0, short = p(run[2] + run[3]), mid = p(run[4] + run[5] + run[6] + run[7]), long = p(run.slice(8).reduce((a, b) => a + b, 0)), still = short + mid + long;
+        const none = Math.max(0, 100 - p(nw) - p(ag) - p(en) - still);
+        const rows = [];
+        for (let k = 2; k <= 12; k++) if (run[k] > 0) rows.push({k: k === 12 ? "12" : String(k), v: p(run[k]) / 100});
+        f2.replaceChildren(rows.length ? Plot.plot({...po, ariaLabel: "Share of land area still in a heat spell, by weeks in a row", width: Math.min(W, 620), height: 200, x: {label: "weeks in a row, to the latest week", domain: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}, y: {label: "share of land area", tickFormat: "%", grid: true},
+          marks: [Plot.barY(rows, {x: "k", y: "v", fill: (q) => css(mix([217, 120, 60], [116, 41, 12], Math.min(1, (+q.k - 2) / 6))), title: (q) => `${q.k} weeks in a row: ${(q.v * 100).toFixed(0)}% of land area`}), Plot.ruleY([0], {stroke: "#c3c2b7"})]})
+          : el(`<p class="ph">No part of ${nm} has been in a heat spell for two weeks in a row.</p>`));
+        return [waffle([[p(nw), "#f0c419", "New"], [p(ag), "#a14fb0", "Again after a break"], [short, "#d9783c", "Still, 2 to 3 weeks"], [mid, "#a8501f", "Still, 4 to 7 weeks"], [long, "#74290c", "Still, 8 weeks or more"], [p(en), "#7fa3c7", "Just ended"], [none, "#e7e6e1", "None of these"]]),
+          key([["#f0c419", `New ${p(nw).toFixed(0)}%`], ["#a14fb0", `Again ${p(ag).toFixed(0)}%`], ["#d9783c", `Still, 2 to 3 weeks ${short.toFixed(0)}%`], ["#a8501f", `4 to 7 weeks ${mid.toFixed(0)}%`], ["#74290c", `8 weeks or more ${long.toFixed(0)}%`], ["#7fa3c7", `Just ended ${p(en).toFixed(0)}%`], ["#e7e6e1", `None of these ${none.toFixed(0)}%`]]),
+          el(`<p class="lensnote">${still >= 1 ? `${still.toFixed(0)}% of the land area is still in a heat spell from the week before` : "Almost none of the land area is still in a heat spell from the week before"}; ${p(nw).toFixed(0)}% is in one for the first time in 12 weeks. This grouping is this project's own and has not been tested on documented events.</p>`)];
+      }, "The season status layer");
+      return new Set(["where", 5, 6]);
+    }
+    if (L === "trend") {
+      const years = yearRow(u), dec = [];
+      for (let a = 1979; a <= yN; a += 10) { const g = years.filter((q) => q.y >= a && q.y < a + 10); dec.push({a, b: Math.min(a + 9, yN), v: g.reduce((x, q) => x + q.v, 0) / g.length, n: g.length}); }
+      const first = dec[0], last = dec[dec.length - 1];
+      const s = section(`Then and now in ${nm}`, `In ${first.a} to ${first.b}, ${nm} had ${first.v.toFixed(1)} heat spell days a year, averaged over its land area. In ${last.a} to ${last.b} it had ${last.v.toFixed(1)}${last.n < 10 ? ` (${last.n} years)` : ""}.`);
+      block(s, `Decade by decade`, `Each dot is one year. Each step is the average of ten years, so the staircase shows the change without drawing a line through it. The last step covers ${last.n} years.`);
+      s.append(Plot.plot({...po, ariaLabel: `Heat spell days per year with ten-year averages drawn as steps, 1979 to ${yN}`, width: W, height: 260, x: {label: null, tickFormat: "d"}, y: {label: "heat spell days per year", grid: true},
+        marks: [Plot.dot(years, {x: "y", y: "v", r: 2.5, fill: "#898781", title: (q) => `${q.y}: ${q.v.toFixed(1)} days`}),
+          Plot.link(dec, {x1: (q) => q.a - 0.4, x2: (q) => q.b + 0.4, y1: "v", y2: "v", stroke: C.severe, strokeWidth: 3}),
+          Plot.text(dec, {x: (q) => (q.a + q.b) / 2, y: "v", text: (q) => q.v.toFixed(1), dy: -9, fontWeight: 600, fill: C.extreme})]}));
+      // which part of the year changed: each calendar month, the earlier half of the record against the later half
+      const mid = Math.floor((1979 + yN) / 2), MN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], mrows = [];
+      for (let m = 0; m < 12; m++) {
+        let a = 0, na = 0, b = 0, nb2 = 0;
+        for (let y = 1979; y <= yN; y++) { const v = spanDays(u, dayIx(y, m, 1), dayIx(y, m + 1, 1)); if (y <= mid) { a += v; na++; } else { b += v; nb2++; } }
+        mrows.push({m: MN[m], a: a / na, b: b / nb2});
+      }
+      const gain = mrows.reduce((x, q) => (q.b - q.a > x.b - x.a ? q : x), mrows[0]);
+      block(s, `Which months changed`, `One row per calendar month. The grey dot is the average number of heat spell days in that month in 1979 to ${mid}; the coloured dot is the average in ${mid + 1} to ${yN}. The longer the line between them, the more that month changed. Orange lines are more heat, blue lines less.`);
+      s.append(key([["#898781", `1979 to ${mid}`], [C.severe, `${mid + 1} to ${yN}: more`], ["#1854a0", `${mid + 1} to ${yN}: fewer`]]));
+      s.append(Plot.plot({...po, ariaLabel: `Heat spell days in each calendar month, 1979 to ${mid} against ${mid + 1} to ${yN}`, width: Math.min(W, 760), height: 330, marginLeft: 44, x: {label: "heat spell days in the month, average of the period", grid: true, nice: true}, y: {label: null, domain: MN},
+        marks: [Plot.link(mrows, {y1: "m", y2: "m", x1: "a", x2: "b", stroke: (q) => (q.b >= q.a ? C.severe : "#1854a0"), strokeWidth: 3}), Plot.dot(mrows, {y: "m", x: "a", r: 4.5, fill: "#898781"}),
+          Plot.dot(mrows, {y: "m", x: "b", r: 5.5, fill: (q) => (q.b >= q.a ? C.severe : "#1854a0"), title: (q) => `${q.m}: ${q.a.toFixed(1)} then, ${q.b.toFixed(1)} now`})]}));
+      const pm = u.trend ? Math.max(u.trend[1], u.trend[2]) : NaN, f = (v) => (v < 0.001 ? "below 0.001" : v.toFixed(3));
+      const note = el(`<p class="lensnote">${gain.b > gain.a ? `The month that gained most is ${gain.m}: ${gain.a.toFixed(1)} days then, ${gain.b.toFixed(1)} now.` : "No month gained heat spell days."} ${u.trend ? `For the whole year the change is ${u.trend[0] > 0 ? "+" : ""}${u.trend[0].toFixed(1)} days per decade; ${pm < 0.05 ? "a change of this size is unlikely to be chance alone" : "this cannot be told apart from no trend"} (Mann-Kendall p ${f(u.trend[1])}, and ${f(u.trend[2])} after allowing for one year resembling the next).` : ""} <span class="cellnote"></span> The source is a reanalysis whose inputs change over the years, which can add or hide a trend, and the yardstick is fixed on 1991 to 2020.</p>`);
+      s.append(note);
+      block(s, `The decades in numbers`, `For each ten years: the average, and the heaviest and lightest single year.`);
+      s.append(el(`<table class="ev"><thead><tr><th>Years</th><th>Average, days a year</th><th>Heaviest year</th><th>Lightest year</th><th>Change from the first decade</th></tr></thead><tbody>${dec.map((q) => {
+        const g = years.filter((z) => z.y >= q.a && z.y <= q.b), hi = g.reduce((x, z) => (z.v > x.v ? z : x), g[0]), lo = g.reduce((x, z) => (z.v < x.v ? z : x), g[0]);
+        return `<tr><td>${q.a} to ${q.b}</td><td>${q.v.toFixed(1)}</td><td>${hi.y} (${hi.v.toFixed(1)})</td><td>${lo.y} (${lo.v.toFixed(1)})</td><td>${q === first ? "" : (q.v - first.v >= 0 ? "+" : "") + (q.v - first.v).toFixed(1)}</td></tr>`;
+      }).join("")}</tbody></table>`));
+      (async () => {
+        const code = await fixedLayer("trend"), cells = unitCells(u.level, u.row);
+        let all = 0, up = 0, dn = 0;
+        for (let k = 0; k < cells.ix.length; k++) { const v = code[cells.ix[k]], w = cells.w[k]; if (v === 255) continue; all += w; if (v > 128) up += w; else if (v > 0 && v < 128) dn += w; }
+        const sp = note.querySelector(".cellnote");
+        if (sp && all) sp.textContent = `On the map, ${Math.round(100 * up / all)}% of the land area has an upward trend that passes the test and ${Math.round(100 * dn / all)}% a downward one.`;
+      })().catch((err) => console.error(err));
+      return new Set([5, 6]);
+    }
+    // humid heat (experimental)
+    const r = [], has = u.hu && u.huAt;
+    let nH = 0, more = 0;
+    if (has) for (let q = Math.max(0, t - 89); q <= t; q++) { const h = u.huAt(q); if (h === undefined || h === 255) continue; nH++; if (h > u.spell[q]) more++; r.push({date: new Date(EPOCH + q * DAY), up: u.spell[q] / 100, down: -h / 100, h, sp: u.spell[q], q}); }
+    const s = section(`Heat and humid heat in ${nm}`, has && nH ? `${cavShort(u)}Over the ${nH} days to ${fmt(t)} with a humid reading, humid heat covered more of ${nm} than the temperature heat spell did on ${more} of them.` : `Humid heat is not published for ${nm} on these dates.`);
+    if (has && nH) {
+      block(s, `Two measures, back to back`, `Above the line, in orange: the share of land in a heat spell judged on temperature alone. Below the line, in blue-green: the share in a humid heat spell, where heat and humidity together were unusual for the date. Where the lower shape is the larger one, the air was more unusual for its humidity than for its temperature.`);
+      s.append(key([[C.severe, "Heat spell (temperature)"], [css(HUMCOL), "Humid heat spell (experimental)"]]));
+      s.append(Plot.plot({...po, ariaLabel: `Share of land area in a heat spell above the axis and in a humid heat spell below it, ${nH} days to ${fmt(t)}`, width: W, height: 300, x: {label: null}, y: {label: "share of land area", grid: true, domain: [-1, 1], tickFormat: (v) => Math.abs(v * 100) + "%"},
+        marks: [Plot.areaY(r, {x: "date", y: "up", fill: C.severe, fillOpacity: 0.85, curve: "step"}), Plot.areaY(r, {x: "date", y: "down", fill: css(HUMCOL), fillOpacity: 0.85, curve: "step"}), Plot.ruleY([0], {stroke: "#3f3e3a"}),
+          Plot.tip(r, Plot.pointerX({x: "date", y: 0, title: (q) => `${fmt(q.q)}\nHeat spell ${q.sp}% of land\nHumid heat spell ${q.h}% of land`}))]}));
+      block(s, `One measure against the other`, `Each dot is one day: how much of the land was in a heat spell (across) and how much was in a humid heat spell (up). Darker dots are more recent. Dots above the dashed line are days when humid heat was the wider of the two.`);
+      s.append(Plot.plot({...po, ariaLabel: `Each day's share of land in a heat spell against its share in a humid heat spell, ${nH} days to ${fmt(t)}`, width: Math.min(W, 460), height: 420, marginBottom: 40, x: {label: "share of land in a heat spell", tickFormat: "%", domain: [0, 1], grid: true}, y: {label: "share in a humid heat spell", tickFormat: "%", domain: [0, 1], grid: true},
+        marks: [Plot.link([{a: 0, b: 1}], {x1: "a", y1: "a", x2: "b", y2: "b", stroke: "#898781", strokeDasharray: "4 4"}),
+          Plot.dot(r, {x: "up", y: (q) => q.h / 100, r: 4, fill: (q, i) => css(mix([190, 214, 218], HUMCOL, i / Math.max(1, r.length - 1))), stroke: "#fff", strokeWidth: 0.5, title: (q) => `${fmt(q.q)}
+Heat spell ${q.sp}%
+Humid heat spell ${q.h}%`})]}));
+      const humTop = [...r].sort((x, y) => y.h - x.h || x.q - y.q).slice(0, 5);
+      block(s, `The widest humid heat days`, `The five days in this window when humid heat covered the most land, with the temperature heat spell share on the same day.`);
+      s.append(el(`<table class="ev"><thead><tr><th>Rank</th><th>Date</th><th>Humid heat spell</th><th>Heat spell</th><th>Wider measure</th></tr></thead><tbody>${humTop.map((q, i) =>
+        `<tr><td>${i + 1}</td><td>${fmt(q.q)}</td><td>${q.h}%</td><td>${q.sp}%</td><td>${q.h > q.sp ? "Humid heat" : q.h < q.sp ? "Heat spell" : "Equal"}</td></tr>`).join("")}</tbody></table>`));
+      s.append(el(`<p class="ph warn"><b>Experimental.</b> Humid heat here was flagged on ${u.hu.base.toFixed(0)} days a year in 1991 to 2020 and on ${u.hu.rec.toFixed(0)} days a year in 2021 to 2025, averaged over the land area. The humidity record in the source data drifts, so part of that rise is not climate. It is a yes or no reading with no severity, and it is not a wet-bulb temperature. Evidence: ${evid("humid", "humid heat against weather stations")}.</p>`));
+    }
+    return new Set([5, 6]);
+  }
+  const cavShort = (u) => caveat(trust(u.level, u.row));
   function renderStory(d) {
     story.innerHTML = "";
     if (!d || !d.story) return;
@@ -739,7 +1233,8 @@ export async function start(files) {
     const tr = trust(u.level, u.row), cav = caveat(tr), nm = esc(u.name || "this area");
     if (cav) story.append(el(`<p class="ph warn"><b>Read with care.</b> ${cav}This applies to every chart and number below. ${[tr.low > 50 ? evid("low", "Why the signal is weak here: the comparison with weather stations") : "", tr.sus >= 25 ? evid("sus", "How the break was found") : ""].filter(Boolean).join(". ")}.</p>`));
     if (d.dist || (S.level === "adm2")) story.append(el(`<p class="ph">The sections below are for ${nm}, the ${LEVELS[u.level].toLowerCase()} this district belongs to. Full histories are not published for districts.</p>`));
-    { // 1
+    const want = renderLens(u, t, W);                                         // the opening section for the layer on the map, and which standard sections follow it
+    if (want.has(1)) { // 1
       const s = section("How much of it was in heat on the chosen date?", `${cav}On ${fmt(t)}, ${u.now.spell}% of ${nm}'s land area was in a heat spell: ${u.now.extreme}% of the land area extreme, ${u.now.severe - u.now.extreme}% severe and ${u.now.spell - u.now.severe}% in the lowest class.`);
       block(s, `Share of land area in a heat spell, by class, 90 days to ${fmt(t)}`, "Each day's column adds up to the share of land in a heat spell. Darker is more severe. A day's class describes that day only and does not change afterwards.");
       s.append(key([[C.extreme, "Extreme"], [C.severe, "Severe"], [C.spell, "Heat spell"]]));
@@ -784,7 +1279,7 @@ export async function start(files) {
       if (!u.dn || !u.hu) s.append(el(`<p class="ph">${u.dn ? "" : "Hot days against hot nights are not in this build. "}${u.hu ? "" : "Humid heat is not in this build."}</p>`));
     }
     const e = u.ev, cur = eventAt(u, t), evs = e.start.map((st, i) => ({start: st, days: e.days[i], peak: e.peak[i] / 100, size: e.size[i], cur: cur && cur.i === i}));
-    { // 2
+    if (want.has(2)) { // 2
       const lead = cur && cur.i !== undefined
         ? `${cav}The event on this date began on ${fmt(cur.start)}; ${eventWords(cur, t).lead}`
         : `${nm} is not in an event on this date. It has ${e.start.length} events on record since 1979.`;
@@ -803,7 +1298,7 @@ export async function start(files) {
           Plot.text(curPts, {x: "days", y: "peak", text: () => mid ? `this event on ${fmt(t, false)}` : cur && cur.open ? "this event, still running" : "this event", dy: -20, fontWeight: 600, fill: "#0b0b0b", stroke: "#fff", strokeWidth: 3}),
           Plot.tip(pts, Plot.pointer({x: "days", y: "peak", title: (q) => `${fmt(q.start)} to ${fmt(q.start + q.days - 1)}\n${q.days} days, peak ${Math.round(q.peak * 100)}% of land\nsize ${q.size} degree-days`}))]}));
     }
-    { // 3
+    if (want.has(3)) { // 3
       const s = section("Has it happened before?", `The table lists the largest events at ${u.name}; the picture shows every day since 1979.`);
       block(s, "Every day since 1979", "One row per year, one column per calendar date, up to the chosen date. Darker means more of the land was in a heat spell that day. 29 February is left out so that every date lines up between years.");
       s.append(el(`<div class="key"><span>0%</span><span class="ramp" style="background:linear-gradient(90deg,#efede7,#f0be8c,#d9783c,#74290c)"></span><span>100% of land area in a heat spell</span><span><i style="background:repeating-linear-gradient(135deg,#fbfaf7 0 3px,#bdbbb2 3px 4px)"></i>after the chosen date</span></div>`));
@@ -848,7 +1343,7 @@ export async function start(files) {
         `<tr class="${q.cur ? "cur" : ""}"><td>${rk(q)}</td><td>${fmt(q.start)} to ${fmt(q.start + q.days - 1)}</td><td>${q.days}</td><td>${Math.round(q.peak * 100)}%</td><td>${q.size.toFixed(1)}</td></tr>`).join("")}</tbody></table>`));
       s.append(el(`<p class="how">Size is in degree-days: each day, how many degrees the places in a heat spell are above their heat threshold, averaged over the whole land area, then added up over the event. It is this project's own measure, and it favours summer events.</p>`));
     }
-    {
+    if (want.has("where")) {
       if (man.weekly && man.weekly.length) {
         const past = S.p !== 0, fl = frameList(), nf = fl.length, evName = PERIODS[S.p].name.split(": ").slice(1).join(": ");
         const se = u.season, seTxt = !past && se && se[0] !== 255 ? ` In the week to ${fmt(T - 1)}, ${se[0]}% of its land area was newly in a heat spell, ${se[1]}% was in one again after a break, ${se[2]}% was still in one from the week before, and ${se[3]}% was no longer in one.` : "";
@@ -871,7 +1366,7 @@ export async function start(files) {
         s.append(el(`<p class="ph">Week-by-week maps of where the heat sat inside this place are not in this build.</p>`));
       }
     }
-    { // 4
+    if (want.has(4)) { // 4
       const yr0 = 1979, yrN = man.annual_years[1], ann = [];
       if (u.annual) for (let y = yr0; y <= yrN; y++) ann.push({y, v: u.annual[y - yr0] / 10});
       else for (let y = yr0; y <= yrN; y++) { let a = 0; const q0 = Math.round((Date.UTC(y, 0, 1) - EPOCH) / DAY), q1 = Math.round((Date.UTC(y + 1, 0, 1) - EPOCH) / DAY); for (let q = q0; q < q1; q++) a += u.spell[q] / 100; ann.push({y, v: Math.round(a * 10) / 10}); }
@@ -890,7 +1385,7 @@ export async function start(files) {
       }
       s.append(el(`<p class="ph"><b>Before reading a trend here.</b> The source is a reanalysis whose inputs change over the years, which can add or hide a trend, and the yardstick is fixed on 1991 to 2020 and not adjusted for warming. Recent years therefore count more heat spell days almost everywhere.</p>`));
     }
-    { // 5
+    if (want.has(5)) { // 5
       const low = tr.low, red = tr.red, sus = tr.sus, p = (v) => v;
       const s = section("How far to trust this", "Three things decide how much weight these numbers can bear here.");
       s.append(el(`<ul>
@@ -900,7 +1395,7 @@ export async function start(files) {
         <li><b>The yardstick.</b> Severe and extreme are relative to the time of year in this place's own 1991 to 2020 climate. The heat spell test also counts days that are simply among the hottest of the year here, so the lowest class is not always unusual for its date. Neither is adjusted for warming since 2020.</li>
         <li><b>No uncertainty is quantified</b> in this build.</li></ul>`));
     }
-    { // 6
+    if (want.has(6)) { // 6
       const s = section("Method and credits", "Short version.");
       s.append(el(`<ul>
         <li><b>Heat spell.</b> The three-day average of daily mean temperature is above its usual top tenth for the date and above the year's median, or above the top twentieth for the whole year, for at least three days in a row. This is this project's definition (detector version ${man.detector_version}).</li>
@@ -1008,7 +1503,7 @@ export async function start(files) {
   });
   setSlider();
   slider.addEventListener("input", () => { if (isMonth()) S.m = +slider.value; else if (isYear()) S.y = +slider.value; else S.k = +slider.value; render(false); });
-  $("layer").addEventListener("change", () => { S.layer = $("layer").value; setSlider(); render(false); });
+  $("layer").addEventListener("change", () => { S.layer = $("layer").value; setSlider(); render(true); });   // the story under the map follows the layer
   $("dsel").addEventListener("change", () => {
     if ($("dsel").value === "") return;
     S.sel.adm2 = +$("dsel").value; S.level = "adm2"; S.pt = null; S.msg = ""; pin.remove();
