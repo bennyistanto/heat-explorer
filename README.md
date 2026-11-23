@@ -108,6 +108,10 @@ npm run serve
 and open http://localhost:3312. The steps that read the whole record take
 hours.
 
+`npm run deploy` publishes the built site to the `gh-pages` branch; see the
+notes at the top of `tools/deploy.ps1`. `npm run deploy:check` does everything
+except the push.
+
 Some script headers cite `references/indicators.md` and similar files. Those
 are working notes kept outside this repository; the definitions that matter are
 in `docs/`.
