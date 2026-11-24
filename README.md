@@ -27,7 +27,7 @@ warning service.
 
 ## What it can do
 
-Not published yet. To see it, build it locally (see "Run it").
+The dashboard is live at <https://bennyistanto.github.io/heat-explorer>. You can build it locally too (see "Run it").
 
 **Choose what the map shows.**
 
